@@ -1,0 +1,26 @@
+README - 2012-05-30
+
+UUID / PID generator adapted for Fedora3.5
+
+
+To compile
+--
+sudo javac -classpath $CLASSPATH:$TOMCAT_HOME/webapps/fedora/WEB-INF/lib/* UUIDGenerator_35.java
+jar -cvf cwrc_uuid_fedora_3.5.jar ca
+
+
+Install
+--
+cp CWRC_Fedora_3.5.jar $TOMCAT_HOME/webapps/fedora/WEB-INF/lib/
+
+Edit: $FEDORA_HOME/server/config/fedora.fcfg
+
+Update the "org.fcrepo.server.management.PIDGenerator" property
+with class: "ca.cwrc.fedora35.module.UUIDGenerator_35"
+
+E.G.
+  <module
+      role="org.fcrepo.server.management.PIDGenerator"
+      class="ca.cwrc.fedora35.module.UUIDGenerator_35"
+      >
+
