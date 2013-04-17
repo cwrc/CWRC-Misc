@@ -1,0 +1,10 @@
+
+2013-04-17
+----------
+
+when ingesting MODS records into Islandora via the Islandora Batch Ingest model without attaching any image, PDF, or other doc to the MODS, a broken link is created.  To work around this, the idea is to upload a transparent image with the MMODS so that a thumbnail can be created as a workaround.
+
+The following take a specified image, rename it to match a corresponding MODS XML filename with an image extenstion - as per the Islandora documentation.  The next step is to rename it, removing the "xml" portion.
+
+find . -type f -name \*.xml -exec cp '{}' tmp/'{}'.jpg \;
+find . -type f -name \*.jpg -exec rename .xml '' '{}' \;

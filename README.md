@@ -8,7 +8,7 @@ Miscellaneous CWRC code and scripts (that are too small to fit in their own repo
 
 
 ==> conversion
-====> helpers to convert content into a CWRC supported formate such as MODS
+====> helpers to convert content into a CWRC supported format such as MODS
 
 
 ==> UUID - a module for Fedora to allow generation of UUIDs
