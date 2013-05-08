@@ -9,7 +9,7 @@
 * XSL to preprocess the writing, biography
 * * remove the specified tags from the items 
 *
-* see Orlando  development/doc/WORK-NOTES to describe how to produce input file
+* see Orlando  development/doc/WORK-NOTES to describe how to produce input file - "make dm_files_analytics"
 *
 -->
 
