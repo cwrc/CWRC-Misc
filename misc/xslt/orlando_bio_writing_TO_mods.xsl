@@ -37,7 +37,7 @@
             </titleInfo>
 
             <language>
-                <languageTerm authority="iso639-2b" type="code">eng</languageTerm>
+                <languageTerm authority="iso639-2b" type="text">English</languageTerm>
             </language>
 
             <relatedItem>
@@ -67,7 +67,7 @@
                 </name>
             </relatedItem>
 
-            <origininfo>
+            <originInfo>
                 <dateIssued encoding="w3cdtf">
                     <xsl:call-template name="convert_mla_to_iso">
                         <xsl:with-param name="INPUT_DATE" select="/(BIOGRAPHY|WRITING)/ORLANDOHEADER/REVISIONDESC/(RESPONSIBILITY[@WORKSTATUS='PUB' and @WORKVALUE='C'])[1]/DATE/text()" />
@@ -78,10 +78,9 @@
                     <placeTerm type="text">Cambridge</placeTerm>
                 </place>
                 <place>
-                    <placeTerm authority="iso3166" type="code">GB</placeTerm>
                     <placeTerm type="text">United Kingdom</placeTerm>
                 </place>
-            </origininfo>
+            </originInfo>
 
             <note type="researchNote">
                 <xsl:value-of select="/(BIOGRAPHY|WRITING)/DIV0/STANDARD"/>
