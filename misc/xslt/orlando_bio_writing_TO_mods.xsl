@@ -23,9 +23,10 @@
     <!-- root element - assumes start with an Orlando bio or writing document -->
     <xsl:template match="/">
         <mods 
-            xmlns="http://www.loc.gov/mods/v3" 
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns="http://www.loc.gov/mods/v3"
+            xmlns:mods="http://www.loc.gov/mods/v3"
             xmlns:xlink="http://www.w3.org/1999/xlink"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/mods.xsd"
             >
 
