@@ -9,6 +9,8 @@
         * edit VAR_FILENAME_PREFIX to reflect the path to write the files
     -->
 
+    <xsl:output encoding="UTF-8" method="xml" indent="yes" omit-xml-declaration="no" />
+    
     <xsl:variable name="VAR_FILENAME_PREFIX" select="'data/mods_split_'" />
 
     <xsl:template match="/">
@@ -19,10 +21,14 @@
         <xsl:variable name="filename" select="concat($VAR_FILENAME_PREFIX, format-number(position(),'000000') )" />
         <xsl:result-document 
             indent="yes" 
-            href="{$filename}.xml"
+            href="{$filename}.xml" 
+            omit-xml-declaration="no" 
+            encoding="UTF-8" 
+            method="xml" 
             >
             
             <xsl:copy-of select="."/>
+            
         </xsl:result-document>
     </xsl:template>
 
