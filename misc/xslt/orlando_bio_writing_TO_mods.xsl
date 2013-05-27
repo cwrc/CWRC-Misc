@@ -3,7 +3,7 @@
 
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0">
 
-    <xsl:output encoding="UTF-8" method="xml" indent="yes" omit-xml-declaration="no" />
+    <xsl:output encoding="UTF-8" method="xml" indent="yes" omit-xml-declaration="no"/>
     <xsl:include href="lib_orlando_date_helper.xsl"/>
 
     <!--
@@ -16,23 +16,19 @@
     
     -->
 
-    <!-- input parameter, the name of the original XML (SGML) file) --> 
+    <!-- input parameter, the name of the original XML (SGML) file) -->
     <xsl:param name="param_original_filename" select="'xxxxxx-x.sgm'"/>
 
 
     <!-- root element - assumes start with an Orlando bio or writing document -->
     <xsl:template match="/">
         <mods 
-            xmlns="http://www.loc.gov/mods/v3"
+            xmlns="http://www.loc.gov/mods/v3" 
             xmlns:mods="http://www.loc.gov/mods/v3"
             xmlns:xlink="http://www.w3.org/1999/xlink"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/mods.xsd"
             >
-
-            <identifier type="local">
-                <xsl:value-of select="$param_original_filename"/>
-            </identifier>
 
             <titleInfo>
                 <title>
@@ -46,7 +42,7 @@
                 <languageTerm authority="iso639-2b" type="text">English</languageTerm>
             </language>
 
-            <relatedItem>
+            <relatedItem type="host">
                 <titleInfo>
                     <title>Orlando: Women's Writing in the British Isles from the Beginnings to the Present</title>
                 </titleInfo>
@@ -71,30 +67,82 @@
                         <roleTerm authority="marcrelator" type="text">Editor</roleTerm>
                     </role>
                 </name>
+                <originInfo>
+                    <dateIssued encoding="w3cdtf">
+                        <xsl:call-template name="convert_mla_to_iso">
+                            <xsl:with-param name="INPUT_DATE"
+                                select="/(BIOGRAPHY|WRITING)/ORLANDOHEADER/REVISIONDESC/(RESPONSIBILITY[@WORKSTATUS='PUB' and @WORKVALUE='C'])[1]/DATE/text()"
+                            />
+                        </xsl:call-template>
+                    </dateIssued>
+                    <place>
+                        <placeTerm type="text">Cambridge, United Kingdom</placeTerm>
+                    </place>
+                    <publisher>Cambridge University Press</publisher>
+                </originInfo>
             </relatedItem>
 
-            <originInfo>
-                <dateIssued encoding="w3cdtf">
-                    <xsl:call-template name="convert_mla_to_iso">
-                        <xsl:with-param name="INPUT_DATE" select="/(BIOGRAPHY|WRITING)/ORLANDOHEADER/REVISIONDESC/(RESPONSIBILITY[@WORKSTATUS='PUB' and @WORKVALUE='C'])[1]/DATE/text()" />
-                    </xsl:call-template>
-                </dateIssued>
-                <publisher>Cambridge University Press</publisher>
-                <place>
-                    <placeTerm type="text">Cambridge</placeTerm>
-                </place>
-                <place>
-                    <placeTerm type="text">United Kingdom</placeTerm>
-                </place>
-            </originInfo>
+            <identifier type="local">
+                <xsl:value-of select="$param_original_filename"/>
+            </identifier>
+
+            <location>
+                <url>http://orlando.cambridge.org/</url>
+            </location>
+            
+            <accessCondition 
+                type="use and reproduction"
+                xlink:href="http://cwrc.ca/license/the-orlando-project-license.html"
+                >
+                <xsl:text>Access to this resource is restricted by a </xsl:text>
+                <a rel="license" href="http://cwrc.ca/license/the-orlando-project-license.html">licence</a>
+                <xsl:text> between the University of Alberta and Cambridge University Press</xsl:text>
+            </accessCondition>
 
             <note type="researchNote">
                 <xsl:value-of select="/(BIOGRAPHY|WRITING)/DIV0/STANDARD"/>
             </note>
 
-            <location>
-                <url>http://orlando.cambridge.org/</url>
-            </location>
+
+            <!-- 
+                 2013-05-25
+                 decided to put the <recordInfo> information in the Workflow datastream, 
+                 but I'm wondering if we should be consistent, and approach the record 
+                 information in the same way we are approaching the rights information, i.e., 
+                 instead of using the Rights datastream, we are using the <accessCondition> 
+                 element in MODS. So, instead of using the Workflow datastream, maybe we 
+                 should use the <recordInfo> element in MODS.  This way, all of our metadata 
+                 "lives" in the same place (the MODS datastream), rather than parts of it 
+                 being fractured and hived off and "living" in the Workflow datastream 
+                 (the record information).
+                
+                 2013-05-27
+                 *<recordInfo> information only applies to the MODS record, not the resource 
+                 it is describing (in this case, the Orlando document).  Therefore because 
+                 the MODS record won't change, although the Orlando document resource might 
+                 change, we can treat the MODS record as static, and it won't change over time.  
+                 Consequently, we can add the <recordChangeDate> element that I took out on 
+                 Friday.  
+            -->
+            <recordInfo>
+                <recordContentSource>Orlando, Cambridge University Press</recordContentSource>
+                <recordCreationDate encoding="w3cdtf">
+                    <xsl:value-of select="format-date(current-date(),'[Y0001]-[M01]-[D01]')"/>
+                </recordCreationDate>
+                <recordChangeDate encoding="w3cdtf">
+                    <xsl:value-of select="format-date(current-date(),'[Y0001]-[M01]-[D01]')"/>
+                </recordChangeDate>
+                <recordIdentifier source="The Orlando Project">
+                    <xsl:value-of select="$param_original_filename"/>
+                </recordIdentifier>
+                <recordOrigin>
+                    <xsl:text>MODS record has been created from an SGML record using an XSLT stylesheet.</xsl:text>
+                </recordOrigin>
+                <languageOfCataloging>
+                    <languageTerm type="code" authority="iso639-2b">eng</languageTerm>
+                    <languageTerm type="text">English</languageTerm>
+                </languageOfCataloging>
+            </recordInfo>
 
         </mods>
 

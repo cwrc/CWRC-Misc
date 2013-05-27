@@ -11,7 +11,7 @@
 
     <xsl:output encoding="UTF-8" method="xml" indent="yes" omit-xml-declaration="no" />
     
-    <xsl:variable name="VAR_FILENAME_PREFIX" select="'data/mods_split_'" />
+    <xsl:variable name="VAR_FILENAME_PREFIX" select="'data/collectionname'" />
 
     <xsl:template match="/">
         <xsl:apply-templates select="mods:modsCollection/mods:mods"/>
@@ -27,7 +27,8 @@
             method="xml" 
             >
             
-            <xsl:copy-of select="."/>
+            <!-- MRB: added copy-namespacess="no" attribute -->
+            <xsl:copy-of select="." copy-namespaces="no"/>
             
         </xsl:result-document>
     </xsl:template>

@@ -28,8 +28,8 @@
     
     <!-- <p:variable name="src_dir" select="'orlando_original_1368553388597857000/'" /> -->
     <!-- <p:variable name="dest_dir" select="'orlando_after_mods_xsl/'" /> -->
-    <p:variable name="src_dir" select="'file:///c:/Z_ARCHIVE/tmp/orlando_UTF-8_1368553388597857000/'" /> 
-    <p:variable name="dest_dir" select="'file:///c:/Z_ARCHIVE/tmp/orlando_after_mods_xsl/'" />
+    <p:variable name="src_dir" select="'file:///c:/Z_ARCHIVE/tmp/tmp_xsl/orlando_UTF-8_1368564450701718000/'" /> 
+    <p:variable name="dest_dir" select="'file:///c:/Z_ARCHIVE/tmp/tmp_xsl/orlando_after_mods_xsl/'" />
      
     <p:directory-list>
         <p:with-option name="path" select="$src_dir" />
@@ -59,7 +59,7 @@
                 <p:empty/>
             </p:input>
             <p:input port="stylesheet">
-                <p:document href="xsl/orlando_bio_writing_TO_mods.xsl"/>
+                <p:document href="orlando_bio_writing_TO_mods.xsl"/>
             </p:input>
             <p:with-param name="param_original_filename" select="$filename" />
         </p:xslt>
