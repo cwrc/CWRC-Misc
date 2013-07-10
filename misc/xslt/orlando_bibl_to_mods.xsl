@@ -63,7 +63,7 @@
     <xsl:template match="/">
         <modsCollection xmlns="http://www.loc.gov/mods/v3" xmlns:tei="http://www.tei-c.org/ns/1.0">
             <xsl:attribute name="xsi:schemaLocation">http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-4.xsd</xsl:attribute>
-            <xsl:apply-templates select="ORLANDO_BIBL" mode="bibliography"/>
+            <xsl:apply-templates select="*" mode="bibliography"/>
         </modsCollection>
     </xsl:template>
 

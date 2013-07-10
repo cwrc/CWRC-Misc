@@ -12,7 +12,7 @@
 
     <xsl:output encoding="UTF-8" method="xml" indent="yes" omit-xml-declaration="no" />
     
-    <xsl:variable name="VAR_FILENAME_PREFIX" select="'file:///C:/Z_ARCHIVE/tmp/delete/tmp_split_format_orlando_e/'" />
+    <xsl:variable name="VAR_FILENAME_PREFIX" select="'file:///C:/Z_ARCHIVE/tmp/delete/tmp_split_format_orlando/'" />
 
     <xsl:template match="/">
          <xsl:apply-templates select="ORLANDO/*"/>
@@ -22,8 +22,8 @@
         
         <xsl:variable name="VAR_FILENAME_SUFFIX">
             <xsl:choose>
-                <xsl:when test="name()='BIBLIOGRAPHY_ENTRY'"><xsl:text>-l.sgm</xsl:text></xsl:when>
-                <xsl:when test="name()='FREESTANDING_EVENT'"><xsl:text>-e.sgm</xsl:text></xsl:when>
+                <xsl:when test="name()='BIBLIOGRAPHY_ENTRY'"><xsl:text>-l.xml</xsl:text></xsl:when>
+                <xsl:when test="name()='FREESTANDING_EVENT'"><xsl:text>-e.xml</xsl:text></xsl:when>
                 <xsl:otherwise><xsl:text>-z.sgm</xsl:text></xsl:otherwise>
             </xsl:choose>   
         </xsl:variable>
