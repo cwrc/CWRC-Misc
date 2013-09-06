@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- JCA & MRB: Thu 05-Sep-2013: created the CWRC Entity Content Model (i.e., this file, cwrc_entityCModel.xml) -->
+<!--
+    Modification notes:
+  * Modified exsiting Islandora Entity Content Model, the file islandora_entityCModel.xml:
+      - Changed "islandora:" references to "cwrc:", and "Islandora " references to "CWRC "
+      - Added additional datastreams
+      - Made sure all references are to the CWRC Entity Content Model, and the cwrc:entityCModel
+-->
+<foxml:digitalObject VERSION="1.1" PID="cwrc:entityCModel"
+xmlns:foxml="info:fedora/fedora-system:def/foxml#"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/definitions/1/0/foxml1-1.xsd">
+<foxml:objectProperties>
+<foxml:property NAME="info:fedora/fedora-system:def/model#state" VALUE="Active"/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#label" VALUE="CWRC Entity Content Model"/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#ownerId" VALUE="fedoraAdmin"/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#createdDate" VALUE="2013-08-27T21:45:37.285Z"/>
+<foxml:property NAME="info:fedora/fedora-system:def/view#lastModifiedDate" VALUE="2013-08-27T21:45:37.285Z"/>
+</foxml:objectProperties>
+<foxml:datastream ID="RELS-EXT" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="RELS-EXT.0" LABEL="Fedora Object to Object Relationship Metadata." CREATED="2013-08-27T21:45:37.306Z" MIMETYPE="application/rdf+xml" FORMAT_URI="info:fedora/fedora-system:FedoraRELSExt-1.0" SIZE="455">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:fedora="info:fedora/fedora-system:def/relations-external#" xmlns:fedora-model="info:fedora/fedora-system:def/model#" xmlns:islandora="http://islandora.ca/ontology/relsext#">
+  <rdf:Description rdf:about="info:fedora/cwrc:entityCModel">
+    <fedora:isMemberOfCollection rdf:resource="info:fedora/cwrc:ContentModelsCollection"></fedora:isMemberOfCollection>
+    <fedora-model:hasModel rdf:resource="info:fedora/fedora-system:ContentModel-3.0"></fedora-model:hasModel>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="DS-COMPOSITE-MODEL" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="DS-COMPOSITE-MODEL.0" LABEL="DS-COMPOSITE-MODEL" CREATED="2013-08-27T21:45:37.306Z" MIMETYPE="text/xml" SIZE="953">
+<foxml:xmlContent>
+<dsCompositeModel xmlns="info:fedora/fedora-system:def/dsCompositeModel#">
+  <dsTypeModel ID="DC">
+      <form FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" MIME="text/xml"></form>
+  </dsTypeModel>
+  <dsTypeModel ID="RELS-EXT" optional="true">
+      <form FORMAT_URI="info:fedora/fedora-system:FedoraRELSExt-1.0" MIME="application/rdf+xml"></form>
+  </dsTypeModel>
+  <dsTypeModel ID="RELS-INT" optional="true">
+      <form FORMAT_URI="info:fedora/fedora-system:FedoraRELSInt-1.0" MIME="application/rdf+xml"></form>
+  </dsTypeModel>
+  <!-- MRB: the MODS datastream is for CWRC's MODS records, which are also CWRC's title entities -->
+  <dsTypeModel ID="MODS" optional="true">
+    <form FORMAT_URI="http://www.loc.gov/mods/v3" MIME="text/xml"></form>
+  </dsTypeModel>
+  <dsTypeModel ID="TN" ORDERED="false" optional="true">
+    <form MIME="image/jpg"></form>
+  </dsTypeModel> 
+  <!-- JCA & MRB: added additional datastreams here; note: JCA will try and add the POLICY datastream in the ingest script -->
+  <dsTypeModel ID="WORKFLOW" optional="true">
+    <form FORMAT_URI="http://cwrc.ca/schema/workflow" MIME="text/xml"></form>
+  </dsTypeModel>
+  <dsTypeModel ID="IMAGE" ORDERED="false" optional="true">
+    <form MIME="image/jpg"></form>
+  </dsTypeModel>
+  <dsTypeModel ID="PERSON" optional="true">
+    <form FORMAT_URI="http://cwrc.ca/schema/entities" MIME="text/xml"></form>
+  </dsTypeModel>
+  <dsTypeModel ID="ORGANIZATION" optional="true">
+    <form FORMAT_URI="http://cwrc.ca/schema/entities" MIME="text/xml"></form>
+  </dsTypeModel>
+  <dsTypeModel ID="PLACE" optional="true">
+    <form FORMAT_URI="http://cwrc.ca/schema/entities" MIME="text/xml"></form>
+  </dsTypeModel>
+  <dsTypeModel ID="EVENT" optional="true">
+    <form FORMAT_URI="http://cwrc.ca/schema/uri_to_event_schema" MIME="text/xml"></form>      
+  </dsTypeModel>
+</dsCompositeModel>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="DC" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="DC1.0" LABEL="Dublin Core Record for this object" CREATED="2013-08-27T21:45:37.285Z" MIMETYPE="text/xml" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" SIZE="405">
+<foxml:xmlContent>
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:title>CWRC Entity Content Model</dc:title>
+  <dc:identifier>cwrc:entityCModel</dc:identifier>
+</oai_dc:dc>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+</foxml:digitalObject>
