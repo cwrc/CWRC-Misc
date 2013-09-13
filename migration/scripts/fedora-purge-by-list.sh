@@ -5,8 +5,8 @@
 #
 
 
-base_bin=/data/opt/fedora/client/bin
-export FEDORA_HOME=/data/opt/fedora
+base_bin=/usr/local/fedora/client/bin
+export FEDORA_HOME=/usr/local/fedora
 
 
 echo enter PID list file name
@@ -36,6 +36,6 @@ while read line
 do
     echo -e "$line"
     #echo "$base_bin/fedora-purge.sh r $fedora_target_repo_name $fedora_target_repo_user $fedora_target_repo_password $line "
-    tmp="$base_bin/fedora-purge.sh r $fedora_target_repo_name $fedora_target_repo_user $fedora_target_repo_password $line "
+    tmp="$base_bin/fedora-purge.sh $fedora_target_repo_name $fedora_target_repo_user $fedora_target_repo_password $line http \"migration purge\" "
      $tmp
 done < $fedora_pid_list_fn 
