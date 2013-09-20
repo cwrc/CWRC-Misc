@@ -10,6 +10,7 @@
 * * remove the specified tags from the items 
 *
 * see Orlando  development/doc/WORK-NOTES to describe how to produce input file - "make dm_files_analytics"
+- java -Xmx512m -jar /home/tomcat/apache-tomcat/shared/lib/saxon8.jar  ./orlando_entries_test.xml mandala_ovis_prep.xslt
 *
 -->
 
