@@ -27,7 +27,7 @@
             method="xml" 
             >
             
-            <!-- MRB: added copy-namespacess="no" attribute -->
+            <!-- MRB: added @copy-namespaces attribute with a value of "no" -->
             <xsl:copy-of select="." copy-namespaces="no"/>
             
         </xsl:result-document>
