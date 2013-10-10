@@ -33,7 +33,7 @@
             <titleInfo>
                 <title>
                     <xsl:value-of
-                        select="/(BIOGRAPHY|WRITING)/ORLANDOHEADER/FILEDESC/TITLESTMT/DOCTITLE/text()"
+                        select="/(BIOGRAPHY|WRITING|DOCUMENTATION)/ORLANDOHEADER/FILEDESC/TITLESTMT/DOCTITLE/text()"
                     />
                 </title>
             </titleInfo>
@@ -71,7 +71,7 @@
                     <dateIssued encoding="w3cdtf">
                         <xsl:call-template name="convert_mla_to_iso">
                             <xsl:with-param name="INPUT_DATE"
-                                select="/(BIOGRAPHY|WRITING)/ORLANDOHEADER/REVISIONDESC/(RESPONSIBILITY[@WORKSTATUS='PUB' and @WORKVALUE='C'])[1]/DATE/text()"
+                                select="/(BIOGRAPHY|WRITING|DOCUMENTATION)/ORLANDOHEADER/REVISIONDESC/(RESPONSIBILITY[@WORKSTATUS='PUB' and @WORKVALUE='C'])[1]/DATE/text()"
                             />
                         </xsl:call-template>
                     </dateIssued>
@@ -100,7 +100,7 @@
             </accessCondition>
 
             <note type="researchNote">
-                <xsl:value-of select="/(BIOGRAPHY|WRITING)/DIV0/STANDARD"/>
+                <xsl:value-of select="/(BIOGRAPHY|WRITING|DOCUMENTATION)/DIV0/STANDARD"/>
             </note>
 
 

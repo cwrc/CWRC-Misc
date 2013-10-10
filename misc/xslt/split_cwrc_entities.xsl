@@ -12,7 +12,7 @@
 
     <xsl:output encoding="UTF-8" method="xml" indent="yes" omit-xml-declaration="no" />
     
-    <xsl:variable name="VAR_FILENAME_PREFIX" select="'file:///C:/Z_ARCHIVE/tmp/delete/tmp_split_format_cwrc/'" />
+    <xsl:variable name="VAR_FILENAME_PREFIX" select="'file:////home/jefferya/dev/sample/person/tmp_split/org_'" />
 
     <xsl:template match="/">
          <xsl:apply-templates select="cwrc/entity"/>
@@ -21,9 +21,9 @@
     <xsl:template match="entity">
         
         <xsl:variable name="VAR_FILENAME_SUFFIX">
-            <xsl:text>_entity.xml</xsl:text>   
+            <xsl:text>.xml</xsl:text>   
         </xsl:variable>
-        <xsl:variable name="filename" select="concat($VAR_FILENAME_PREFIX, (position()), $VAR_FILENAME_SUFFIX )" />
+        <xsl:variable name="filename" select="concat($VAR_FILENAME_PREFIX, format-number(position(),'000000'), $VAR_FILENAME_SUFFIX )" />
 
 
         <xsl:result-document 
