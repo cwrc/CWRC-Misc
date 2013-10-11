@@ -3,8 +3,8 @@
 
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0">
 
-    <xsl:output encoding="UTF-8" method="xml" indent="yes" omit-xml-declaration="no"/>
-    <xsl:include href="lib_orlando_date_helper.xsl"/>
+    <xsl:output encoding="UTF-8" method="xml" indent="yes" omit-xml-declaration="no"></xsl:output>
+    <xsl:include href="lib_orlando_date_helper.xsl"></xsl:include>
 
     <!--
     * extract the MODS information section from an 
@@ -17,24 +17,28 @@
     -->
 
     <!-- input parameter, the name of the original XML (SGML) file) -->
-    <xsl:param name="param_original_filename" select="'xxxxxx-x.sgm'"/>
+    <xsl:param name="param_original_filename" select="'xxxxxx-x.sgm'"></xsl:param>
 
 
     <!-- root element - assumes start with an Orlando bio or writing document -->
     <xsl:template match="/">
-        <mods 
-            xmlns="http://www.loc.gov/mods/v3" 
-            xmlns:mods="http://www.loc.gov/mods/v3"
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/mods.xsd"
-            >
+        <mods xmlns="http://www.loc.gov/mods/v3" 
+            xmlns:mods="http://www.loc.gov/mods/v3" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/mods.xsd">
 
             <titleInfo>
                 <title>
-                    <xsl:value-of
-                        select="/(BIOGRAPHY|WRITING|DOCUMENTATION)/ORLANDOHEADER/FILEDESC/TITLESTMT/DOCTITLE/text()"
-                    />
+                    <xsl:choose>
+                        <xsl:when test="BIOGRAPHY | WRITING | DOCUMENTATION">
+                            <xsl:value-of select="/(BIOGRAPHY|WRITING|DOCUMENTATION)/ORLANDOHEADER/FILEDESC/TITLESTMT/DOCTITLE/text()"></xsl:value-of>
+                        </xsl:when>
+                        <xsl:when test="FREESTANDING_EVENT">
+                            <xsl:value-of select="/FREESTANDING_EVENT/CHRONSTRUCT/(DATE|DATERANGE|DATESTRUCT)/text()"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text>zzzz Error zzzz</xsl:text>
+                        </xsl:otherwise>
+                    </xsl:choose>
+
                 </title>
             </titleInfo>
 
@@ -70,9 +74,7 @@
                 <originInfo>
                     <dateIssued encoding="w3cdtf">
                         <xsl:call-template name="convert_mla_to_iso">
-                            <xsl:with-param name="INPUT_DATE"
-                                select="/(BIOGRAPHY|WRITING|DOCUMENTATION)/ORLANDOHEADER/REVISIONDESC/(RESPONSIBILITY[@WORKSTATUS='PUB' and @WORKVALUE='C'])[1]/DATE/text()"
-                            />
+                            <xsl:with-param name="INPUT_DATE" select="/(BIOGRAPHY|WRITING|DOCUMENTATION)/ORLANDOHEADER/REVISIONDESC/(RESPONSIBILITY[@WORKSTATUS='PUB' and @WORKVALUE='C'])[1]/DATE/text()"></xsl:with-param>
                         </xsl:call-template>
                     </dateIssued>
                     <place>
@@ -83,24 +85,21 @@
             </relatedItem>
 
             <identifier type="local">
-                <xsl:value-of select="$param_original_filename"/>
+                <xsl:value-of select="$param_original_filename"></xsl:value-of>
             </identifier>
 
             <location>
                 <url>http://orlando.cambridge.org/</url>
             </location>
-            
-            <accessCondition 
-                type="use and reproduction"
-                xlink:href="http://cwrc.ca/license/the-orlando-project-license.html"
-                >
+
+            <accessCondition type="use and reproduction" xlink:href="http://cwrc.ca/license/the-orlando-project-license.html">
                 <xsl:text>Access to this resource is restricted by a </xsl:text>
                 <a rel="license" href="http://cwrc.ca/license/the-orlando-project-license.html">licence</a>
                 <xsl:text> between the University of Alberta and Cambridge University Press</xsl:text>
             </accessCondition>
 
             <note type="researchNote">
-                <xsl:value-of select="/(BIOGRAPHY|WRITING|DOCUMENTATION)/DIV0/STANDARD"/>
+                <xsl:value-of select="/(BIOGRAPHY|WRITING|DOCUMENTATION)/DIV0/STANDARD"></xsl:value-of>
             </note>
 
 
@@ -127,13 +126,13 @@
             <recordInfo>
                 <recordContentSource>Orlando, Cambridge University Press</recordContentSource>
                 <recordCreationDate encoding="w3cdtf">
-                    <xsl:value-of select="format-date(current-date(),'[Y0001]-[M01]-[D01]')"/>
+                    <xsl:value-of select="format-date(current-date(),'[Y0001]-[M01]-[D01]')"></xsl:value-of>
                 </recordCreationDate>
                 <recordChangeDate encoding="w3cdtf">
-                    <xsl:value-of select="format-date(current-date(),'[Y0001]-[M01]-[D01]')"/>
+                    <xsl:value-of select="format-date(current-date(),'[Y0001]-[M01]-[D01]')"></xsl:value-of>
                 </recordChangeDate>
                 <recordIdentifier source="The Orlando Project">
-                    <xsl:value-of select="$param_original_filename"/>
+                    <xsl:value-of select="$param_original_filename"></xsl:value-of>
                 </recordIdentifier>
                 <recordOrigin>
                     <xsl:text>MODS record has been created from an SGML record using an XSLT stylesheet.</xsl:text>
