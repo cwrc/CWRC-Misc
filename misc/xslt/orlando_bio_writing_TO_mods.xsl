@@ -31,8 +31,14 @@
                         <xsl:when test="BIOGRAPHY | WRITING | DOCUMENTATION">
                             <xsl:value-of select="/(BIOGRAPHY|WRITING|DOCUMENTATION)/ORLANDOHEADER/FILEDESC/TITLESTMT/DOCTITLE/text()"></xsl:value-of>
                         </xsl:when>
-                        <xsl:when test="FREESTANDING_EVENT">
+                        <xsl:when test="FREESTANDING_EVENT" xml:space="default">
+                            <xsl:variable name="TEXT_TO_SUBSTRING" select="normalize-space(/FREESTANDING_EVENT/CHRONSTRUCT/CHRONPROSE)" xml:space="default" />
                             <xsl:value-of select="/FREESTANDING_EVENT/CHRONSTRUCT/(DATE|DATERANGE|DATESTRUCT)/text()"/>
+                            <xsl:text>: </xsl:text>
+                            <!-- <xsl:value-of select="/FREESTANDING_EVENT/CHRONSTRUCT/CHRONPROSE"></xsl:value-of> -->
+                            <!-- build snippet from longer chronprose, break at a "space", and restrict output to a max of "n" characters --> 
+                            <xsl:value-of select="substring($TEXT_TO_SUBSTRING, 1, 40 + string-length(substring-before(substring($TEXT_TO_SUBSTRING, 41),' ')))" xml:space="default" />
+                            <xsl:text>...</xsl:text>
                         </xsl:when>
                         <xsl:otherwise>
                             <xsl:text>zzzz Error zzzz</xsl:text>

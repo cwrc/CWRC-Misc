@@ -30,8 +30,8 @@
     <!-- <p:variable name="dest_dir" select="'orlando_after_mods_xsl/'" /> -->
     <!-- <p:variable name="src_dir" select="'file:///c:/Z_ARCHIVE/tmp/tmp_xsl/orlando_UTF-8_1368564450701718000/'" /> --> 
     <!-- <p:variable name="dest_dir" select="'file:///c:/Z_ARCHIVE/tmp/tmp_xsl/orlando_after_mods_xsl/'" /> -->
- <p:variable name="src_dir" select="'file:///C:/Z_ARCHIVE/tmp/delete/sample/event/tmp_split/legacy_dir/'" />
- <p:variable name="dest_dir" select="'file:///C:/Z_ARCHIVE/tmp/delete/sample/event/tmp_split/mods_dir/'" />
+    <p:variable name="src_dir" select="'file:///C:/Z_ARCHIVE/tmp/delete/sample/event/tmp_split/legacy_dir/'" />
+    <p:variable name="dest_dir" select="'file:///C:/Z_ARCHIVE/tmp/delete/sample/event/tmp_split/mods_dir/'" />
     
     <p:directory-list>
         <p:with-option name="path" select="$src_dir" />
