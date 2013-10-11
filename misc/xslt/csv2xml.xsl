@@ -9,20 +9,27 @@
 	
 	(1) Changed the character encoding from "US-ASCII" to "UTF-8".
 	(2) Changed the path to the source CSV file from "file:///c:/csv.csv" to
-	"file:///c:/users/brundin/temp/geonames/places.csv".
+	"file:///c:/users/brundin/temp/geonames/places.txt".  Note: the input CSV file can have a either a *.csv
+	file extension or a*.txt file extension.
 	(3) Changed the CSV field delimiter marker from a "," (which is "&#44;", but "," was used in
 	the original code) to "&#x9;", i.e., a "tab" character.
 	(4) Changed the newline, line break, or end-of line (EOL) marker from a Unix, Linux, BSD, Mac OS X line feed
 	"&#xA;" LF, '\n') to a Microsoft Windows carriage return and line feed sequence "&#xD;&#xA;" (CR+LF, '\r\n').
 	Note: the GeoNames data use a Unix newline character of line feed (&#xA;), but after downloading the data, I
-	changed the GeoNames data from LF to CR-LF using the Vim editor.
+	changed the GeoNames data from LF to CR+LF using the Vim editor.
 	(5) Changed the references to header field names for each data cell from attributes (i.e.,
 	<elem name="field-name">)to elements (i.e., <field-name>).
 	
-	To run the standalone csv-to-xml_v2.xslt stylesheet, do the following:
+	To pre-process the input CSV file, open the CSV file in the Vim editor and do the following:
+	
+	(1) Set the character encoding to UTF-8: :set fileencoding=utf-8
+	(2) Convert EOL markers from LF or a mixture of CR+LF and LF to Windows CR+LF: update | e ++FF=dos | w
+	Note: to convert the EOL markers from CR+LF to LF, type :update | e ++FF=dos | setlocal ff=unix | w
+	
+	To run the standalone csv2xml.xsl stylesheet on the input CSV file, do the following:
 	
 	(1) Set the character encoding (e.g., UTF-8, or ISO-8859-1).
-	(2) Set the path to the source CSV file (e.g., file:///c:/users/brundin/temp/geonames/places.csv).
+	(2) Set the path to the source CSV file (e.g., file:///c:/users/brundin/temp/geonames/places.txt).
 	(3) Set the CSV field delimiter character or character code (e.g., ",", or "&#x9;").
 	(4) Set the newline marker as LF or CR+LF (i.e., "&#xA;", or "&#xD;&#xA;").
 	(5) Set the header field name references for each data cell to either attributes (i.e., <elem name="field-name"> or elements (i.e., <field-name>).
@@ -56,8 +63,8 @@
 <xsl:output indent="yes" encoding="utf-8"/>
 	
 	<!-- MRB: (2) changed the path to the source CSV file from "file:///c:/csv.csv" to
-		"file:///c:/users/brundin/temp/geonames/places.csv" -->
-	<xsl:param name="pathToCSV" select="'file:///c:/users/brundin/temp/geonames/places.csv'"/>
+		"file:///c:/users/brundin/temp/geonames/places.txt" -->
+	<xsl:param name="pathToCSV" select="'file:///c:/users/brundin/temp/geonames/places.txt'"/>
 
 <xsl:function name="fn:getTokens" as="xs:string+">
 	<xsl:param name="str" as="xs:string"/>
