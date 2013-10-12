@@ -9,36 +9,37 @@
 	
 	(1) Changed the character encoding from "US-ASCII" to "UTF-8".
 	(2) Changed the path to the source CSV file from "file:///c:/csv.csv" to
-	"file:///c:/users/brundin/temp/geonames/places.txt".  Note: the input CSV file can have a either a *.csv
-	file extension or a*.txt file extension.
+	"file:///c:/users/brundin/temp/geonames/places.txt".  Note: the input CSV file can have either a *.csv
+	file extension or a *.txt file extension.
 	(3) Changed the CSV field delimiter marker from a "," (which is "&#44;", but "," was used in
 	the original code) to "&#x9;", i.e., a "tab" character.
 	(4) Changed the newline, line break, or end-of line (EOL) marker from a Unix, Linux, BSD, Mac OS X line feed
 	"&#xA;" LF, '\n') to a Microsoft Windows carriage return and line feed sequence "&#xD;&#xA;" (CR+LF, '\r\n').
-	Note: the GeoNames data use a Unix newline character of line feed (&#xA;), but after downloading the data, I
-	changed the GeoNames data from LF to CR+LF using the Vim editor.
+	Note: the GeoNames data use a Unix newline character of line feed ("&#xA;"), but after downloading the data, the
+	GeoNames data were changed from LF to CR+LF using the Vim editor.
 	(5) Changed the references to header field names for each data cell from attributes (i.e.,
-	<elem name="field-name">)to elements (i.e., <field-name>).
+	<elem name="field-name">) to elements (i.e., <field-name>).
 	
 	To pre-process the input CSV file, open the CSV file in the Vim editor and do the following:
 	
-	(1) Set the character encoding to UTF-8: :set fileencoding=utf-8
-	(2) Convert EOL markers from LF or a mixture of CR+LF and LF to Windows CR+LF: update | e ++FF=dos | w
-	Note: to convert the EOL markers from CR+LF to LF, type :update | e ++FF=dos | setlocal ff=unix | w
+	(1) Set the character encoding to UTF-8 using this command: :set fileencoding=utf-8
+	(2) Convert the newline markers from Unix LF (or a mixture of CR+LF and LF) to Windows CR+LF, using this command: update | e ++FF=dos | w
+	Note: to convert the newline markers from Windows CR+LF to Unix LF, use this command :update | e ++FF=dos | setlocal ff=unix | w
 	
-	To run the standalone csv2xml.xsl stylesheet on the input CSV file, do the following:
+	To run the standalone csv2xml.xsl stylesheet on the input CSV file, do the following in the xsv2xml.xsl file:
 	
 	(1) Set the character encoding (e.g., UTF-8, or ISO-8859-1).
 	(2) Set the path to the source CSV file (e.g., file:///c:/users/brundin/temp/geonames/places.txt).
 	(3) Set the CSV field delimiter character or character code (e.g., ",", or "&#x9;").
 	(4) Set the newline marker as LF or CR+LF (i.e., "&#xA;", or "&#xD;&#xA;").
 	(5) Set the header field name references for each data cell to either attributes (i.e., <elem name="field-name"> or elements (i.e., <field-name>).
-	(6) From the Windows Command command prompt, type the following:
+	
+	Then from the Windows Command command prompt, type the following:
 	
 	java.exe -cp "C:\Program Files (x86)\Java\jre7\lib\saxon9he.jar" net.sf.saxon.Transform -o:c:/users/brundin/temp/geonames/output.xml -it:main csv2xml.xsl
 	
 	where the classpath to the Java JRE has already been set, the path to the Saxon XSLT processor jar file is provided, the path to the output.xml XML file is
-	provided, and the standalone csv2xml.xsl XSLT stylesheet happens to be in the same directory that the Windows Command command is being run from.
+	provided, and the standalone csv2xml.xsl XSLT stylesheet is in the same directory that the Windows Command command is being run from.
 -->
 
 <!--
@@ -69,7 +70,7 @@
 <xsl:function name="fn:getTokens" as="xs:string+">
 	<xsl:param name="str" as="xs:string"/>
 		<!-- MRB: (3) changed the CSV field delimiter marker from a "," to a "&#x9;" (i.e., a
-		"tab" character -->
+		"tab" character) -->
 		<xsl:analyze-string select="concat($str, '&#x9;')" regex='(("[^"]*")+|[^&#x9;]*)&#x9;'>
 			<xsl:matching-substring>
 				<xsl:sequence select='replace(regex-group(1), "^""|""$|("")""", "$1")'/>
@@ -81,8 +82,8 @@
 	<xsl:choose>
 		<xsl:when test="unparsed-text-available($pathToCSV)">
 			<xsl:variable name="csv" select="unparsed-text($pathToCSV)"/>
-			<!-- MRB: (4) changed the newline marker from a Unix LF (&#xA;) to a Microsoft
-			Windows CR+LF (&#xD;&#xA;) -->
+			<!-- MRB: (4) changed the newline marker from a Unix LF ("&#xA;") to a Microsoft
+			Windows CR+LF ("&#xD;&#xA;") -->
 			<xsl:variable name="lines" select="tokenize($csv, '&#xD;&#xA;')" as="xs:string+"/>
 			<xsl:variable name="elemNames" select="fn:getTokens($lines[1])" as="xs:string+"/>
 			<root>
