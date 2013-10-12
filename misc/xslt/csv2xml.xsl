@@ -34,7 +34,7 @@
 	(4) Set the newline marker as LF or CR+LF (i.e., "&#xA;", or "&#xD;&#xA;").
 	(5) Set the header field name references for each data cell to either attributes (i.e., <elem name="field-name"> or elements (i.e., <field-name>).
 	
-	Then from the Windows Command command prompt, type the following:
+	Then from the Windows Command command prompt, run the following command:
 	
 	java.exe -cp "C:\Program Files (x86)\Java\jre7\lib\saxon9he.jar" net.sf.saxon.Transform -o:c:/users/brundin/temp/geonames/output.xml -it:main csv2xml.xsl
 	
