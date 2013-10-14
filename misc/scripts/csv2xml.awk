@@ -8,14 +8,14 @@
 # for each data cell in a field in a row.  To run the script, type the following
 # at the command prompt:
 
-#     ./tab2xml.awk input-file > output-file [on Unix machines]
-#     awk -f tab2xml.awk input-file > output-file [on Windows machines]
+#     ./csv2xml.awk input-file > output-file [on Unix machines]
+#     awk -f csv2xml.awk input-file > output-file [on Windows machines]
 
 # [This script adapted from a script located at this URL:
 # http://ajhaupt.blogspot.ca/2013/02/how-to-xml-ify-tab-separated-text-file.html]
 
-BEGIN { FS="\t"; }      # Set the field delimiter character, e.g., \t
-NR==1 { split($0,header,FS); printf "<root>\n"}
+BEGIN { FS="\t"; }      # Set the field delimiter character, e.g., "\t"
+NR==1 { split($0,header,FS); printf "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<root>\n"}
 NR>1  {
         indent = "    ";
 		indent2 = indent indent;
