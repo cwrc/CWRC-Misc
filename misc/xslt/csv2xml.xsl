@@ -2,15 +2,14 @@
 
 <!-- MRB: Fri 11-Oct-2013
 	
-	The original standalone XSLT stylesheet CSV to XML converter can be found here:
+	The original standalone XSLT stylesheet CSV to XML converter by Andrew Welch can be found here:
 	http://andrewjwelch.com/code/xslt/csv/csv-to-xml_v2.html
 	
 	Modified the XSLT stylesheet csv2xml.xsl (the original file was named xsv-to-xml_v2.xslt) in the following ways:
 	
 	(1) Changed the character encoding from "US-ASCII" to "UTF-8".
 	(2) Changed the path to the source CSV file from "file:///c:/csv.csv" to
-	"file:///c:/users/brundin/temp/geonames/places.txt".  Note: the input CSV file can have either a *.csv
-	file extension or a *.txt file extension.
+	"file:///c:/users/brundin/temp/geonames/places.txt".
 	(3) Changed the CSV field delimiter marker from a "," (which is "&#44;", but "," was used in
 	the original code) to "&#x9;", i.e., a "tab" character.
 	(4) Changed the newline, line break, or end-of line (EOL) marker from a Unix, Linux, BSD, Mac OS X line feed
@@ -22,11 +21,13 @@
 	
 	To pre-process the input CSV file, open the CSV file in the Vim editor and do the following:
 	
-	(1) Set the character encoding to UTF-8 using this command: :set fileencoding=utf-8
-	(2) Convert the newline markers from Unix LF (or a mixture of CR+LF and LF) to Windows CR+LF, using this command: update | e ++FF=dos | w
-	Note: to convert the newline markers from Windows CR+LF to Unix LF, use this command :update | e ++FF=dos | setlocal ff=unix | w
+	(1) Check that the first line of the CSV file contains the header field names, with the field names separated by the appropriate field delimiter character.
+	(2) Set the character encoding to UTF-8 using this command: :set fileencoding=utf-8
+	(3) Check the file format option to see if the line ending characters are Unix LF or Windows CR+LF using this command: :set ff? ffs?
+	(4) Change the newline markers from Unix LF (or a mixture of CR+LF and LF) to Windows CR+LF, using this command: :update | e ++ff=dos | w
+	Note: to change the newline markers from Windows CR+LF to Unix LF, use this command: :update | e ++ff=dos | setlocal ff=unix | w
 	
-	To run the standalone csv2xml.xsl stylesheet on the input CSV file, do the following in the xsv2xml.xsl file:
+	To run the standalone csv2xml.xsl stylesheet on the input CSV file, do the following in the csv2xml.xsl file:
 	
 	(1) Set the character encoding (e.g., UTF-8, or ISO-8859-1).
 	(2) Set the path to the source CSV file (e.g., file:///c:/users/brundin/temp/geonames/places.txt).
@@ -38,20 +39,9 @@
 	
 	java.exe -cp "C:\Program Files (x86)\Java\jre7\lib\saxon9he.jar" net.sf.saxon.Transform -o:c:/users/brundin/temp/geonames/output.xml -it:main csv2xml.xsl
 	
-	where the classpath to the Java JRE has already been set, the path to the Saxon XSLT processor jar file is provided, the path to the output.xml XML file is
-	provided, and the standalone csv2xml.xsl XSLT stylesheet is in the same directory that the Windows Command command is being run from.
--->
-
-<!--
-	A CSV to XML transform
-	Version 2
-	Andrew Welch
-	http://andrewjwelch.com
-	
-	Modify or supply the $pathToCSV parameter and run the transform
-	using "main" as the initial template.
-	
-	For bug reports or modification requests contact me at andrew.j.welch@gmail.com
+	where the classpath to the Java JRE has already been set, the path to the Saxon XSLT processor jar file is provided, the path to the output XML file
+	output.xml is provided, "main" is the initial template, and the standalone XSLT stylesheet csv2xml.xsl is in the same directory that the Windows
+	Command command is being run from.
 -->
   		
 <xsl:stylesheet version="2.0"
