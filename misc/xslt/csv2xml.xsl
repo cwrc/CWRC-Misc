@@ -4,7 +4,7 @@
 	
 	The original standalone XSLT stylesheet CSV to XML converter by Andrew Welch can be found here:
 	http://andrewjwelch.com/code/xslt/csv/csv-to-xml_v2.html
-	
+		
 	Modified the XSLT stylesheet csv2xml.xsl (the original file was named xsv-to-xml_v2.xslt) in the following ways:
 	
 	(1) Changed the character encoding from "US-ASCII" to "UTF-8".
