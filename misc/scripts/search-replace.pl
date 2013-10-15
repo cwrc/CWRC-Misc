@@ -15,9 +15,9 @@
 # http://www.batw.net/perlexamples/Search-Replace-Within-File.shtml]
 
 # MRB: Note: to process the GeoNames data, this script needs to be run six
-# times, to process the six different GeoNames variable code files: (1) admin2Code,
-# (2) admin1Code, (3) countryCode, (4) featureCode, (5) featureClass, and 
-# (6) timezone
+# times, to process the six different GeoNames variable code (key-value)
+# files: (1) admin2Code, 2) admin1Code, (3) countryCode, (4) featureCode,
+# (5) featureClass, and (6) timezone
 
 use strict;
 use utf8;
@@ -95,7 +95,7 @@ while (<INGROUP>){
 	   # $inline[10] = $key_value{$inline[10] . "." $inline[8]}; # two fields concatenated match key
 	   # $inline[11] = $key_value{$inline[11] . "." $inline[10] . "." . $inline[8]}; # three fields concatenated match key
 	   
-       my $line = &join_array(@inline);
+       my $line = &join_array(@inline); # user-defined subroutine call to join_array
        # print "$line\n"; ## MRB: writes to the shell so can monitor output (can comment out)
        print DUMP "$line\n";
 } # end while
