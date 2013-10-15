@@ -76,10 +76,10 @@ while (<INGROUP>){
        my @inline = split("\t",$in_line); # MRB: set field delimiter to split the new output file $new_b, e.g., "\t"
 	   
 	   # MRB: GeoNames: array index numbers for substituting the value and matching the key
-       # (1) admin2Code: sub value: 11; match key: 11 . 10 . 8 [three fields concatenated]
-       # (2) admin1Code: sub value: 10; match key: 10 . 8 [two fields concatenated]
+       # (1) admin2Code: sub value: 11; match key: 8 . 10 . 11 [three fields concatenated]
+       # (2) admin1Code: sub value: 10; match key: 8 . 10 [two fields concatenated]
        # (3) countryCode: sub value: 8; match key: 8
-       # (4) featureCode: sub value: 7; match key: 7 . 6 [two fields concatenated]
+       # (4) featureCode: sub value: 7; match key: 6 . 7 [two fields concatenated]
        # (5) featureClass: sub value: 6; match key: 6
        # (6) timezone: sub value: 17; match key: 17 
 	   
@@ -90,10 +90,11 @@ while (<INGROUP>){
 	   # is the index field string or concatenated index fields string in the output
 	   # file $new_b that matches the key; use the appropriate one field, two fields,
 	   # or three fields line below, and comment the other two lines out
+	       # print $inline[8] . "." . $inline[10]."\n"; # error debugging to see if key is correct
 	   
        $inline[1] = $key_value{$inline[1]}; # one field matches key
-	   # $inline[10] = $key_value{$inline[10] . "." . $inline[8]}; # two fields concatenated match key
-	   # $inline[11] = $key_value{$inline[11] . "." . $inline[10] . "." . $inline[8]}; # three fields concatenated match key
+	   # $inline[10] = $key_value{$inline[8] . "." . $inline[10]}; # two fields concatenated match key
+	   # $inline[11] = $key_value{$inline[8] . "." . $inline[10] . "." . $inline[11]}; # three fields concatenated match key
 	   
        my $line = &join_array(@inline); # user-defined subroutine call to join_array
        # print "$line\n"; ## MRB: writes to the shell so can monitor output (can comment out)
