@@ -92,8 +92,8 @@ while (<INGROUP>){
 	   # or three fields line below, and comment the other two lines out
 	   
        $inline[1] = $key_value{$inline[1]}; # one field matches key
-	   # $inline[10] = $key_value{$inline[10] . "." $inline[8]}; # two fields concatenated match key
-	   # $inline[11] = $key_value{$inline[11] . "." $inline[10] . "." . $inline[8]}; # three fields concatenated match key
+	   # $inline[10] = $key_value{$inline[10] . "." . $inline[8]}; # two fields concatenated match key
+	   # $inline[11] = $key_value{$inline[11] . "." . $inline[10] . "." . $inline[8]}; # three fields concatenated match key
 	   
        my $line = &join_array(@inline); # user-defined subroutine call to join_array
        # print "$line\n"; ## MRB: writes to the shell so can monitor output (can comment out)
