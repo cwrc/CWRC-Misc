@@ -22,7 +22,7 @@
 	To pre-process the input CSV file, open the CSV file in the Vim editor and do the following:
 	
 	(1) Check that the first line of the CSV file contains the header field names, with the field names separated by the appropriate field delimiter character.
-	(2) Set the character encoding to UTF-8 using this command: :set fileencoding=utf-8
+	(2) Set the character encoding to UTF-8 using this command: :set encoding=utf-8 | set fileencoding=utf-8
 	(3) Check the file format option to see if the line ending characters are Unix LF or Windows CR+LF using this command: :set ff? ffs?
 	(4) Change the newline markers from Unix LF (or a mixture of CR+LF and LF) to Windows CR+LF, using this command: :update | e ++ff=dos | w
 	Note: to change the newline markers from Windows CR+LF to Unix LF, use this command: :update | e ++ff=dos | setlocal ff=unix | w
