@@ -12,7 +12,7 @@
 
     <xsl:output encoding="UTF-8" method="xml" indent="yes" omit-xml-declaration="no" />
     
-    <xsl:variable name="VAR_FILENAME_PREFIX" select="'file:////home/jefferya/dev/sample/person/tmp_split/org_'" />
+    <xsl:variable name="VAR_FILENAME_PREFIX" select="'data/entity'" />
 
     <xsl:template match="/">
          <xsl:apply-templates select="cwrc/entity"/>
@@ -20,6 +20,7 @@
 
     <xsl:template match="entity">
         
+              
         <xsl:variable name="VAR_FILENAME_SUFFIX">
             <xsl:text>.xml</xsl:text>   
         </xsl:variable>
@@ -33,6 +34,9 @@
             encoding="UTF-8" 
             method="xml" 
             >
+            <xsl:processing-instruction name="xml-model">
+ href="http://cwrc.ca/schema/entities" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"
+ </xsl:processing-instruction> 
            
             <xsl:copy-of select="." copy-namespaces="no"/>
         

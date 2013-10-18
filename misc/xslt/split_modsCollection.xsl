@@ -11,7 +11,7 @@
 
     <xsl:output encoding="UTF-8" method="xml" indent="yes" omit-xml-declaration="no" />
     
-    <xsl:variable name="VAR_FILENAME_PREFIX" select="'sample/title/tmp_split/collection_'" />
+    <xsl:variable name="VAR_FILENAME_PREFIX" select="'data/mods'" />
 
     <xsl:template match="/">
         <xsl:apply-templates select="mods:modsCollection/mods:mods"/>
