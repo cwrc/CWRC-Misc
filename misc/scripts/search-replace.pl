@@ -2,9 +2,7 @@
 
 # MRB -- Fri 11-Oct-2013
 
-#################################################
-# Purpose: Perl script to process GeoNames data #
-#################################################
+# Purpose: Perl script to process GeoNames data
 
 # Description: Perl script to loop through a CSV code file and create a
 # key-value pairs hash using two fields in each row, and then use these
@@ -41,14 +39,14 @@ binmode(STDOUT, ":utf8"); # can output UTF-8
 our $a = "a.txt"; # MRB: set CSV code file that contains key-value pairs
 our $b = "b.txt"; # MRB: set CSV input file that contains keys that need to be replaced with values
 our $new_b = "new_b.txt"; # MRB: set CSV output file, a copy of $b, but with keys replaced with values
-open (INDUMP, "<$a")  || die "cannot open $a"; # read $a code file into filehandle INDUMP
 
-our %key_value=(); # hash or associative array %key_value to contain element key-value pairs
+open (INDUMP, "<$a")  || die "cannot open $a"; # read $a code file into filehandle INDUMP
+our %key_value = (); # hash or associative array %key_value to contain element key-value pairs
 our @lines2 = <INDUMP>; # read file into array list @lines2
 chomp(@lines2); # remove newline characters from the end of each line
 foreach my $item (@lines2) { # loop through array list
     chomp($item); # remove newline characters from the end of each line
-    my @data=split("\t",$item); # MRB: set field delimiter to split the code file $a, e.g., "\t"
+    my @data = split("\t", $item); # MRB: set field delimiter to split the code file $a, e.g., "\t"
     # print "key: $data[0] - value: $data[1]\n"; ## MRB: writes to the shell so can monitor output (can comment out)
   
     #### MRB: GeoNames: array index numbers for keys and values ####
@@ -75,7 +73,7 @@ open (DUMP, ">$new_b") || die "cannot open $new_b"; # associate filehandle DUMP 
 while (<INGROUP>) { 
     my $in_line = $_; # use "my" to keep variables local to while loop
     chomp($in_line); # remove newline characters from the end of each line
-    my @inline = split("\t",$in_line); # MRB: set field delimiter to split the new output file $new_b, e.g., "\t"
+    my @inline = split("\t", $in_line); # MRB: set field delimiter to split the new output file $new_b, e.g., "\t"
 	   
     #### MRB: GeoNames: array index numbers for substituting the value and matching the key ####
     # (1) admin2Code: sub value: 11; match key: 8 and 10 and 11 [three fields concatenated, separated by periods]
@@ -105,15 +103,13 @@ while (<INGROUP>) {
 close(INGROUP);
 close DUMP;
 
-##### begin subroutine #####
+#### begin subroutine ####
 sub join_array {
-    my $i=0; # use "my" to keep variables local to subroutine
+    my $i = 0; # use "my" to keep variables local to subroutine
     my @array = @_;
-    my $joinline=$array[0];
+    my $joinline = $array[0];
     for ($i = 1; $i <= $#array; $i++) {
-        $joinline ="$joinline" . "\t" . "$array[$i]"; # MRB: set field delimiter to join the new output file $new_b, e.g., "\t"
+        $joinline = "$joinline" . "\t" . "$array[$i]"; # MRB: set field delimiter to join the new output file $new_b, e.g., "\t"
     }
     return $joinline;
 } # end sub
-
-################### End Program ###################

@@ -15,25 +15,32 @@
 # [This script adapted from a script located at this URL:
 # http://laurentschneider.com/wordpress/2007/05/csv-with-xml-revisited.html
 
-print "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<root>\n";
+# Note: check that the first line of the CSV file contains the header field names,
+# with the field names separated by the appropriate field delimiter character
+
+printf "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<root>\n";
 our $indent = "    ";
 our $indent2 = $indent . $indent;
-$FS="\t"; # MRB: set the field separator (FS) character, e.g., "\t"
-open (F,"input.txt"); # MRB: set input-file 
-@h=split("\t");
-while(<F>) {
-    if ($.==1) {
-    chomp;
-	@h=split("\t"); # MRB: set the field separator (FS) character, e.g., "\t"
-    $NF=$#h}
+$FS = "\t"; # MRB: set the field separator character, e.g., "\t"
+
+open (F, "input.txt"); # MRB: set input-file 
+@h = split($FS);
+
+while (<F>) {
+    if ($. == 1) {
+        chomp;
+	    @h = split($FS);
+        $NF = $#h
+    }
     else {
-		print $indent . "<record>\n";
+		printf $indent . "<record>\n";
 	    chomp;
-        @Fld=split("\t"); # MRB: set the field separator (FS) character, e.g., "\t"
-        for ($i=0; $i<=$NF; $i++) {
-        printf $indent2 . "<%s>%s</%s>\n",$h[$i],$Fld[$i],$h[$i];
+        @Fld = split($FS);
+        for ($i = 0; $i <= $NF; $i++) {
+            printf $indent2 . "<%s>%s</%s>\n", $h[$i], $Fld[$i], $h[$i];
         }
-	print $indent . "</record>\n";
+	    printf $indent . "</record>\n";
     }
 }
-print "</root>\n";
+
+printf "</root>\n";
