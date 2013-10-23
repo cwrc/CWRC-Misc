@@ -31,7 +31,7 @@
 
 BEGIN {
     FS = "\t" # MRB: set the field separator (FS) character, e.g., "\t"
-	OFS = "\t" # MRB: set the output field separator (OFS) character, e.g., "\t"
+    OFS = "\t" # MRB: set the output field separator (OFS) character, e.g., "\t"
     code_file = "index.txt" # MRB: set CSV code file that contains key-value pairs
     input_file = "data.txt" # MRB: set CSV input file that contains keys that need to be replaced with values
     output_file = "output.txt" # MRB: set CSV output file

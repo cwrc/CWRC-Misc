@@ -24,7 +24,7 @@ BEGIN {
 
 NR == 1 {
     split($0, header, FS)
-	printf "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<root>\n"
+    printf "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<root>\n"
 }
 
 NR > 1 {

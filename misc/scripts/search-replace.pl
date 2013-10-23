@@ -82,19 +82,19 @@ while (<INGROUP>) {
     # (4) featureCode: sub value: 7; match key: 6 and 7 [two fields concatenated, separated by a period]
     # (5) featureClass: sub value: 6; match key: 6 [one field]
     # (6) timezone: sub value: 17; match key: 17 [one field]
-	   
-	# MRB: set index fields for the substitution of the hash value for the key or
-	# the partial key in the new output file $new_b; to the left of the assignment
-	# operator is the index field in the output file $new_b that will be
-	# substituted with the hash value, and to the right of the assignment operator
-	# is the index field string or concatenated index fields string in the output
-	# file $new_b that matches the key; use the appropriate one field, two fields,
-	# or three fields line below, and comment the other two lines out
-	    # print $inline[8] . "." . $inline[10]."\n"; # MRB: error debugging to see if key is correct
+   
+    # MRB: set index fields for the substitution of the hash value for the key or
+    # the partial key in the new output file $new_b; to the left of the assignment
+    # operator is the index field in the output file $new_b that will be
+    # substituted with the hash value, and to the right of the assignment operator
+    # is the index field string or concatenated index fields string in the output
+    # file $new_b that matches the key; use the appropriate one field, two fields,
+    # or three fields line below, and comment the other two lines out
+        # print $inline[8] . "." . $inline[10]."\n"; # MRB: error debugging to see if key is correct
 	   
     $inline[1] = $key_value{$inline[1]}; # one field matches key
-	# $inline[10] = $key_value{$inline[8] . "." . $inline[10]}; # two fields concatenated with a period matches key
-	# $inline[11] = $key_value{$inline[8] . "." . $inline[10] . "." . $inline[11]}; # three fields concatenated with periods matches key
+    # $inline[10] = $key_value{$inline[8] . "." . $inline[10]}; # two fields concatenated with a period matches key
+    # $inline[11] = $key_value{$inline[8] . "." . $inline[10] . "." . $inline[11]}; # three fields concatenated with periods matches key
 	   
     my $line = &join_array(@inline); # user-defined subroutine call to join_array
     # print "$line\n"; ## MRB: writes to the shell so can monitor output (can comment out)

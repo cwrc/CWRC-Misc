@@ -29,17 +29,17 @@ open (F, "input.txt"); # MRB: set input-file
 while (<F>) {
     if ($. == 1) {
         chomp;
-	    @h = split($FS);
+        @h = split($FS);
         $NF = $#h
     }
     else {
-		printf $indent . "<record>\n";
-	    chomp;
+        printf $indent . "<record>\n";
+	chomp;
         @Fld = split($FS);
         for ($i = 0; $i <= $NF; $i++) {
             printf $indent2 . "<%s>%s</%s>\n", $h[$i], $Fld[$i], $h[$i];
         }
-	    printf $indent . "</record>\n";
+        printf $indent . "</record>\n";
     }
 }
 
