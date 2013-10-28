@@ -69,17 +69,17 @@ foreach ( $file_array as $file_name)
     }
     elseif ( strpos( $file_name, '-e.sgm') !== false )
     {
-        $test_type = true; 
+        $test_type = false; 
         $schema = $schema_event;
     }
     elseif ( strpos( $file_name, '-l.sgm') !== false )
     {
-        $test_type = true; 
+        $test_type = false; 
         $schema = $schema_bibliography;
     }
     elseif ( strpos( $file_name, '-d.sgm') !== false )
     {
-        $test_type = true; 
+        $test_type = false; 
         $schema = $schema_documentation;
     }
 
