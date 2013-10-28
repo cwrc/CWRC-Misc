@@ -23,6 +23,7 @@ $xml_docType=
 
 $xml_header = $xml_pi . $xml_docType;
 
+date_default_timezone_set('America/Edmonton');
 
 // Get username and password
 echo "\n";
@@ -46,7 +47,10 @@ print "<validation>" ;
 print "\n";
 foreach ( $file_array as $file_name)
 {
-    print "<validation_item id=\"$file_name\">" ;
+    print "<validation_item id=\"$file_name\" file_date=\"";
+    print date('c', filemtime($dir_name . $file_name));
+    print "\">" ;
+
     print "\n";
 
     $ext = preg_replace('/^.*\.([^.]+)$/D', '$1', $file_name);
