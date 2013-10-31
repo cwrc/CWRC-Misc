@@ -3,7 +3,7 @@
     xmlns:mods="http://www.loc.gov/mods/v3">
 
     <!--
-        * given a collection of CWRC entities 
+        * given a collection of CWRC organization entities 
         * split it into several individual files and save to disk
         * with each file containing an individual item
         *
@@ -12,7 +12,8 @@
 
     <xsl:output encoding="UTF-8" method="xml" indent="yes" omit-xml-declaration="no"/>
 
-    <xsl:variable name="VAR_FILENAME_PREFIX" select="'data/entity'"/>
+    <!-- MRB: set prefix for organization entity file name -->
+    <xsl:variable name="VAR_FILENAME_PREFIX" select="'data/organization'"/>
 
     <xsl:template match="/">
         <xsl:apply-templates select="cwrc/entity"/>
@@ -31,7 +32,8 @@
         <xsl:result-document indent="yes" href="{$filename}" omit-xml-declaration="no"
             encoding="UTF-8" method="xml">
             
-            <xsl:processing-instruction name="xml-model">href="http://cwrc.ca/schema/entities" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"</xsl:processing-instruction>
+            <!-- MRB: set organization entity schema location -->
+            <xsl:processing-instruction name="xml-model">href="http://cwrc.ca/schema/organization.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"</xsl:processing-instruction>
 
             <xsl:copy-of select="." copy-namespaces="no"/>
 
