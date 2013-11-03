@@ -1,5 +1,4 @@
 @echo off
-setlocal
 
 rem MRB -- Fri 01-Nov-2013
 
