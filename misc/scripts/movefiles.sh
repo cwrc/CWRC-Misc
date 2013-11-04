@@ -15,4 +15,4 @@
 #     sh movefiles.sh
 
 mkdir orlando
-grep -l "<projectId>orlando</projectId>" ./data/* | xargs mv -t ./orlando
+grep -l "<projectId>orlando</projectId>" ./data/* | xargs -I{} mv {} ./orlando
