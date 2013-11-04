@@ -1,4 +1,5 @@
 @echo off
+setlocal
 
 rem MRB -- Fri 01-Nov-2013
 
@@ -13,8 +14,12 @@ rem MRB -- Fri 01-Nov-2013
 
 ::     movefiles.bat
 
+:: set the appropriate search string: person/organization entities, or title entities
+set "string=<projectId>orlando</projectId>"
+:: set "string=<recordIdentifier source=\"orlando\">"
+
 cd data
-findstr /m /c:"<projectId>orlando</projectId>" * > ..\filelist.txt
+findstr /m /c:"%string%" * > ..\filelist.txt
 cd ..
 
 mkdir orlando
