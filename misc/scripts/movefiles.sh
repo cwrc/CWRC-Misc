@@ -14,9 +14,9 @@
 
 #     sh movefiles.sh
 
-# set the appropriate search string: person/organization entities, or title entities
-STRING='<projectId>orlando</projectId>'
-# STRING='<recordIdentifier source="orlando">'
+PERSON_ORGANIZATION='<projectId>orlando</projectId>'
+TITLE='<recordIdentifier source="orlando">'
 
 mkdir orlando
-grep -l "$STRING" ./data/* | xargs -I{} mv {} ./orlando
+# set search string variable: $PERSON_ORGANIZATION, or $TITLE
+grep -l "$TITLE" ./data/* | xargs -I{} mv {} ./orlando

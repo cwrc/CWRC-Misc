@@ -14,12 +14,12 @@ rem MRB -- Fri 01-Nov-2013
 
 ::     movefiles.bat
 
-:: set the appropriate search string: person/organization entities, or title entities
-set "string=<projectId>orlando</projectId>"
-:: set "string=<recordIdentifier source=\"orlando\">"
+set "_person_organization=<projectId>orlando</projectId>"
+set "_title=<recordIdentifier source=\"orlando\">"
 
 cd data
-findstr /m /c:"%string%" * > ..\filelist.txt
+:: set search string variable: %_person_organization%, or %_title%
+findstr /m /c:"%_title%" * > ..\filelist.txt
 cd ..
 
 mkdir orlando
