@@ -3,7 +3,7 @@
 <!-- 
 * remove word-wrap (i.e. Oxygen Format and Indent) - first attempt
 *
--->-->
+-->
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
     <xsl:output method="xml" indent="yes" omit-xml-declaration="yes"/>
     
