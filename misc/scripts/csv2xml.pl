@@ -13,7 +13,7 @@
 #     perl csv2xml.pl > output-file
 
 # [This script adapted from a script located at this URL:
-# http://laurentschneider.com/wordpress/2007/05/csv-with-xml-revisited.html
+# http://laurentschneider.com/wordpress/2007/05/csv-with-xml-revisited.html]
 
 # Note: check that the first line of the CSV file contains the header field names,
 # with the field names separated by the appropriate field delimiter character
