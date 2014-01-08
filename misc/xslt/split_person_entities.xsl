@@ -35,6 +35,9 @@
             <!-- MRB: set person entity schema location -->
             <xsl:processing-instruction name="xml-model">href="http://cwrc.ca/schema/person.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"</xsl:processing-instruction>
 
+            <!-- line feed character -->
+            <xsl:text>&#x0A;</xsl:text>
+
             <xsl:copy-of select="." copy-namespaces="no"/>
 
         </xsl:result-document>

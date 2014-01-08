@@ -31,9 +31,12 @@
 
         <xsl:result-document indent="yes" href="{$filename}" omit-xml-declaration="no"
             encoding="UTF-8" method="xml">
-            
+
             <!-- MRB: set place entity schema location -->
             <xsl:processing-instruction name="xml-model">href="http://cwrc.ca/schema/place.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"</xsl:processing-instruction>
+
+            <!-- line feed character -->
+            <xsl:text>&#x0A;</xsl:text>
 
             <xsl:copy-of select="." copy-namespaces="no"/>
 
