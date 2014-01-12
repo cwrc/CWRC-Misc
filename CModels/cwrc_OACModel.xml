@@ -32,7 +32,7 @@ xsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/
   <dsTypeModel ID="RELS-EXT">
     <form FORMAT_URI="info:fedora/fedora-system:FedoraRELSExt-1.0" MIME="text/xml"></form>
   </dsTypeModel>
-  <dsTypeModel ID="OAC">
+  <dsTypeModel ID="OA">
     <form MIME="text/xml"></form>
   </dsTypeModel>
 </dsCompositeModel>

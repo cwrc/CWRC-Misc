@@ -2,13 +2,13 @@
 <!-- 
         * - Coder: MRB
         * - Created: Fri 27-Dec-2013
-        * - Last modified: Tue 07-Jan-2014
+        * - Last modified: Thu 09-Jan-2014
         * - Purpose: XSLT stylesheet to transform the GeoNames database data dump to place entity records
         * - GeoNames database characteristics: over 8.5 million place name records
         * - Note: The GeoNames database dump was first processed using either the search-replace.awk or the search-replace.pl
-        *   script files; these scripts are used to convert GeoNames codes into their English name equivalent, and output
-        *   the results as a field-delimited CSV file.  The CSV file was then converted to an XML file using either the
-        *   csv2xml.awk or csv2xml.pl script files.
+        *   script files; these scripts are used to convert GeoNames codes into their English name equivalents, and output
+        *   the results as a field-delimited CSV file.  The field-delimited CSV file was then converted to an XML file using
+        *   either the csv2xml.awk or csv2xml.pl script files.
 -->
 
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0">
@@ -52,7 +52,7 @@
                         <!-- modificationDate ==> recordChangeDate -->
                         <xsl:if test="normalize-space(modificationDate) != ''">
                             <recordChangeDate>
-                                <xsl:value-of select="normalize-space(modicationDate)"/>
+                                <xsl:value-of select="normalize-space(modificationDate)"/>
                             </recordChangeDate>
                         </xsl:if>
 
