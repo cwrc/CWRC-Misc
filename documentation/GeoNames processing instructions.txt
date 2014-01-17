@@ -1,0 +1,18 @@
+GeoNames processing instructions
+
+* Download the desired GeoNames data from the GeoNames Web site.
+Web site is located at http://www.geonames.org/
+* Select a subset of the downloaded data file if desired, e.g.,
+Canadian populated places (CA country, and PPL* feature class) and
+administrative boundaries (CA country, and ADM* feature class).  Can
+use Windows findstr command or Unix grep command to select and output
+the filtered subset.
+* Use search-replace.awk or search-replace.pl to convert various GeoNames
+codes to their English-language equivalents.  This script was run six
+times to convert six different codes.
+* Use csv2xml.awk or csv2xml.pl to transform the tab-delimited file into
+a generic XML file.
+* Use geonames2place.xslt to transform the generic XML file into a CWRC
+place entity XML file.
+* Use split_place_entities.xslt to split the CWRC place entity XML file
+into individual CWRC place entity records.
