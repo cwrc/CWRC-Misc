@@ -18,7 +18,8 @@
 
 [void][reflection.assembly]::loadwithpartialname("system.windows.forms")
 
-$in = "C:\Users\jefferya.ARTSRN\Downloads\oxygen_batch_2014-02-12\"
+#$in = "C:\Users\jefferya.ARTSRN\Downloads\oxygen_batch_2014-02-12\"
+$in = "C:\Users\jefferya.ARTSRN\Downloads\data\"
 $oxygen_exe = "C:\Program Files\Oxygen XML Editor 15\oxygenAuthor15.1.exe"
 
 Write-Host
@@ -27,15 +28,19 @@ Write-Host 'Begin Batch Process'
 # open an instance of Oxygen XML and wait until finished opening 
 Write-Host "Wait...:"
 & $oxygen_exe 
-Start-Sleep -s 15 
+Start-Sleep -s 5 
 
 $fileList = Get-ChildItem $in
 
 for ($i=0; $i -lt $fileList.Count; $i++)
 {
+    $count = $fileList.Count
+    $filename = $fileList[$i]
+
     # open an tab in Oxygen XML and wait until finished opening 
     Write-Host
-    Write-Host "opening: $fileList[$i].FullName"
+    Write-Host "opening $i of $count : $fileName"
+    Write-Host
     & $oxygen_exe $fileList[$i].FullName
     
     Write-Host "Wait...:"
@@ -46,11 +51,11 @@ for ($i=0; $i -lt $fileList.Count; $i++)
     Start-Sleep -s 2 
 
     Write-Host "Oxygen select all ctrl+a"
-    [System.Windows.Forms.SendKeys]::SendWait("^+{a}") 
+    [System.Windows.Forms.SendKeys]::SendWait("^{a}") 
     Start-Sleep -s 2 
 
     Write-Host "Oxygen join ctrl+j"
-    [System.Windows.Forms.SendKeys]::SendWait("^+{j}") 
+    [System.Windows.Forms.SendKeys]::SendWait("^{j}") 
     Start-Sleep -s 2 
 
     Write-Host "Oxygen Format and Indent ctrl+shift+p"
@@ -60,7 +65,7 @@ for ($i=0; $i -lt $fileList.Count; $i++)
     Write-Host "Oxygen save ctrl+s"
     [System.Windows.Forms.SendKeys]::SendWait("^{s}") 
     Start-Sleep -s 2 
-    Write-Host "Saved: $fileList[$i].FullName"
+    Write-Host "Saved: $filename"
 
     Write-Host "Oxygen file close ctrl+w"
     [System.Windows.Forms.SendKeys]::SendWait("^{w}") 
