@@ -39,14 +39,14 @@ for ($i=0; $i -lt $fileList.Count; $i++)
 
     # open an tab in Oxygen XML and wait until finished opening 
     Write-Host
-    Write-Host "opening $i of $count : $fileName"
+    Write-Host "opening "($i+1)" of $count : $fileName"
     Write-Host
     & $oxygen_exe $fileList[$i].FullName
     
     Write-Host "Wait...:"
     Start-Sleep -s 5 
 
-    Write-Host "Switch to \"text mode\" ctrl+alt+shift+<f12>"
+    Write-Host "Switch to text mode ctrl+alt+shift+<f12>"
     [System.Windows.Forms.SendKeys]::SendWait("^+%{F12}") 
     Start-Sleep -s 2 
 
