@@ -8,6 +8,16 @@
 # Get-ExecutionPolicy
 # run command
 
+# preprocess
+# 2014-02-24
+# 'join and normalize' adds an extra space between elements that were 
+# separated by a 'newline'
+# Within Oxygen, 'find==>'find/repalce in Files'
+# test to find: \n\s+
+# replace with: 'nothing'
+# set specified path to list of files.
+
+    
 # requirements in the Oxygen Setting:
 # Oxygen startup window - disable
 # associate file type with editor to prevent popup asking if '.sgm' is xml.
@@ -15,6 +25,17 @@
 
 # reference:
 # http://stackoverflow.com/questions/19824799/how-to-send-ctrl-or-alt-any-other-key
+
+# Post process
+#FILES=./data/*
+#for f in $FILES
+#do
+#        echo "Processing $f file..."
+#        # remove the processing instructions after the batch change
+#        # and Oxygen XML join which mushes them onto one line
+#        perl  -pi -e 's#<\?xml.*\]>\n##' $f
+#done
+# 
 
 [void][reflection.assembly]::loadwithpartialname("system.windows.forms")
 
@@ -50,13 +71,16 @@ for ($i=0; $i -lt $fileList.Count; $i++)
     [System.Windows.Forms.SendKeys]::SendWait("^+%{F12}") 
     Start-Sleep -s 2 
 
-    Write-Host "Oxygen select all ctrl+a"
-    [System.Windows.Forms.SendKeys]::SendWait("^{a}") 
-    Start-Sleep -s 2 
+    #Write-Host "Oxygen select all ctrl+a"
+    #[System.Windows.Forms.SendKeys]::SendWait("^{a}") 
+    #Start-Sleep -s 2 
 
-    Write-Host "Oxygen join ctrl+j"
-    [System.Windows.Forms.SendKeys]::SendWait("^{j}") 
-    Start-Sleep -s 2 
+    # 2014-02-24
+    # adds an extra space between elements that were 
+    # separated by a 'newline'
+    #Write-Host "Oxygen join ctrl+j"
+    #[System.Windows.Forms.SendKeys]::SendWait("^{j}") 
+    #Start-Sleep -s 2 
 
     Write-Host "Oxygen Format and Indent ctrl+shift+p"
     [System.Windows.Forms.SendKeys]::SendWait("^+{p}") 
