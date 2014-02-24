@@ -13,7 +13,7 @@
 # 'join and normalize' adds an extra space between elements that were 
 # separated by a 'newline'
 # Within Oxygen, 'find==>'find/repalce in Files'
-# test to find: \n\s+
+# test to find: \n\s*
 # replace with: 'nothing'
 # set specified path to list of files.
 
