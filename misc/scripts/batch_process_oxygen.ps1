@@ -40,7 +40,7 @@
 [void][reflection.assembly]::loadwithpartialname("system.windows.forms")
 
 #$in = "C:\Users\jefferya.ARTSRN\Downloads\oxygen_batch_2014-02-12\"
-$in = "C:\Users\jefferya.ARTSRN\Downloads\data\"
+$in = "C:\Users\jefferya.ARTSRN\Downloads\data_before_2014-02-26\"
 $oxygen_exe = "C:\Program Files\Oxygen XML Editor 15\oxygenAuthor15.1.exe"
 
 Write-Host
