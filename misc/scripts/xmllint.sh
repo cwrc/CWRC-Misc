@@ -2,18 +2,19 @@
 
 # MRB -- Sun 23-Feb-2014
 
-# Purpose: Shell script to normalize, join, and format and indent Orlando files
+# Purpose: Shell script to normalize, join, and format and indent Orlando files using xmllint
 
 # Description: Shell script to strip leading and trailing blank spaces (normalize), linearize
-# the document into one line, with no space between the joined lines (join), and pretty print
-# the document (format and indent).  The Orlando files to be batch processed are put in a
-# directory called "old", and the processed files are written with the same name to a directory
-# called "new"; the directory "new" is created before the script is run, and it is created at
-# the same level as the directory "old", and the shell script "process_Orlando_files.sh" is
-# placed in the parent directory of the "old" and "new" directories.  To run the script, type
-# the following at the command prompt:
+# the document into one line, with one space between the joined lines (join), and pretty print
+# the document (format and indent).  The formatting and indenting is performed by the utility
+# xmllint and library libxml2, written by Daniel Veillard.  The Orlando files to be batch
+# processed are put in a directory called "old", and the processed files are written with the
+# same name to a directory called "new"; the directory "new" is created before the script is
+# run, and it is created at the same level as the directory "old", and the shell script 
+# "xmllint.sh" is placed in the parent directory of the "old" and "new" directories.  To run
+# the script, type the following at the command prompt:
 
-#     sh process_Orlando_files.sh
+#     sh xmllint.sh
 
 ### Begin script
 # count the number of files in the "old" directory and put this total in the TOTAL_FILES variable
@@ -32,7 +33,7 @@ for PATH_NAME in ./old/*; do
     # print out a file processing statement
     echo "    Processing file number $FILE_COUNT of $TOTAL_FILES files, the file $FILE_NAME . . ."
     # normalize and join the file, and put the file contents in the TMP_VAR variable
-    TMP_VAR=`sed 's/^[ \t]*//;s/[ \t]*$//' $PATH_NAME | tr -d '\n'`
+    TMP_VAR=`sed 's/^[ \t]*//;s/[ \t]*$//' $PATH_NAME | tr '\n' ' '`
     # format and indent the file, and write the processed file to the "new" directory
     echo "$TMP_VAR" | XMLLINT_INDENT='    ' xmllint --format --encode utf-8 - > ./new/$FILE_NAME
 done
