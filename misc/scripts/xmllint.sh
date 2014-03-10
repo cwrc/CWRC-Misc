@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# MRB -- Sun 23-Feb-2014
+# MRB -- Fri 07-Mar-2014
 
 # Purpose: Shell script to normalize, join, and format and indent Orlando files using xmllint
 
@@ -34,7 +34,7 @@ for PATH_NAME in ./old/*; do
     echo "    Processing file number $FILE_COUNT of $TOTAL_FILES files, the file $FILE_NAME . . ."
     # normalize and join the file, and put the file contents in the TMP_VAR variable
     TMP_VAR=`sed 's/^[ \t]*//;s/[ \t]*$//' $PATH_NAME | tr '\n' ' '`
-    # format and indent the file, and write the processed file to the "new" directory
+    # format and indent the file using xmllint, and write the file to the "new" directory
     echo "$TMP_VAR" | XMLLINT_INDENT='    ' xmllint --format --encode utf-8 --nonet - > ./new/$FILE_NAME 2>/dev/null
 done
 
