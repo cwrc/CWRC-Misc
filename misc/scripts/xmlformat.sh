@@ -26,22 +26,22 @@ TOTAL_FILES=`ls -1 ./old | wc -l`
 # initialize the FILE_COUNT variable
 FILE_COUNT=0
 # print out an initial batch file processing statement
-echo "### Begin the batch file processing of $TOTAL_FILES Orlando documents."
+echo "### Begin the batch file processing of" $TOTAL_FILES "Orlando documents."
 
 # loop through the "old" directory; put the file path name in the PATH_NAME variable
 for PATH_NAME in ./old/*; do
     # increment the FILE_COUNT number by 1
-    FILE_COUNT=$[$FILE_COUNT+1]
+    FILE_COUNT=`expr $FILE_COUNT + 1`
     # get the file name from the PATH_NAME variable, and put the file name in the FILE_NAME variable
     FILE_NAME=`basename $PATH_NAME`
     # print out a file processing statement
-    echo "    Processing file number $FILE_COUNT of $TOTAL_FILES files, the file $FILE_NAME . . ."
+    echo "    Processing file number" $FILE_COUNT "of" $TOTAL_FILES "files, the file" $FILE_NAME ". . ."
     # normalize and join the file, and put the file contents in the TMP_VAR variable
     TMP_VAR=`sed 's/^[ \t]*//;s/[ \t]*$//' $PATH_NAME | tr '\n' ' '`
-    # format and indent the file, and write the processed file to the "new" directory
+    # format and indent the file using xmlformat, and write the file to the "new" directory
     echo "$TMP_VAR" | perl xmlformat.pl - > ./new/$FILE_NAME
 done
 
 # print out a final batch file processing statement
-echo "### The batch file processing of $TOTAL_FILES Orlando documents is now finished."
+echo "### The batch file processing of" $TOTAL_FILES "Orlando documents is now finished."
 ### End script
