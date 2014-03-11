@@ -12,9 +12,10 @@
 # 2014-02-24
 # 'join and normalize' adds an extra space between elements that were 
 # separated by a 'newline'
-# Within Oxygen, 'find==>'find/repalce in Files'
-# test to find: \n\s*
-# replace with: 'nothing'
+# Within Oxygen, 'find==>'find/replace in Files'
+# test to find: \n\s* within //P
+#
+# fix replace with: 'nothing'
 # set specified path to list of files.
 
     
@@ -40,7 +41,7 @@
 [void][reflection.assembly]::loadwithpartialname("system.windows.forms")
 
 #$in = "C:\Users\jefferya.ARTSRN\Downloads\oxygen_batch_2014-02-12\"
-$in = "C:\Users\jefferya.ARTSRN\Downloads\data_before_2014-02-26\"
+$in = "C:\Users\jefferya.ARTSRN\Downloads\oxygen_schema_batch_3\data"
 $oxygen_exe = "C:\Program Files\Oxygen XML Editor 15\oxygenAuthor15.1.exe"
 
 Write-Host
@@ -84,16 +85,16 @@ for ($i=0; $i -lt $fileList.Count; $i++)
 
     Write-Host "Oxygen Format and Indent ctrl+shift+p"
     [System.Windows.Forms.SendKeys]::SendWait("^+{p}") 
-    Start-Sleep -s 2 
+    Start-Sleep -s 4 
 
     Write-Host "Oxygen save ctrl+s"
     [System.Windows.Forms.SendKeys]::SendWait("^{s}") 
-    Start-Sleep -s 2 
+    Start-Sleep -s 4 
     Write-Host "Saved: $filename"
 
     Write-Host "Oxygen file close ctrl+w"
     [System.Windows.Forms.SendKeys]::SendWait("^{w}") 
-    Start-Sleep -s 2 
+    #Start-Sleep -s 2 
 
     # don't need ot close Oxygen each time
     #Write-Host "Oxygen close ctrl+q"

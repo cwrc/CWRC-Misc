@@ -35,7 +35,11 @@ for PATH_NAME in ./old/*; do
     # normalize and join the file, and put the file contents in the TMP_VAR variable
     TMP_VAR=`sed 's/^[ \t]*//;s/[ \t]*$//' $PATH_NAME | tr '\n' ' '`
     # format and indent the file using xmllint, and write the file to the "new" directory
+<<<<<<< HEAD
     echo "$TMP_VAR" | XMLLINT_INDENT='    ' xmllint --format --encode utf-8 --dropdtd --nowarning - > ./new/$FILE_NAME
+=======
+    echo "$TMP_VAR" | XMLLINT_INDENT='    ' xmllint --format --encode utf-8 --dropdtd - > ./new/$FILE_NAME
+>>>>>>> bdf2954d2c76880218a22097bb465e4624819fda
 done
 
 # print out a final batch file processing statement
