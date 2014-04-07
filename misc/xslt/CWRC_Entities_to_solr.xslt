@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <!-- Basic CWRC Entities - transform for Solr -->
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:foxml="info:fedora/fedora-system:def/foxml#" xmlns:xlink="http://www.w3.org/1999/xlink">
+
+<xsl:stylesheet version="1.0" 
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+    xmlns:foxml="info:fedora/fedora-system:def/foxml#" 
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:mods="http://www.loc.gov/mods/v3" exclude-result-prefixes="mods"
+    >
 
     <!-- this template used to help test  -->
     <!-- 
@@ -118,24 +125,16 @@
     <!-- ********************************************************* -->
     <xsl:template match="foxml:datastream[@ID='TITLE']/foxml:datastreamVersion[last()]" name="index_CWRC_TITLE_ENTITY">
 
-        <xsl:param name="content" select="entity/title"></xsl:param> 
+        <xsl:param name="content"></xsl:param> 
         <xsl:param name="prefix" select="'cwrc_entity_'"></xsl:param>
         <xsl:param name="suffix" select="'_et'"></xsl:param>
         <!-- 'edged' (edge n-gram) text, for auto-completion -->
 
-        <xsl:variable name="identity" select="$content/entity/title/identity" />
-        <xsl:variable name="description" select="$content/entity/title/description" />
-        <xsl:variable name="local_prefix" select="concat($prefix, 'org_')"></xsl:variable>
-
+        <xsl:variable name="identity" select="$content/mods:mods/" />
+        <xsl:variable name="local_prefix" select="concat($prefix, 'title_')"></xsl:variable>
 
         <!-- ensure that the preferred name is first -->
-        <xsl:apply-templates select="$identity/preferredForm">
-            <xsl:with-param name="prefix" select="$local_prefix"></xsl:with-param>
-            <xsl:with-param name="suffix" select="$suffix"></xsl:with-param>
-        </xsl:apply-templates>
-
-        <!-- Variant forms of the name -->
-        <xsl:apply-templates select="$identity/variantForms">
+        <xsl:apply-templates select="$identity/mods:titleInfo">
             <xsl:with-param name="prefix" select="$local_prefix"></xsl:with-param>
             <xsl:with-param name="suffix" select="$suffix"></xsl:with-param>
         </xsl:apply-templates>
@@ -261,7 +260,7 @@
     </xsl:template>
 
 
-    <!-- assembel the person name from the component parts, if necessary -->
+    <!-- assemble the person name from the component parts, if necessary -->
     <xsl:template name="assemble_cwrc_person_name">
         <!-- does a surname exist -->
         <xsl:variable name="is_surname_present" select="namePart/@partType='surname'"></xsl:variable>
@@ -296,5 +295,42 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+
+
+    <!-- CWRC Person perferred name forms -->
+    <xsl:template match="mods:titleInfo">
+        <xsl:param name="prefix"></xsl:param>
+        <xsl:param name="suffix"></xsl:param>
+
+        <field>
+            <xsl:attribute name="name">
+                <xsl:value-of select="concat($prefix, 'preferredForm', $suffix)"></xsl:value-of>
+            </xsl:attribute>
+
+            <xsl:call-template name="assemble_cwrc_preferred_title"></xsl:call-template>
+        </field>
+
+    </xsl:template>
+
+
+
+    <!-- assemble the preferred MODS TITLE -->
+    <xsl:template name="assemble_cwrc_preferred_title">
+        <xsl:choose>
+        <xsl:when test="not(@type) and mods:title">
+            <xsl:value-of select="mods:title"/>
+        </xsl:when>
+        <xsl:when test="not(@type) and @usage='primary' and mods:title ">
+            <xsl:value-of select="mods:title"/>
+        </xsl:when>
+        <xsl:when test="@type='alternative' or @type='abbreviated' or @type='translated' or @type='uniform'">
+            <!-- multiple titles, don't use type='alternative' -->
+        </xsl:when>
+        <xsl:otherwise> 
+        </xsl:otherwise >
+        </xsl:choose>
+    </xsl:template>
+
+
 
 </xsl:stylesheet>
