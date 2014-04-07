@@ -17,8 +17,8 @@
         <xsl:param name="suffix" select="'_et'"></xsl:param>
         <!-- 'edged' (edge n-gram) text, for auto-completion -->
 
-        <xsl:variable name="identity" select="$content/identity"></xsl:variable>
-        <xsl:variable name="description" select="$content/description"></xsl:variable>
+        <xsl:variable name="identity" select="$content/entity/place/identity" />
+        <xsl:variable name="description" select="$content/entity/place/description" />
         <xsl:variable name="local_prefix" select="concat($prefix, 'place_')"></xsl:variable>
 
         <!-- ensure that the preferred name is first -->
@@ -74,14 +74,16 @@
     <!-- CWRC ORGANIZATION Entity solr index Fedora Datastream -->
     <xsl:template match="foxml:datastream[@ID='ORGANIZATION']/foxml:datastreamVersion[last()]" name="index_CWRC_ORGANIZATION_ENTITY">
 
-        <xsl:param name="content" select="foxml:xmlContent/entity/organization"></xsl:param>
+      <!-- <xsl:param name="content" select="foxml:xmlContent/entity/organization"></xsl:param> -->
+        <xsl:param name="content"></xsl:param> 
         <xsl:param name="prefix" select="'cwrc_entity_'"></xsl:param>
         <xsl:param name="suffix" select="'_et'"></xsl:param>
         <!-- 'edged' (edge n-gram) text, for auto-completion -->
 
-        <xsl:variable name="identity" select="$content/identity"></xsl:variable>
-        <xsl:variable name="description" select="$content/description"></xsl:variable>
+        <xsl:variable name="identity" select="$content/entity/organization/identity" />
+        <xsl:variable name="description" select="$content/entity/organization/description" />
         <xsl:variable name="local_prefix" select="concat($prefix, 'org_')"></xsl:variable>
+
 
         <!-- ensure that the preferred name is first -->
         <xsl:apply-templates select="$identity/preferredForm">
@@ -105,8 +107,8 @@
         <xsl:param name="suffix" select="'_et'"></xsl:param>
         <!-- 'edged' (edge n-gram) text, for auto-completion -->
 
-        <xsl:variable name="identity" select="$content/identity"></xsl:variable>
-        <xsl:variable name="description" select="$content/description"></xsl:variable>
+        <xsl:variable name="identity" select="$content/entity/person/identity" />
+        <xsl:variable name="description" select="$content/entity/person/description" />
         <xsl:variable name="local_prefix" select="concat($prefix, 'name_')"></xsl:variable>
 
         <!-- ensure that the preferred name is first -->
