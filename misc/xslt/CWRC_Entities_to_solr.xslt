@@ -5,14 +5,16 @@
     <!-- this template used to help test  -->
     <!-- 
     <xsl:template match="/">
-        <xsl:apply-templates select="/foxml:digitalObject/foxml:datastream[@ID='ORGANIZATION']/foxml:datastreamVersion[last()]"></xsl:apply-templates>
+        <xsl:apply-templates select="/foxml:digitalObject/foxml:datastream[@ID='ORGANIZATION']/foxml:datastreamVersion[last()]/foxml:xmlContent"></xsl:apply-templates>
     </xsl:template>
     -->
 
+    <!-- ********************************************************* -->
     <!-- CWRC ORGANIZATION Entity solr index Fedora Datastream -->
+    <!-- ********************************************************* -->
     <xsl:template match="foxml:datastream[@ID='PLACE']/foxml:datastreamVersion[last()]" name="index_CWRC_PLACE_ENTITY">
 
-        <xsl:param name="content" select="foxml:xmlContent/entity/place"></xsl:param>
+        <xsl:param name="content" select="entity/place"></xsl:param>
         <xsl:param name="prefix" select="'cwrc_entity_'"></xsl:param>
         <xsl:param name="suffix" select="'_et'"></xsl:param>
         <!-- 'edged' (edge n-gram) text, for auto-completion -->
@@ -34,7 +36,6 @@
         </xsl:apply-templates>
 
         <!-- Descriptive Geo Location - latitude and longitude -->
-<!-- 
         <xsl:if test="$description/latitude and $description/longitude">
             <field>
                 <xsl:attribute name="name">
@@ -44,7 +45,6 @@
                 <xsl:value-of select="concat($description/latitude, ',', $description/longitude)"></xsl:value-of>
             </field>
         </xsl:if>
- -->
 
         <!-- Descriptive Geo Location - country name -->
         <xsl:if test="$description/countryName">
@@ -57,7 +57,7 @@
             </field>
         </xsl:if>
 
-        <!-- Descriptive Geo Location - country name -->
+        <!-- Descriptive Geo Location - first adminstrative division-->
         <xsl:if test="$description/firstAdministrativeDivision">
             <field>
                 <xsl:attribute name="name">
@@ -68,14 +68,26 @@
             </field>
         </xsl:if>
 
+        <!-- Descriptive featureClass - -->
+        <xsl:if test="$description/featureClass">
+            <field>
+                <xsl:attribute name="name">
+                    <xsl:value-of select="concat($prefix, 'featureClass', $suffix)"></xsl:value-of>
+                </xsl:attribute>
+
+                <xsl:value-of select="$description/featureClass"></xsl:value-of>
+            </field>
+        </xsl:if>
+
     </xsl:template>
 
 
+    <!-- ********************************************************* -->
     <!-- CWRC ORGANIZATION Entity solr index Fedora Datastream -->
+    <!-- ********************************************************* -->
     <xsl:template match="foxml:datastream[@ID='ORGANIZATION']/foxml:datastreamVersion[last()]" name="index_CWRC_ORGANIZATION_ENTITY">
 
-      <!-- <xsl:param name="content" select="foxml:xmlContent/entity/organization"></xsl:param> -->
-        <xsl:param name="content"></xsl:param> 
+        <xsl:param name="content" select="entity/organization"></xsl:param>
         <xsl:param name="prefix" select="'cwrc_entity_'"></xsl:param>
         <xsl:param name="suffix" select="'_et'"></xsl:param>
         <!-- 'edged' (edge n-gram) text, for auto-completion -->
@@ -99,10 +111,46 @@
 
     </xsl:template>
 
+
+
+    <!-- ********************************************************* -->
+    <!-- CWRC TITLE Entity solr index Fedora Datastream -->
+    <!-- ********************************************************* -->
+    <xsl:template match="foxml:datastream[@ID='TITLE']/foxml:datastreamVersion[last()]" name="index_CWRC_TITLE_ENTITY">
+
+        <xsl:param name="content" select="entity/title"></xsl:param> 
+        <xsl:param name="prefix" select="'cwrc_entity_'"></xsl:param>
+        <xsl:param name="suffix" select="'_et'"></xsl:param>
+        <!-- 'edged' (edge n-gram) text, for auto-completion -->
+
+        <xsl:variable name="identity" select="$content/entity/title/identity" />
+        <xsl:variable name="description" select="$content/entity/title/description" />
+        <xsl:variable name="local_prefix" select="concat($prefix, 'org_')"></xsl:variable>
+
+
+        <!-- ensure that the preferred name is first -->
+        <xsl:apply-templates select="$identity/preferredForm">
+            <xsl:with-param name="prefix" select="$local_prefix"></xsl:with-param>
+            <xsl:with-param name="suffix" select="$suffix"></xsl:with-param>
+        </xsl:apply-templates>
+
+        <!-- Variant forms of the name -->
+        <xsl:apply-templates select="$identity/variantForms">
+            <xsl:with-param name="prefix" select="$local_prefix"></xsl:with-param>
+            <xsl:with-param name="suffix" select="$suffix"></xsl:with-param>
+        </xsl:apply-templates>
+
+    </xsl:template>
+
+
+
+
+    <!-- ********************************************************* -->
     <!-- CWRC PERSON Entity solr index Fedora Datastream -->
+    <!-- ********************************************************* -->
     <xsl:template match="foxml:datastream[@ID='PERSON']/foxml:datastreamVersion[last()]" name="index_CWRC_PERSON_ENTITY">
 
-        <xsl:param name="content" select="foxml:xmlContent/entity/person"></xsl:param>
+        <xsl:param name="content" select="entity/person"></xsl:param>
         <xsl:param name="prefix" select="'cwrc_entity_'"></xsl:param>
         <xsl:param name="suffix" select="'_et'"></xsl:param>
         <!-- 'edged' (edge n-gram) text, for auto-completion -->
@@ -132,6 +180,16 @@
 
     </xsl:template>
 
+
+
+
+
+
+
+
+    <!-- ********************************************************* -->
+    <!-- HELPER Templates -->
+    <!-- ********************************************************* -->
 
     <!-- CWRC Person perferred name forms -->
     <xsl:template match="preferredForm">
@@ -168,6 +226,7 @@
 
     </xsl:template>
 
+
     <!-- Descriptive Birthdate -->
     <!-- assume all date types are Birth or Death -->
     <xsl:template match="existDates">
@@ -202,6 +261,7 @@
     </xsl:template>
 
 
+    <!-- assembel the person name from the component parts, if necessary -->
     <xsl:template name="assemble_cwrc_person_name">
         <!-- does a surname exist -->
         <xsl:variable name="is_surname_present" select="namePart/@partType='surname'"></xsl:variable>
