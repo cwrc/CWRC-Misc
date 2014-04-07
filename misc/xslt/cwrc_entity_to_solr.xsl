@@ -34,6 +34,7 @@
         </xsl:apply-templates>
 
         <!-- Descriptive Geo Location - latitude and longitude -->
+<!-- 
         <xsl:if test="$description/latitude and $description/longitude">
             <field>
                 <xsl:attribute name="name">
@@ -43,6 +44,7 @@
                 <xsl:value-of select="concat($description/latitude, ',', $description/longitude)"></xsl:value-of>
             </field>
         </xsl:if>
+ -->
 
         <!-- Descriptive Geo Location - country name -->
         <xsl:if test="$description/countryName">
