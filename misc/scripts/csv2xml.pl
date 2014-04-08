@@ -34,7 +34,7 @@ while (<F>) {
     }
     else {
         printf $indent . "<record>\n";
-	chomp;
+	    chomp;
         @Fld = split($FS);
         for ($i = 0; $i <= $NF; $i++) {
             printf $indent2 . "<%s>%s</%s>\n", $h[$i], $Fld[$i], $h[$i];
