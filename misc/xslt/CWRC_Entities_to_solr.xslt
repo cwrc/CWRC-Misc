@@ -130,7 +130,7 @@
         <xsl:param name="suffix" select="'_et'"></xsl:param>
         <!-- 'edged' (edge n-gram) text, for auto-completion -->
 
-        <xsl:variable name="identity" select="$content/mods:mods/" />
+        <xsl:variable name="identity" select="$content/mods:mods" />
         <xsl:variable name="local_prefix" select="concat($prefix, 'title_')"></xsl:variable>
 
         <!-- ensure that the preferred name is first -->
