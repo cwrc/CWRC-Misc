@@ -46,7 +46,7 @@
         <xsl:if test="$description/latitude and $description/longitude">
             <field>
                 <xsl:attribute name="name">
-                    <xsl:value-of select="concat($prefix, 'geoloc', $suffix)"></xsl:value-of>
+                    <xsl:value-of select="concat($prefix, 'geoloc', '_s')"></xsl:value-of>
                 </xsl:attribute>
 
                 <xsl:value-of select="concat($description/latitude, ',', $description/longitude)"></xsl:value-of>
@@ -238,7 +238,13 @@
         <xsl:if test="$var_birthDate">
             <field>
                 <xsl:attribute name="name">
-                    <xsl:value-of select="concat($prefix, 'birthDate', $suffix)"></xsl:value-of>
+                    <xsl:value-of select="concat($prefix, 'birthDate', '_s')"></xsl:value-of>
+                </xsl:attribute>
+                <xsl:value-of select="$var_birthDate"></xsl:value-of>
+            </field>
+            <field>
+                <xsl:attribute name="name">
+                    <xsl:value-of select="concat($prefix, 'birthDate', '_dt')"></xsl:value-of>
                 </xsl:attribute>
                 <xsl:value-of select="$var_birthDate"></xsl:value-of>
             </field>
@@ -250,7 +256,13 @@
         <xsl:if test="$var_deathDate">
             <field>
                 <xsl:attribute name="name">
-                    <xsl:value-of select="concat($prefix, 'deathDate', $suffix)"></xsl:value-of>
+                    <xsl:value-of select="concat($prefix, 'deathDate', '_s')"></xsl:value-of>
+                </xsl:attribute>
+                <xsl:value-of select="$var_deathDate"></xsl:value-of>
+            </field>
+            <field>
+                <xsl:attribute name="name">
+                    <xsl:value-of select="concat($prefix, 'deathDate', '_dt')"></xsl:value-of>
                 </xsl:attribute>
                 <xsl:value-of select="$var_deathDate"></xsl:value-of>
             </field>
