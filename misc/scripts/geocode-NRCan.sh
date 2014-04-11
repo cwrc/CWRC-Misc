@@ -7,12 +7,17 @@
 # Description: Bash shell script to geocode place name into their associated coordinates of
 # latitude and longitude using Natural Resources Canada's (NRCan) Canadian Geographical
 # Names Data Data Base (CGNDB) API.  The input file consists of place names for a particular
-# province, with each place name appearing on a separate new line.  The resulting output file
-# consists of two lines for each record: a header line, that contains the field names for each
-# data element; and a data line, that contains the data for each particular field.  To run the
-# script, type the following at the command prompt:
+# province, with each place name appearing on a separate new line.  The output data returned from the server is in CSV format.  The resulting output file consists of two lines for each
+# record: a header line, that contains the field names for each data element; and a data line,
+# that contains the data for each particular field.  To run the script, type the following at
+# the command prompt:
 
 #     sh geocode-NRCan.sh
+
+# Notes:
+# * Geocode lookups using the CGNDB API can be done to a level of precision down to the
+# locality (community place name).
+# * The CGNDB API does not have a limit on the number of geocode queries that can be performed.
 
 # Useful documentation about the CGNDB API:
 # * Application Programming Interface -- API: http://www.nrcan.gc.ca/earth-sciences/geography/place-names/data/9249
@@ -32,7 +37,7 @@ CONCISE_CODE='P'
 STATUS_CODE='A'
 # set the REGION_CODE parameter (province code); AB = 48, BC = 59, MB = 46, NB = 13, NF = 10,
 # NT = 61, NS= 12, NU = 62, ON = 35, PE = 11, QC = 24, SK = 47, YT = 60
-REGION_CODE=59
+REGION_CODE=48
 # set the ORDER parameter
 ORDER='geoname'
 # set the OUTPUT parameter (many output options, including "xml")

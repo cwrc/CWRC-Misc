@@ -8,34 +8,42 @@
 # latitude and longitude using the geocoder.ca API.  The input file consists of a CSV
 # text file with two fields, place name and 2-letter province/territory code, separated
 # by a comma, e.g., "Edmonton, AB", with each line in the text file containing these two
-# data elements.  The resulting output file contains four comma-separated fields: place
-# name, 2-letter province/territory code, latitude, and longitude.  To run the script,
-# type the following at the command prompt:
+# data elements.  The output data returned from the server is in XML format.  The resulting
+# output file contains three comma-separated fields: place name and 2-letter province/territory
+# code, latitude, and longitude.  To run the script, type the following at the command prompt:
 
 #     perl geocode-geocoder.ca.pl input.csv > output.csv
 
 # [This script adapted from a script located at this URL:
 # http://geocoder.ca/?premium_api=1]
 
+# Notes:
+# * Geocode lookups using the geocoder.ca API can be done to a level of precision
+# down to the street address -- the street address just needs to be added before the
+# community name, separated by a comma.  For example, for Strathcona Public Library,
+# it would be the following: 8331 104 Street,Edmonton,AB  Addresses with multiple parts
+# can also be geocoded -- just add the multiple parts each separated by a comma, as in the
+# following example: 4-20 Humanities Centre,University of Alberta,Edmonton,AB
+# * Do not put a dash between the street address and the street name, as this will cause the
+# query to fail.
+# * The geocoder.ca API has a limit in the range of 500-2,000 lookups per day (varies
+# according to server load).
+
+# Useful documentation about the geocoder.ca API:
+# * API: http://geocoder.ca/?premium_api=1
+
 use strict;
 use warnings;
 
 my $file = $ARGV[0] or die "Need to set input CSV file on the command line\n";
  
-my $city = "";
-my $province = "";
-
 open(my $data, '<', $file) or die "Could not open '$file' $!\n";
  
-while (my $line = <$data>) {
-    chomp $line;
-
-    my @fields = split "," , $line;
-    $city = $fields[0];
-	$province = $fields[1];
+while (my $address = <$data>) {
+    chomp $address;
 
     my %data;
-    my $url = "http://geocoder.ca" . "/?" . "&city=" . $city . "&prov=" . $province . "&geoit=XML";
+	my $url = "http://geocoder.ca" . "/?" . "&locate=" . $address . "&geoit=XML";
     use LWP::UserAgent;
     my $ua = new LWP::UserAgent;
     $ua->agent("ruci/0.1 " . $ua->agent);
@@ -57,6 +65,6 @@ while (my $line = <$data>) {
         print "Error -- server message: " . $res->code . $res->message . "\n\n";
     }
 
-    # print out place name, 2-letter province/territory code, latitude, and longitude
-    print "\"" . $city . "\"" . "," . $province . "," . $data{latt} . "," . $data{longt} . "\n";
+    # print out address ([street address], community, province code), latitude, and longitude
+    print "\"" . $address . "\"" . "," . $data{latt} . "," . $data{longt} . "\n";
 }
