@@ -4,7 +4,7 @@
 
 # Purpose: Perl script to geocode place names using the gecoder.ca API
 
-# Description: Perl script to geocode place name into their associated coordinates of
+# Description: Perl script to geocode place names into their associated coordinates of
 # latitude and longitude using the geocoder.ca API.  The input file consists of a CSV
 # text file with two fields, place name and 2-letter province/territory code, separated
 # by a comma, e.g., "Edmonton,AB", with each line in the text file containing these two

@@ -7,7 +7,7 @@
 // Purpose: PHP script to geocode place names using the GeoNames Web Services API
 
 /**
- * Description: PHP script to geocode place name into their associated coordinates of
+ * Description: PHP script to geocode place names into their associated coordinates of
  * latitude and longitude using the GeoNames Web Services API.  The input file consists of a
  * CSV text file with two fields, place name and 2-letter province/territory code, separated
  * by a comma, e.g., "Edmonton,AB", with each line in the text file containing these two
