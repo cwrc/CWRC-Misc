@@ -28,7 +28,7 @@
 
 ### Begin script
 # set input file name
-INPUT_FILE='sample_test.csv'
+INPUT_FILE='input.csv'
 # set output file name
 OUTPUT_FILE='output.csv'
 # set the MATCH parameter
@@ -72,7 +72,7 @@ do
 	    echo "\""$PLACE_NAME"\","$LAT_LNG >> $OUTPUT_FILE
 	else
 	    # write error statement and place name
-	    echo "\"Error: "$PLACE_NAME "was not geocoded\",," >> $OUTPUT_FILE
+	    echo "\"Error: "$PLACE_NAME" was not geocoded\",," >> $OUTPUT_FILE
 	fi
 done < $INPUT_FILE
 
