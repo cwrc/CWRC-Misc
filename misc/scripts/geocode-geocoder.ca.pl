@@ -7,7 +7,7 @@
 # Description: Perl script to geocode place name into their associated coordinates of
 # latitude and longitude using the geocoder.ca API.  The input file consists of a CSV
 # text file with two fields, place name and 2-letter province/territory code, separated
-# by a comma, e.g., "Edmonton, AB", with each line in the text file containing these two
+# by a comma, e.g., "Edmonton,AB", with each line in the text file containing these two
 # data elements.  The output data returned from the server is in XML format.  The resulting
 # output file contains three comma-separated fields: place name and 2-letter province/territory
 # code, latitude, and longitude.  To run the script, type the following at the command prompt:
@@ -43,10 +43,10 @@ while (my $address = <$data>) {
     chomp $address;
 
     my %data;
-	my $url = "http://geocoder.ca" . "/?" . "&locate=" . $address . "&geoit=XML";
+    my $url = "http://geocoder.ca" . "/?" . "&locate=" . $address . "&geoit=XML";
     use LWP::UserAgent;
     my $ua = new LWP::UserAgent;
-    $ua->agent("ruci/0.1 " . $ua->agent);
+    $ua->agent("mrb/0.1 " . $ua->agent);
     my $req = new HTTP::Request('GET', $url);
     $req->header(Subject => 'XML Get',
              From    => 'nospam@nospam.ca',
@@ -61,10 +61,13 @@ while (my $address = <$data>) {
             $data{longt} = $1;
         }
     }
-	else {
+    else {
         print "Error -- server message: " . $res->code . $res->message . "\n\n";
     }
-
-    # print out address ([street address], community, province code), latitude, and longitude
-    print "\"" . $address . "\"" . "," . $data{latt} . "," . $data{longt} . "\n";
+    if ($data{latt} && $data{longt}) {
+        print "\"" . $address . "\"" . "," . $data{latt} . "," . $data{longt} . "\n";
+    }
+    else {
+        print "\"Error: " . $address . " was not geocoded\"" . "," . "," . "\n";
+    }
 }

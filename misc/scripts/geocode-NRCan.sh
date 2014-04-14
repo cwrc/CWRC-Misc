@@ -1,22 +1,24 @@
 #!/usr/bin/sh
 
-# MRB -- Mon 07-Apr-2014
+# MRB -- Sun 06-Apr-2014
 
 # Purpose: Bash shell script to geocode place names using NRCan's CGNDB API
 
 # Description: Bash shell script to geocode place name into their associated coordinates of
 # latitude and longitude using Natural Resources Canada's (NRCan) Canadian Geographical
 # Names Data Data Base (CGNDB) API.  The input file consists of place names for a particular
-# province, with each place name appearing on a separate new line.  The output data returned from the server is in CSV format.  The resulting output file consists of two lines for each
-# record: a header line, that contains the field names for each data element; and a data line,
-# that contains the data for each particular field.  To run the script, type the following at
-# the command prompt:
+# province, with each place name appearing on a separate new line.  The output data returned
+# from the server is in CSV format.  The resulting output file contains three comma-separated
+# fields: place name, latitude, and longitude.  To run the script, type the following at the
+# command prompt:
 
 #     sh geocode-NRCan.sh
 
 # Notes:
 # * Geocode lookups using the CGNDB API can be done to a level of precision down to the
 # locality (community place name).
+# * To process the last record in the input file, a newline character needs to appear at the
+# end of the record.
 # * The CGNDB API does not have a limit on the number of geocode queries that can be performed.
 
 # Useful documentation about the CGNDB API:
@@ -26,13 +28,13 @@
 
 ### Begin script
 # set input file name
-INPUT_FILE='input.csv'
+INPUT_FILE='sample_test.csv'
 # set output file name
 OUTPUT_FILE='output.csv'
 # set the MATCH parameter
 MATCH='exact'
 # set the CONCISE_CODE parameter
-CONCISE_CODE='P'
+CONCISE_CODE='CITY,TOWN,VILG,HAM,UNP'
 # set the STATUS_CODE parameter; A = current
 STATUS_CODE='A'
 # set the REGION_CODE parameter (province code); AB = 48, BC = 59, MB = 46, NB = 13, NF = 10,
@@ -59,26 +61,23 @@ do
     echo "    Processing record number" $RECORD_COUNT "of" $TOTAL_RECORDS "records, the place name" $PLACE_NAME ". . ."
 	# set the GEONAME parameter with the next PLACE_NAME value
 	GEONAME="$PLACE_NAME"
-	# query the CGNDB database, and append the results to the OUTPUT_FILE
-	wget -O - "http://www.nrcan.gc.ca/earth-sciences/api?geoname=""$GEONAME""&match="$MATCH"&conciseCode="$CONCISE_CODE"&statusCode="$STATUS_CODE"&regionCode="$REGION_CODE"&order="$ORDER"&output="$OUTPUT >> $OUTPUT_FILE
+	# query the CGNDB database, and write the results to tmp1
+	wget -O - "http://www.nrcan.gc.ca/earth-sciences/api?geoname=""$GEONAME""&match="$MATCH"&conciseCode="$CONCISE_CODE"&statusCode="$STATUS_CODE"&regionCode="$REGION_CODE"&order="$ORDER"&output="$OUTPUT > tmp1
+	# delete the header line in tmp1, and write the data line that remains to tmp2
+	sed /geoname,status_term/d tmp1 > tmp2
+	# extract latitude, and longitude, and write these strings to LAT_LNG
+	LAT_LNG=`awk -F',' '{ print $5","$6 }' tmp2`
+	if [ -n "$LAT_LNG" ]; then
+	    # write place name, latitude, and longitude
+	    echo "\""$PLACE_NAME"\","$LAT_LNG >> $OUTPUT_FILE
+	else
+	    # write error statement and place name
+	    echo "\"Error: "$PLACE_NAME "was not geocoded\",," >> $OUTPUT_FILE
+	fi
 done < $INPUT_FILE
 
-###
-# #Code in this section can be used to process response back from the server, deleting the
-# header line, and only returning the data elements of place name, latitude, and longitude.
-# However, if the server cannot geocode a particular place name, there will be no indication
-# of this if processing is implemented.  To implement processing, change $OUTPUT_FILE at
-# end of loop above to tmp1, and uncomment the sed, awk, and rm statements below.#
-#
-# delete the header line that precedes every data line in the response back from the server
-#sed /geoname,status_term/d tmp1 > tmp2
-
-# extract the place name, latitude, and longitude, and write these strings to OUTPUT_FILE
-#awk -F',' '{ print $1","$5","$6 }' tmp2 > $OUTPUT_FILE
-
 # delete temporary files
-#rm tmp1 tmp2
-###
+rm tmp1 tmp2
 
 # print out a final batch geocoding statement
 echo "### The batch geocoding of" $TOTAL_RECORDS "place name records is now finished."

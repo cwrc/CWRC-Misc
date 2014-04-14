@@ -7,7 +7,7 @@
 # Description: Python script to geocode place name into their associated coordinates of
 # latitude and longitude using the Google Geocoding API.  The input file consists of a CSV
 # text file with two fields, place name and 2-letter province/territory code, separated
-# by a comma, e.g., "Edmonton, AB", with each line in the text file containing these two
+# by a comma, e.g., "Edmonton,AB", with each line in the text file containing these two
 # data elements.  The output data returned from the server is in JSON format.  The resulting
 # output file contains three comma-separated fields: place name and 2-letter province/territory
 # code, latitude, and longitude.  To run the script, type the following at the command prompt:
@@ -48,9 +48,7 @@ for row in inputfile:
         lng = json['results'][0]['geometry']['location']['lng']
 
         newrow = [row,lat,lng]
-        # print out place name, 2-letter province/territory code, latitude, and longitude
         outputfile.writerow(newrow)
     except IndexError:
-        # print out error message and name of place name that was not geocoded
-        errorrow = ['Error:',row, ' was not geocoded' ]
+        errorrow = ['Error: '+row+' was not geocoded','','']
         outputfile.writerow(errorrow)
