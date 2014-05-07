@@ -28,6 +28,7 @@
 # query to fail.
 # * The geocoder.ca API has a limit in the range of 500-2,000 lookups per day (varies
 # according to server load).
+# * Sample GET URL string: http://geocoder.ca/?&locate=London,ON&geoit=XML
 
 # Useful documentation about the geocoder.ca API:
 # * API: http://geocoder.ca/?premium_api=1

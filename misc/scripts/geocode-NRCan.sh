@@ -20,6 +20,7 @@
 # * To process the last record in the input file, a newline character needs to appear at the
 # end of the record.
 # * The CGNDB API does not have a limit on the number of geocode queries that can be performed.
+# * Sample GET URL string: http://www.nrcan.gc.ca/earth-sciences/api?geoname=London&match=exact&conciseCode=CITY,TOWN,VILG,HAM,UNP&statusCode=A&regionCode=35&order=geoname&output=xml
 
 # Useful documentation about the CGNDB API:
 # * Application Programming Interface -- API: http://www.nrcan.gc.ca/earth-sciences/geography/place-names/data/9249
@@ -37,9 +38,9 @@ MATCH='exact'
 CONCISE_CODE='CITY,TOWN,VILG,HAM,UNP'
 # set the STATUS_CODE parameter; A = current
 STATUS_CODE='A'
-# set the REGION_CODE parameter (province code); AB = 48, BC = 59, MB = 46, NB = 13, NF = 10,
+# set the REGION_CODE parameter (province code); AB = 48, BC = 59, MB = 46, NB = 13, NL = 10,
 # NT = 61, NS= 12, NU = 62, ON = 35, PE = 11, QC = 24, SK = 47, YT = 60
-REGION_CODE=48
+REGION_CODE=35
 # set the ORDER parameter
 ORDER='geoname'
 # set the OUTPUT parameter (many output options, including "xml")

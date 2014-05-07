@@ -26,6 +26,7 @@
 # following example: 4-20 Humanities Centre,University of Alberta,Edmonton,AB
 # * A dash can appear between the street address and the street name.
 # * The Google Geocoding API has a limit of 2,500 requests per 24 hour period.
+# * Sample GET URL string: http://maps.googleapis.com/maps/api/geocode/xml?address=London,ON&sensor=false
 
 # Useful documentation about the Google Geocoding API:
 # * The Google Geocoding API: https://developers.google.com/maps/documentation/geocoding/

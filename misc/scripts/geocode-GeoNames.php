@@ -25,6 +25,7 @@
 # A GeoNames user account needs to be created; accounts can be created from this page:
 # http://www.geonames.org/login  The user account username will then be used as the $username
 # variable value.
+# * Sample GET URL string: http://api.geonames.org/search?name_equals=London&adminCode1=08&country=CA&featureClass=P&type=XML&username=demo
 
 # Useful documentation about the GeoNames Web Services API:
 # * GeoNames Web Services Documentation: http://www.geonames.org/export/web-services.html
@@ -35,8 +36,8 @@ $inputFile = "input.csv";
 // set output file
 $outputFile = "output.csv";
 // set the GeoNames admin1 code parameter (province code): AB = 01, BC = 02, MB = 03, NB = 04,
-// NF = 05, NT = 13, NS= 07, NU = 14, ON = 08, PE = 09, QC = 10, SK = 11, YT = 12
-$adminCode1 = "01";
+// NL = 05, NT = 13, NS= 07, NU = 14, ON = 08, PE = 09, QC = 10, SK = 11, YT = 12
+$adminCode1 = "11";
 // set country code
 $country = "CA";
 // set GeoNames feature class
@@ -52,7 +53,7 @@ if (($handle = fopen("$inputFile.", "r")) !== FALSE) {
         $provinceCode = $data[1];
         $name_equals = urlencode($placeName);
         $url = "http://api.geonames.org/search?name_equals=$name_equals&adminCode1=$adminCode1".
-            "&country=$country&featureClass=$featureClass&$type=$type&username=$username";
+            "&country=$country&featureClass=$featureClass&type=$type&username=$username";
         $file = file_get_contents($url);
         $file = str_replace('xmlns=', 'ns=', $file);
         $xml = new SimpleXMLElement($file);
