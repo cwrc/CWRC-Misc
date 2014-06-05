@@ -1,0 +1,7 @@
+<record>
+    <label>{label}</label>
+    <desc>{desc}</desc>
+    <community>{settlement}</community>
+    <province>{province}</province>
+    <latLng>{latlong}</latLng>
+</record>
