@@ -1,10 +1,10 @@
 #!/usr/bin/python
 
 """
-Convert JSON data to human-readable form.
-
+Purpose:
+    Pretty print (format and indent) a JSON data file.
 Usage:
-  prettyPrintJSON.py input.json > output.json
+    python prettyPrintJSON.py input.json > output.json
 Note:
 	Can also use this command: python -mjson.tool input.json > output.json
 """
