@@ -38,11 +38,13 @@ function array_to_template($filename_template, $rules)
     foreach ( $rules['data'] as $key => $value )
     {
         $tmp = NULL;
+		$replace_str = NULL;
+		$replace_str = preg_quote("{$key}");
         if ( $rules['substitutions'][$key] )
         {
             $tmp = $rules['substitutions'][$key] ;
-            $replace_str = preg_quote("{$key}");
-            $tmp = preg_replace ( "/\{$key\}/", $value, $tmp); 
+            
+            $tmp = preg_replace ( "/\{$replace_str\}/", $value, $tmp); 
         }
         else
         {
@@ -52,14 +54,14 @@ function array_to_template($filename_template, $rules)
         if ($tmp) 
         {
             //echo preg_replace ( "($key)", $tmp, $template_str); 
-            $tmp_reg_ex = "/\{$key\}/";
+            $tmp_reg_ex = "/\{$replace_str\}/";
             if ( preg_match($tmp_reg_ex, $template_str) === 1 )
             {
                 $template_str = preg_replace ($tmp_reg_ex, $tmp, $template_str); 
             }
             else 
             {
-                print ("ERROR: Key [$key] not found in template\n");
+                print ("ERROR: Key ". (string)$key . " not found in template\n");
             }
         }
     }
