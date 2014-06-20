@@ -48,7 +48,6 @@ function array_to_template($filename_template, $rules)
         {
             // if the cvs value is null then an empty string 
             $tmp = "";
-            echo "zzzzzzzzzzzzzzzzzzz {".$key."}{".$value."}\n";
         } 
         elseif ( $rules['substitutions'][$key] )
         {
