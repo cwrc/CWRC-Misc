@@ -17,7 +17,7 @@
 // excute:
 //          php template_filler.php template_sample_2.xml source_sample_2.csv 
 
-define ("DEBUG", 1);
+define ("DEBUG", 0);
 
 /**
  *
