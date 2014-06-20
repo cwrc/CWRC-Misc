@@ -67,6 +67,7 @@ function array_to_template($filename_template, $rules)
         //if ($tmp !== NULL && $tmp!=="") 
         {
             //echo preg_replace ( "($key)", $tmp, $template_str); 
+            $tmp = xml_entities($tmp);
             $tmp_reg_ex = "/\{$replace_str\}/";
             if ( preg_match($tmp_reg_ex, $template_str) === 1 )
             {
@@ -127,5 +128,20 @@ function csv_to_array($handle_source, $filename_template, $delimiter=',')
     }
     return $result;
 }
+
+
+function xml_entities($string) {
+    return strtr(
+        $string, 
+        array(
+            "<" => "&lt;",
+            ">" => "&gt;",
+            '"' => "&quot;",
+            "'" => "&apos;",
+            "&" => "&amp;",
+        )
+    );
+}
+
 
 ?>
