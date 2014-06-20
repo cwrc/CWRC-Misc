@@ -17,7 +17,7 @@
 // excute:
 //          php template_filler.php template_sample_2.xml source_sample_2.csv 
 
-define ("DEBUG", 0);
+define ("DEBUG", 1);
 
 /**
  *
@@ -38,26 +38,42 @@ function array_to_template($filename_template, $rules)
     foreach ( $rules['data'] as $key => $value )
     {
         $tmp = NULL;
-		$replace_str = NULL;
-		$replace_str = preg_quote("{$key}");
-        if ( $rules['substitutions'][$key] )
+        $replace_str = NULL;
+
+        // escape the "[]" characters in the key before a regular expersion
+        // is run
+        $replace_str = preg_quote("{$key}");
+
+        if ($value == NULL && trim($value) === "") 
         {
+            // if the cvs value is null then an empty string 
+            $tmp = "";
+            echo "zzzzzzzzzzzzzzzzzzz {".$key."}{".$value."}\n";
+        } 
+        elseif ( $rules['substitutions'][$key] )
+        {
+            // if the cvs value is not null and there is a substitution string
+            // then use the substitution
             $tmp = $rules['substitutions'][$key] ;
             
             $tmp = preg_replace ( "/\{$replace_str\}/", $value, $tmp); 
         }
         else
         {
+            // if the cvs value is not null
+            // then use the csv value 
             $tmp = $value;
         }
 
-        if ($tmp) 
+        //if ($tmp !== NULL && $tmp!=="") 
         {
             //echo preg_replace ( "($key)", $tmp, $template_str); 
             $tmp_reg_ex = "/\{$replace_str\}/";
             if ( preg_match($tmp_reg_ex, $template_str) === 1 )
             {
-                $template_str = preg_replace ($tmp_reg_ex, $tmp, $template_str); 
+                // if the key exists in the template 
+                // then replace the key
+                    $template_str = preg_replace ($tmp_reg_ex, $tmp, $template_str); 
             }
             else 
             {
