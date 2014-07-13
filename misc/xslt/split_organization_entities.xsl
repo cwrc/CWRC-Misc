@@ -12,6 +12,7 @@
 
     <xsl:output encoding="UTF-8" method="xml" indent="yes" omit-xml-declaration="no"/>
 
+    <xsl:strip-space elements="*"></xsl:strip-space>
     <!-- MRB: set prefix for organization entity file name -->
     <xsl:variable name="VAR_FILENAME_PREFIX" select="'data/organization'"/>
 
@@ -33,7 +34,7 @@
             encoding="UTF-8" method="xml">
             
             <!-- MRB: set organization entity schema location -->
-            <xsl:processing-instruction name="xml-model">href="http://cwrc.ca/schema/organization.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"</xsl:processing-instruction>
+            <xsl:processing-instruction name="xml-model">href="http://cwrc.ca/schemas/entities.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"</xsl:processing-instruction>
 
             <!-- line feed character -->
             <xsl:text>&#x0A;</xsl:text>

@@ -10,8 +10,9 @@
         * edit VAR_FILENAME_PREFIX to reflect the path to write the files
     -->
 
-    <xsl:output encoding="UTF-8" method="xml" indent="yes" omit-xml-declaration="no"/>
+    <xsl:output encoding="UTF-8" method="xml" indent="yes" omit-xml-declaration="no" xml:space="default"/>
 
+    <xsl:strip-space elements="*"></xsl:strip-space>
     <!-- MRB: set prefix for place entity file name -->
     <xsl:variable name="VAR_FILENAME_PREFIX" select="'data/place'"/>
 
@@ -30,10 +31,10 @@
 
 
         <xsl:result-document indent="yes" href="{$filename}" omit-xml-declaration="no"
-            encoding="UTF-8" method="xml">
+            encoding="UTF-8" method="xml" >
 
             <!-- MRB: set place entity schema location -->
-            <xsl:processing-instruction name="xml-model">href="http://cwrc.ca/schema/place.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"</xsl:processing-instruction>
+            <xsl:processing-instruction name="xml-model">href="http://cwrc.ca/schemas/entities.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"</xsl:processing-instruction>
 
             <!-- line feed character -->
             <xsl:text>&#x0A;</xsl:text>

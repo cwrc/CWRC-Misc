@@ -11,6 +11,8 @@
 
     <xsl:output encoding="UTF-8" method="xml" indent="yes" omit-xml-declaration="no" />
     
+    <xsl:strip-space elements="*"></xsl:strip-space>
+    
     <xsl:variable name="VAR_FILENAME_PREFIX" select="'data/mods'" />
 
     <xsl:template match="/">

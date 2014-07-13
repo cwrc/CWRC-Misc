@@ -1,22 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0"
     xmlns:mods="http://www.loc.gov/mods/v3">
-    
+
     <!--
-        * given a modsCollection, split it into several individual files and save to disk
-        * with each file containing an individual <mods> element
+        * given a collection of CWRC title entities 
+        * split it into several individual files and save to disk
+        * with each file containing an individual item
         *
         * edit VAR_FILENAME_PREFIX to reflect the path to write the files
     -->
-    
+
     <xsl:output encoding="UTF-8" method="xml" indent="yes" omit-xml-declaration="no" />
     
-    <xsl:variable name="VAR_FILENAME_PREFIX" select="'data/biblifo'" />
-    
+	<xsl:strip-space elements="*"></xsl:strip-space>
+	
+    <!-- MRB: set prefix for person entity file name -->
+    <xsl:variable name="VAR_FILENAME_PREFIX" select="'data/title'" />
+
     <xsl:template match="/">
         <xsl:apply-templates select="mods:modsCollection/mods:mods"/>
     </xsl:template>
-    
+
     <xsl:template match="mods:mods">
         <xsl:variable name="filename" select="concat($VAR_FILENAME_PREFIX, format-number(position(),'000000') )" />
         <xsl:result-document 
@@ -27,10 +31,10 @@
             method="xml" 
             >
             
-            <!-- MRB: added copy-namespaces="no" attribute -->
+            <!-- MRB: added @copy-namespaces attribute with a value of "no" -->
             <xsl:copy-of select="." copy-namespaces="no"/>
             
         </xsl:result-document>
     </xsl:template>
-    
+
 </xsl:stylesheet>
