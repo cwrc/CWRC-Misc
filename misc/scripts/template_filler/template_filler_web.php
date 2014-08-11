@@ -34,6 +34,10 @@ include "library/template_filler.php";
     }
     else 
     {
+
+      // 2014-08-11 - if CSV created on a Mac, may have Mac line ending
+      ini_set('auto_detect_line_endings', true);
+      
       $fh_source = fopen($_FILES['source_file']['tmp_name'], 'r');
       $fh_template = fopen($_FILES['template_file']['tmp_name'], 'r');
 

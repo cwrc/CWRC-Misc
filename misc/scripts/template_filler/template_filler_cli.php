@@ -35,9 +35,13 @@ print "source file: $filename_source\n";
 if(!file_exists($filename_source) || !is_readable($filename_source))
 return FALSE;
 
+
+
 $handle_template = NULL;
 $handle_source = NULL;
 
+// 2014-08-11 - if CSV created on a Mac, may have Mac line ending
+ini_set('auto_detect_line_endings', true);
 
 $handle_template = fopen($filename_template, 'r');
 $handle_source = fopen($filename_source, 'r');

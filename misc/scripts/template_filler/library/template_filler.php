@@ -107,6 +107,11 @@ function csv_to_array($handle_source, $filename_template, $delimiter=',')
 
     while (($row = fgetcsv($handle_source, 10000000, $delimiter)) !== FALSE)
     {
+        if (DEBUG) {
+          print("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n");
+          print_r($row);
+          print("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n");
+        }
         if(!$header)
         {
             $header = $row;
