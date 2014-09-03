@@ -53,6 +53,9 @@ rem Regional playwright: 2d; if "Y" then change to "Yes", else delete ancestor P
 xml ed -L -u "/CWRC/ENTRY/PRODUCTION/P[starts-with(PLITERARYMOVEMENTS,'Identify as a regional playwright: Y')]/PLITERARYMOVEMENTS" -v "Identify as a regional playwright: Yes" %%f
 xml ed -L -d "/CWRC/ENTRY/PRODUCTION[P/PLITERARYMOVEMENTS='Identify as a regional playwright:  ']" %%f
 rem Complete or graduate from the program: 4*1a; if "Y" then change to "Completed", else change to "Incomplete"
-xml ed -L -u "/CWRC/ENTRY/EDUCATION/CHRONSTRUCT[CHRONPROSE[descendant::RESEARCHNOTE[contains(.,'Did you complete or graduate from the program')]] and child::CHRONPROSE[contains(.,'Y.')]]/CHRONPROSE" -v "Completed." %%f
+xml ed -L -a "/CWRC/ENTRY/EDUCATION/CHRONSTRUCT[CHRONPROSE[descendant::RESEARCHNOTE[3][contains(.,'Did you complete or graduate from the program')]] and child::CHRONPROSE/text()[3]='Y.']/CHRONPROSE/text()[3]" -t text -n "text()" -v "Completed." %%f
+xml ed -L -u "/CWRC/ENTRY/EDUCATION/CHRONSTRUCT[CHRONPROSE/text()[3]='Y.Completed.']/CHRONPROSE" -v "Completed." %%f
+xml ed -L -a "/CWRC/ENTRY/EDUCATION/CHRONSTRUCT[CHRONPROSE[descendant::RESEARCHNOTE[3][contains(.,'Did you complete or graduate from the program')]] and child::CHRONPROSE/text()[3]='.']/CHRONPROSE/text()[3]" -t text -n "text()" -v "Incomplete." %%f
+xml ed -L -u "/CWRC/ENTRY/EDUCATION/CHRONSTRUCT[CHRONPROSE/text()[3]='.Incomplete.']/CHRONPROSE" -v "Incomplete." %%f
 
 )
