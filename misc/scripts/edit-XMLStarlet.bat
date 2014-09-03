@@ -45,12 +45,14 @@ xml ed -L -u "/CWRC/ENTRY/FAMILY[P='Commonlaw Relationship: 1']/P" -v "Commonlaw
 xml ed -L -u "/CWRC/ENTRY/FAMILY[P='Commonlaw Relationship: 2']/P" -v "Commonlaw Relationship: Same sex partner" %%f
 
 :: XML element text node value substitutions, as well as XML node deletions
-rem Regional playwright: 2d; if "Y" then change to "Yes", else delete anscestor element PRODUCTION
-:: commented out first version below (exact match), and using second version (partial match)
-:: xml ed -L -u "/CWRC/ENTRY/PRODUCTION/P[PLITERARYMOVEMENTS='Identify as a regional playwright: Y ']/PLITERARYMOVEMENTS" -v "Identify as a regional playwright: Yes" %%f
+rem Optional additional play: 13*11; if "Y" then change to "Yes", else delete RESEARCHNOTE and its immediate sibling TEXTSCOPE
+xml ed -L -u "/CWRC/ENTRY[RESEARCHNOTE/text()='Optional additional play: Y']/RESEARCHNOTE" -v "Optional additional play: Yes" %%f
+xml ed -L -d "/CWRC/ENTRY/TEXTSCOPE[preceding-sibling::RESEARCHNOTE[1]/text()='Optional additional play: ']" %%f
+xml ed -L -d "/CWRC/ENTRY[RESEARCHNOTE/text()='Optional additional play: ']" %%f
+rem Regional playwright: 2d; if "Y" then change to "Yes", else delete ancestor PRODUCTION (Note: "Y " has a space after it, hence use of starts-with predicate)
 xml ed -L -u "/CWRC/ENTRY/PRODUCTION/P[starts-with(PLITERARYMOVEMENTS,'Identify as a regional playwright: Y')]/PLITERARYMOVEMENTS" -v "Identify as a regional playwright: Yes" %%f
 xml ed -L -d "/CWRC/ENTRY/PRODUCTION[P/PLITERARYMOVEMENTS='Identify as a regional playwright:  ']" %%f
-rem Complete or graduate from the program: 4*1a; if "Y" then change to "Completed", else change to "Incomplete"(there are 17 of these questions)
+rem Complete or graduate from the program: 4*1a; if "Y" then change to "Completed", else change to "Incomplete"
 xml ed -L -u "/CWRC/ENTRY/EDUCATION/CHRONSTRUCT[CHRONPROSE[descendant::RESEARCHNOTE[contains(.,'Did you complete or graduate from the program')]] and child::CHRONPROSE[contains(.,'Y.')]]/CHRONPROSE" -v "Completed." %%f
 
 )
