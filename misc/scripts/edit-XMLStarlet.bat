@@ -3,26 +3,24 @@ setlocal
 
 rem MRB -- Fri 29-Aug-2014
 
-:: Purpose: Batch file to search and replace element values in Playwrights XML files using XMLStarlet
+:: Purpose: Batch file to edit nodes in Playwrights XML files using XMLStarlet
 
 :: Description: Batch file script to call the XMLStarlet command line XML utility to search and
-:: replace element values in defined XPaths for all the Playwrights CWRC entry XML files.
-:: Certain elements in the Playwrights XML files have a numeric code value, and these numeric
-:: code values need to be replaced with their label equivalent.  For example, for the element
-:: <GENDER>, replace "2" with "Female", "3" with "Male", etc.  All numeric value substitutions
-:: with their label equivalents are performed "in place" in the source XML files by the utility
-:: XMLStarlet.  The Playwrights files to be batch processed are put in a directory called "files",
-:: and the batch file script "search-replace-XMLStarlet.bat" is placed in the parent directory of
-:: the "files" directory.  To run the script, type the following at the command prompt:
+:: replace element text node values, and delete nodes, using defined XPaths and conditional text
+:: patterns, in the Playwrights CWRC entry XML files.  All file edits are performed "in place" in
+:: the source XML files by the utility XMLStarlet.  The Playwrights files to be batch processed
+:: are put in a directory called "files", and the batch file script "edit-XMLStarlet.bat" is placed
+:: in the parent directory of the "files" directory.  To run the script, type the following at the
+:: command prompt:
 
-::     search-replace-XMLStarlet.bat
+::     edit-XMLStarlet.bat
 
 rem Note: XMLStarlet must be installed; the XMLStarlet executable is called via the command "xml"
 
 :: loop through the "files" directory
 for /r files %%f in (*) do (
 
-:: XPath element value substitutions
+:: XML element text node value substitutions
 rem Gender: 1b1
 xml ed -L -u "/CWRC/ENTRY/CULTURALFORMATION/P/SEXUALIDENTITY[GENDER='2']/GENDER" -v "Female" %%f
 xml ed -L -u "/CWRC/ENTRY/CULTURALFORMATION/P/SEXUALIDENTITY[GENDER='3']/GENDER" -v "Male" %%f
@@ -45,9 +43,14 @@ xml ed -L -u "/CWRC/ENTRY/FAMILY[P='Marital Relationship: 2']/P" -v "Marital Rel
 rem Common-law relationship: 3a2
 xml ed -L -u "/CWRC/ENTRY/FAMILY[P='Commonlaw Relationship: 1']/P" -v "Commonlaw Relationship: Different sex partner" %%f
 xml ed -L -u "/CWRC/ENTRY/FAMILY[P='Commonlaw Relationship: 2']/P" -v "Commonlaw Relationship: Same sex partner" %%f
-rem Regional playwright: 2d
+
+:: XML element text node value substitutions, as well as XML node deletions
+rem Regional playwright: 2d; if "Y" then change to "Yes", else delete anscestor element PRODUCTION
+:: commented out first version below (exact match), and using second version (partial match)
 :: xml ed -L -u "/CWRC/ENTRY/PRODUCTION/P[PLITERARYMOVEMENTS='Identify as a regional playwright: Y ']/PLITERARYMOVEMENTS" -v "Identify as a regional playwright: Yes" %%f
 xml ed -L -u "/CWRC/ENTRY/PRODUCTION/P[starts-with(PLITERARYMOVEMENTS,'Identify as a regional playwright: Y')]/PLITERARYMOVEMENTS" -v "Identify as a regional playwright: Yes" %%f
 xml ed -L -d "/CWRC/ENTRY/PRODUCTION[P/PLITERARYMOVEMENTS='Identify as a regional playwright:  ']" %%f
+rem Complete or graduate from the program: 4*1a; if "Y" then change to "Completed", else change to "Incomplete"(there are 17 of these questions)
+xml ed -L -u "/CWRC/ENTRY/EDUCATION/CHRONSTRUCT[CHRONPROSE[descendant::RESEARCHNOTE[contains(.,'Did you complete or graduate from the program')]] and child::CHRONPROSE[contains(.,'Y.')]]/CHRONPROSE" -v "Completed." %%f
 
 )
