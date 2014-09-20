@@ -1,4 +1,4 @@
-	@echo off
+@echo off
 setlocal
 
 rem MRB -- Fri 29-Aug-2014
@@ -46,11 +46,9 @@ xml ed -L -u "/CWRC/ENTRY[1]/FAMILY[1][P[3]='Commonlaw Relationship: 2']/P[3]" -
 rem Religious affiliation: 1b3; if blank (i.e., "") then change to "[None given]"
 xml ed -L -u "/CWRC/ENTRY[1]/CULTURALFORMATION[1]/P[4][DENOMINATION[1]='']/DENOMINATION[1]" -v "[None given]" %%f
 rem Historical period: 13*3_[*]; if value then remove comma and blank space (i.e., ", ") at end of string
-rem /CWRC/ENTRY[1]/TEXTSCOPE/TEXTUALFEATURES[1]/P[2]
-
+xml ed -L -u "/CWRC/ENTRY[1]/TEXTSCOPE/TEXTUALFEATURES[1][P[2]/text()[2]!='Historical Period: ']/P[2]/text()[2]" -x "substring(.,1,string-length(.)-2)" %%f
 rem Genre/Form of play: 13*4_[*]; if value then remove comma and blank space (i.e., ", ") at end of string
-rem /CWRC/ENTRY[1]/TEXTSCOPE/TEXTUALFEATURES[1]/P[2]
-
+xml ed -L -u "/CWRC/ENTRY[1]/TEXTSCOPE/TEXTUALFEATURES[1][P[2]/text()[3]!='Genre/Form of Play: ']/P[2]/text()[3]" -x "substring(.,1,string-length(.)-2)" %%f
 
 :: XML text node value substitutions, as well as XML element and text node deletions
 rem Optional additional play: 13*11; if "Y" then change to "Yes", else delete RESEARCHNOTE and its immediate following sibling TEXTSCOPE
@@ -92,8 +90,15 @@ xml ed -L -u "/CWRC/ENTRY/TEXTSCOPE/TEXTUALFEATURES[P[2]/text()[15]='Does this p
 xml ed -L -d "/CWRC/ENTRY/TEXTSCOPE/TEXTUALFEATURES/P[2]/text()[15][parent::P/text()[15]='Does this play have any specific casting requirements: '] | /CWRC/ENTRY/TEXTSCOPE/TEXTUALFEATURES/P[2]/RESEARCHNOTE[16][parent::P/text()[15]='Does this play have any specific casting requirements: ']" %%f
 rem General description of performers in play: 13*5_[*_SQ00*]; if no value, then delete text node and its immediate preceding sibling element node RESEARCHNOTE
 xml ed -L -d "/CWRC/ENTRY/TEXTSCOPE/TEXTUALFEATURES/P[2]/text()[14][parent::P/text()[14]='Number of Female Seniors:  '] | /CWRC/ENTRY/TEXTSCOPE/TEXTUALFEATURES/P[2]/RESEARCHNOTE[15][parent::P/text()[14]='Number of Female Seniors:  ']" %%f
-
-
+xml ed -L -d "/CWRC/ENTRY/TEXTSCOPE/TEXTUALFEATURES/P[2]/text()[13][parent::P/text()[13]='Number of Male Seniors:  '] | /CWRC/ENTRY/TEXTSCOPE/TEXTUALFEATURES/P[2]/RESEARCHNOTE[14][parent::P/text()[13]='Number of Male Seniors:  ']" %%f
+xml ed -L -d "/CWRC/ENTRY/TEXTSCOPE/TEXTUALFEATURES/P[2]/text()[12][parent::P/text()[12]='Number of Female Adults:  '] | /CWRC/ENTRY/TEXTSCOPE/TEXTUALFEATURES/P[2]/RESEARCHNOTE[13][parent::P/text()[12]='Number of Female Adults:  ']" %%f
+xml ed -L -d "/CWRC/ENTRY/TEXTSCOPE/TEXTUALFEATURES/P[2]/text()[11][parent::P/text()[11]='Number of Male Adults:  '] | /CWRC/ENTRY/TEXTSCOPE/TEXTUALFEATURES/P[2]/RESEARCHNOTE[12][parent::P/text()[11]='Number of Male Adults:  ']" %%f
+xml ed -L -d "/CWRC/ENTRY/TEXTSCOPE/TEXTUALFEATURES/P[2]/text()[10][parent::P/text()[10]='Number of Female Young Adults:  '] | /CWRC/ENTRY/TEXTSCOPE/TEXTUALFEATURES/P[2]/RESEARCHNOTE[11][parent::P/text()[10]='Number of Female Young Adults:  ']" %%f
+xml ed -L -d "/CWRC/ENTRY/TEXTSCOPE/TEXTUALFEATURES/P[2]/text()[9][parent::P/text()[9]='Number of Male Young Adults:  '] | /CWRC/ENTRY/TEXTSCOPE/TEXTUALFEATURES/P[2]/RESEARCHNOTE[10][parent::P/text()[9]='Number of Male Young Adults:  ']" %%f
+xml ed -L -d "/CWRC/ENTRY/TEXTSCOPE/TEXTUALFEATURES/P[2]/text()[8][parent::P/text()[8]='Number of Female Teens:  '] | /CWRC/ENTRY/TEXTSCOPE/TEXTUALFEATURES/P[2]/RESEARCHNOTE[9][parent::P/text()[8]='Number of Female Teens:  ']" %%f
+xml ed -L -d "/CWRC/ENTRY/TEXTSCOPE/TEXTUALFEATURES/P[2]/text()[7][parent::P/text()[7]='Number of Male Teens:  '] | /CWRC/ENTRY/TEXTSCOPE/TEXTUALFEATURES/P[2]/RESEARCHNOTE[8][parent::P/text()[7]='Number of Male Teens:  ']" %%f
+xml ed -L -d "/CWRC/ENTRY/TEXTSCOPE/TEXTUALFEATURES/P[2]/text()[6][parent::P/text()[6]='Number of Female Children:  '] | /CWRC/ENTRY/TEXTSCOPE/TEXTUALFEATURES/P[2]/RESEARCHNOTE[7][parent::P/text()[6]='Number of Female Children:  ']" %%f
+xml ed -L -d "/CWRC/ENTRY/TEXTSCOPE/TEXTUALFEATURES/P[2]/text()[5][parent::P/text()[5]='Number of Male Children:  '] | /CWRC/ENTRY/TEXTSCOPE/TEXTUALFEATURES/P[2]/RESEARCHNOTE[6][parent::P/text()[5]='Number of Male Children:  ']" %%f
 rem Published in any format: 13*9; if "Y" then change to "Yes", else delete parent PRODUCTION
 xml ed -L -u "/CWRC/ENTRY/TEXTSCOPE/PRODUCTION[RESEARCHNOTE[1]/text()='Has the play been published for distribution to the public in any format: Y']/RESEARCHNOTE[1]/text()" -v "Has the play been published for distribution to the public in any format: Yes" %%f
 xml ed -L -d "/CWRC/ENTRY/TEXTSCOPE/PRODUCTION[RESEARCHNOTE[1]='Has the play been published for distribution to the public in any format: ']" %%f
