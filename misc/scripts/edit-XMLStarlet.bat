@@ -21,16 +21,16 @@ rem loop through the "files" directory
 for /r files %%f in (*) do (
 
 rem **XML text node value substitutions**
-rem Gender: 1b1
+rem Gender: 1b1; change numeric values to the appropriate label equivalents
 xml ed -L -u "/CWRC/ENTRY[1]/CULTURALFORMATION[1]/P[1]/SEXUALIDENTITY[1][GENDER[1]='2']/GENDER[1]" -v "Female" %%f
 xml ed -L -u "/CWRC/ENTRY[1]/CULTURALFORMATION[1]/P[1]/SEXUALIDENTITY[1][GENDER[1]='3']/GENDER[1]" -v "Male" %%f
 xml ed -L -u "/CWRC/ENTRY[1]/CULTURALFORMATION[1]/P[1]/SEXUALIDENTITY[1][GENDER[1]='4']/GENDER[1]" -v "Transgendered Female to Male" %%f
 xml ed -L -u "/CWRC/ENTRY[1]/CULTURALFORMATION[1]/P[1]/SEXUALIDENTITY[1][GENDER[1]='5']/GENDER[1]" -v "Transgendered Male to Female" %%f
-rem Sexual orientation: 1b2
+rem Sexual orientation: 1b2; change numeric values to the appropriate label equivalents
 xml ed -L -u "/CWRC/ENTRY[1]/CULTURALFORMATION[1]/P[2][SEXUALIDENTITY='Sexual Identity: 1']/SEXUALIDENTITY[1]" -v "Sexual Identity: Heterosexual" %%f
 xml ed -L -u "/CWRC/ENTRY[1]/CULTURALFORMATION[1]/P[2][SEXUALIDENTITY='Sexual Identity: 2']/SEXUALIDENTITY[1]" -v "Sexual Identity: Homosexual" %%f
 xml ed -L -u "/CWRC/ENTRY[1]/CULTURALFORMATION[1]/P[2][SEXUALIDENTITY='Sexual Identity: 3']/SEXUALIDENTITY[1]" -v "Sexual Identity: Bisexual" %%f
-rem Relationship status: 3a
+rem Relationship status: 3a; change numeric values to the appropriate label equivalents
 xml ed -L -u "/CWRC/ENTRY[1]/FAMILY[1]/MARRIAGE[1][P[1]='Relationship Status: 1']/P[1]" -v "Relationship Status: single" %%f
 xml ed -L -u "/CWRC/ENTRY[1]/FAMILY[1]/MARRIAGE[1][P[1]='Relationship Status: 2']/P[1]" -v "Relationship Status: married" %%f
 xml ed -L -u "/CWRC/ENTRY[1]/FAMILY[1]/MARRIAGE[1][P[1]='Relationship Status: 4']/P[1]" -v "Relationship Status: separated" %%f
@@ -55,9 +55,9 @@ xml ed -L -u "/CWRC/ENTRY/TEXTSCOPE/TEXTUALFEATURES[P[33]/text()[1]='Does this p
 xml ed -L -u "/CWRC/ENTRY/TEXTSCOPE/TEXTUALFEATURES[P[33]/text()[1]='Does this play include monologues that are suitable for young actors: N']/P[33]/text()[1]" -v "Does this play include monologues that are suitable for young actors: No" %%f
 xml ed -L -d "/CWRC/ENTRY/TEXTSCOPE/TEXTUALFEATURES/P[33][self::P/text()[1]='Does this play include monologues that are suitable for young actors: ']" %%f
 rem Actors who are auditioning: 13*7; if "Y" then change to "Yes", if "N" then change to "No", else delete P
-xml ed -L -u "/CWRC/ENTRY/TEXTSCOPE/TEXTUALFEATURES[P[32]/text()[1]='Does this play include monologues that are suitable for actors who are auditioning: Y ']/P[32]/text()[1]" -v "Does this play include monologues that are suitable for actors who are auditioning: Yes " %%f
-xml ed -L -u "/CWRC/ENTRY/TEXTSCOPE/TEXTUALFEATURES[P[32]/text()[1]='Does this play include monologues that are suitable for actors who are auditioning: N ']/P[32]/text()[1]" -v "Does this play include monologues that are suitable for actors who are auditioning: No " %%f
-xml ed -L -d "/CWRC/ENTRY/TEXTSCOPE/TEXTUALFEATURES/P[32][self::P/text()[1]='Does this play include monologues that are suitable for actors who are auditioning: ']" %%f
+xml ed -L -u "/CWRC/ENTRY/TEXTSCOPE/TEXTUALFEATURES[P[32]/text()[1]='Does this play include monologues that are suitable for actors who are auditioning: Y ']/P[32]/text()[1]" -v "Does this play include monologues that are suitable for actors who are auditioning: Yes" %%f
+xml ed -L -u "/CWRC/ENTRY/TEXTSCOPE/TEXTUALFEATURES[P[32]/text()[1]='Does this play include monologues that are suitable for actors who are auditioning: N ']/P[32]/text()[1]" -v "Does this play include monologues that are suitable for actors who are auditioning: No" %%f
+xml ed -L -d "/CWRC/ENTRY/TEXTSCOPE/TEXTUALFEATURES/P[32][self::P/text()[1]='Does this play include monologues that are suitable for actors who are auditioning:  ']" %%f
 rem Does this play have any specific casting requirements: 13*6_*; if no value, delete P
 xml ed -L -d "/CWRC/ENTRY/TEXTSCOPE/TEXTUALFEATURES/P[31][self::P/text()[1]='Requirement:  ']" %%f
 xml ed -L -d "/CWRC/ENTRY/TEXTSCOPE/TEXTUALFEATURES/P[30][self::P/text()[1]='Gender:  ']" %%f
@@ -94,8 +94,12 @@ xml ed -L -u "/CWRC/ENTRY[1]/TEXTSCOPE/TEXTUALFEATURES[1][P[5]/text()[1]!='Genre
 rem Historical period: 13*3_[*]; if value then remove comma and blank space (i.e., ", ") at end of string
 xml ed -L -u "/CWRC/ENTRY[1]/TEXTSCOPE/TEXTUALFEATURES[1][P[4]/text()[1]!='Historical Period: ']/P[4]/text()[1]" -x "substring(.,1,string-length(.)-2)" %%f
 rem Published in any format: 13*9; if "Y" then change to "Yes", else delete parent PRODUCTION
-xml ed -L -u "/CWRC/ENTRY/TEXTSCOPE/PRODUCTION[RESEARCHNOTE[1]/text()='Has the play been published for distribution to the public in any format: Y']/RESEARCHNOTE[1]/text()" -v "Has the play been published for distribution to the public in any format: Yes" %%f
+xml ed -L -u "/CWRC/ENTRY/TEXTSCOPE/PRODUCTION[RESEARCHNOTE/text()='Has the play been published for distribution to the public in any format: Y']/RESEARCHNOTE/text()" -v "Has the play been published for distribution to the public in any format: Yes" %%f
+xml ed -L -u "/CWRC/ENTRY/TEXTSCOPE/PRODUCTION[RESEARCHNOTE[1]/text()='Has the play been published for distribution to the public in any format: N']/RESEARCHNOTE[1]/text()" -v "Has the play been published for distribution to the public in any format: " %%f
 xml ed -L -d "/CWRC/ENTRY/TEXTSCOPE/PRODUCTION[RESEARCHNOTE[1]='Has the play been published for distribution to the public in any format: ']" %%f
+rem Previous partner(s): 3c; if no value then delete P element node and its immediate preceding sibling element node RESEARCHNOTE
+xml ed -L -d "/CWRC/ENTRY/FAMILY/RESEARCHNOTE[6][following-sibling::P[1]/text()='Previous Partner(s): ']" %%f
+xml ed -L -d "/CWRC/ENTRY/FAMILY/P[4][self::P/text()='Previous Partner(s): ']" %%f
 rem Commonlaw relationship: 3a2; if "1" then change to "Different sex partner", if "2" then change to "Same sex partner", and if no value then delete P element node
 xml ed -L -u "/CWRC/ENTRY/FAMILY[P[3]='Commonlaw Relationship: 1']/P[3]" -v "Commonlaw Relationship: Different sex partner" %%f
 xml ed -L -u "/CWRC/ENTRY/FAMILY[P[3]='Commonlaw Relationship: 2']/P[3]" -v "Commonlaw Relationship: Same sex partner" %%f
@@ -104,12 +108,9 @@ rem Marital relationship: 3a1; if "1" then change to "Different sex partner", if
 xml ed -L -u "/CWRC/ENTRY/FAMILY[P[2]='Marital Relationship: 1']/P[2]" -v "Marital Relationship: Different sex partner" %%f
 xml ed -L -u "/CWRC/ENTRY/FAMILY[P[2]='Marital Relationship: 2']/P[2]" -v "Marital Relationship: Same sex partner" %%f
 xml ed -L -d "/CWRC/ENTRY/FAMILY/P[2][self::P/text()='Marital Relationship: ']" %%f
-rem Previous partner(s): 3c; if no value then delete P element node and its immediate preceding sibling element node RESEARCHNOTE
-xml ed -L -d "/CWRC/ENTRY/FAMILY/RESEARCHNOTE[following-sibling::P/text()='Previous Partner(s): ']" %%f
-xml ed -L -d "/CWRC/ENTRY/FAMILY/P[self::P/text()='Previous Partner(s): ']" %%f
 rem Region(s): 2e; if no value then delete P element node and its immediate preceding sibling element node RESEARCHNOTE
-xml ed -L -d "/CWRC/ENTRY/PRODUCTION/RESEARCHNOTE[following-sibling::P/text()='Region(s): ']" %%f
-xml ed -L -d "/CWRC/ENTRY/PRODUCTION/P[self::P/text()='Region(s): ']" %%f
+xml ed -L -d "/CWRC/ENTRY/PRODUCTION/RESEARCHNOTE[1][following-sibling::P[1]/text()='Region(s): ']" %%f
+xml ed -L -d "/CWRC/ENTRY/PRODUCTION/P[2][self::P/text()='Region(s): ']" %%f
 rem Optional additional play: 13*11; if "Y" then change to "Yes", if "N" or blank then delete RESEARCHNOTE and its immediate following sibling TEXTSCOPE
 xml ed -L -u "/CWRC/ENTRY[1][RESEARCHNOTE[22]/text()='Optional additional play: Y']/RESEARCHNOTE[22]" -v "Optional additional play: Yes" %%f
 xml ed -L -u "/CWRC/ENTRY[1][RESEARCHNOTE[22]/text()='Optional additional play: N']/RESEARCHNOTE[22]" -v "Optional additional play: " %%f
