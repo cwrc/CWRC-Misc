@@ -17,10 +17,10 @@ rem MRB -- Fri 29-Aug-2014
 
 rem Note: XMLStarlet must be installed; the XMLStarlet executable is called via the command "xml"
 
-:: loop through the "files" directory
+rem loop through the "files" directory
 for /r files %%f in (*) do (
 
-:: XML text node value substitutions
+rem XML text node value substitutions
 rem Gender: 1b1
 xml ed -L -u "/CWRC/ENTRY[1]/CULTURALFORMATION[1]/P[1]/SEXUALIDENTITY[1][GENDER[1]='2']/GENDER[1]" -v "Female" %%f
 xml ed -L -u "/CWRC/ENTRY[1]/CULTURALFORMATION[1]/P[1]/SEXUALIDENTITY[1][GENDER[1]='3']/GENDER[1]" -v "Male" %%f
@@ -44,13 +44,13 @@ rem Common-law relationship: 3a2
 xml ed -L -u "/CWRC/ENTRY[1]/FAMILY[1][P[3]='Commonlaw Relationship: 1']/P[3]" -v "Commonlaw Relationship: Different sex partner" %%f
 xml ed -L -u "/CWRC/ENTRY[1]/FAMILY[1][P[3]='Commonlaw Relationship: 2']/P[3]" -v "Commonlaw Relationship: Same sex partner" %%f
 rem Religious affiliation: 1b3; if blank (i.e., "") then change to "[None given]"
-xml ed -L -u "/CWRC/ENTRY[1]/CULTURALFORMATION[1]/P[4][DENOMINATION[1]='']/DENOMINATION[1]" -v "[None given]" %%f
+xml ed -L -u "/CWRC/ENTRY[1]/CULTURALFORMATION[1]/P[4][DENOMINATION[1]='']/DENOMINATION[1]" -v "None given" %%f
 rem Historical period: 13*3_[*]; if value then remove comma and blank space (i.e., ", ") at end of string
 xml ed -L -u "/CWRC/ENTRY[1]/TEXTSCOPE/TEXTUALFEATURES[1][P[2]/text()[2]!='Historical Period: ']/P[2]/text()[2]" -x "substring(.,1,string-length(.)-2)" %%f
 rem Genre/Form of play: 13*4_[*]; if value then remove comma and blank space (i.e., ", ") at end of string
 xml ed -L -u "/CWRC/ENTRY[1]/TEXTSCOPE/TEXTUALFEATURES[1][P[2]/text()[3]!='Genre/Form of Play: ']/P[2]/text()[3]" -x "substring(.,1,string-length(.)-2)" %%f
 
-:: XML text node value substitutions, as well as XML element and text node deletions
+rem XML text node value substitutions, as well as XML element and text node deletions
 rem Optional additional play: 13*11; if "Y" then change to "Yes", else delete RESEARCHNOTE and its immediate following sibling TEXTSCOPE
 xml ed -L -u "/CWRC/ENTRY[RESEARCHNOTE/text()='Optional additional play: Y']/RESEARCHNOTE" -v "Optional additional play: Yes" %%f
 xml ed -L -d "/CWRC/ENTRY/TEXTSCOPE[preceding-sibling::RESEARCHNOTE[1]/text()='Optional additional play: ']" %%f
@@ -59,7 +59,7 @@ rem Regional playwright: 2d; if "Y" then change to "Yes", else delete ancestor P
 xml ed -L -u "/CWRC/ENTRY/PRODUCTION/P[starts-with(PLITERARYMOVEMENTS,'Identify as a regional playwright: Y')]/PLITERARYMOVEMENTS" -v "Identify as a regional playwright: Yes" %%f
 xml ed -L -d "/CWRC/ENTRY/PRODUCTION[P/PLITERARYMOVEMENTS='Identify as a regional playwright:  ']" %%f
 rem Complete or graduate from the program: 4*1a; if "Y" then change to "Completed", else change to "Incomplete"
-xml ed -L -a "/CWRC/ENTRY/EDUCATION/CHRONSTRUCT[CHRONPROSE[descendant::RESEARCHNOTE[3]/text()[contains(.,'Did you complete or graduate from the program')]] and child::CHRONPROSE/text()[3]='Y.']/CHRONPROSE/text()[3]" -t text -n "text()" -v "Completed." %%f
+xml ed -L -a "/CWRC/ENTRY/EDUCATION/CHRONSTRUCT[CHRONPROSE[descendant::RESEARCHNOTE[3]/text()[contains(.,'Did you complete or graduate from the program')]] and child::CHRONPROSE/text()[3]='1.']/CHRONPROSE/text()[3]" -t text -n "text()" -v "Completed." %%f
 xml ed -L -u "/CWRC/ENTRY/EDUCATION/CHRONSTRUCT[CHRONPROSE/text()[3]='Y.Completed.']/CHRONPROSE" -v "Completed." %%f
 xml ed -L -a "/CWRC/ENTRY/EDUCATION/CHRONSTRUCT[CHRONPROSE[descendant::RESEARCHNOTE[3]/text()[contains(.,'Did you complete or graduate from the program')]] and child::CHRONPROSE/text()[3]='.']/CHRONPROSE/text()[3]" -t text -n "text()" -v "Incomplete." %%f
 xml ed -L -u "/CWRC/ENTRY/EDUCATION/CHRONSTRUCT[CHRONPROSE/text()[3]='.Incomplete.']/CHRONPROSE" -v "Incomplete." %%f
