@@ -17,6 +17,9 @@ rem MRB -- Fri 29-Aug-2014
 
 rem Note: XMLStarlet must be installed; the XMLStarlet executable is called via the command "xml"
 
+rem echo beginning processing statement
+echo Processing Playwrights CWRC entry XML files . . .
+
 rem loop through the "files" directory
 for /r files %%f in (*) do (
 
@@ -217,3 +220,6 @@ xml ed -L -d "/CWRC/ENTRY[1]/TEXTSCOPE[2][preceding-sibling::RESEARCHNOTE[1]/tex
 xml ed -L -d "/CWRC/ENTRY[1]/RESEARCHNOTE[9][self::RESEARCHNOTE/text()='Optional additional play: ']" %%f
 
 )
+
+rem echo ending processing statement
+echo Processing of Playwrights CWRC entry XML files is now finished.
