@@ -48,6 +48,50 @@ xml ed -L -u "/CWRC/ENTRY[1]/EDUCATION[1]/CHRONSTRUCT[CHRONPROSE[1]/text()[3]='N
 rem Optional additional program: 4*1b; if "Y" then change to "Yes", and if "N" then change to "No"
 xml ed -L -u "/CWRC/ENTRY[1]/EDUCATION[1]/CHRONSTRUCT/CHRONPROSE[1][RESEARCHNOTE[5]='Optional additional program: Y']/RESEARCHNOTE[5]" -v "Optional additional program: Yes" %%f
 xml ed -L -u "/CWRC/ENTRY[1]/EDUCATION[1]/CHRONSTRUCT/CHRONPROSE[1][RESEARCHNOTE[5]='Optional additional program: N']/RESEARCHNOTE[5]" -v "Optional additional program: No" %%f
+rem Optional additional playwriting award(s); 5b; if "Y" then change to "Yes", and if "N" then change to "No"
+xml ed -L -u "/CWRC/ENTRY[1]/RECEPTION[3][RESEARCHNOTE[2]='Optional additional playwriting award(s): Y']/RESEARCHNOTE[2]" -v "Optional additional playwriting award(s): Yes" %%f
+xml ed -L -u "/CWRC/ENTRY[1]/RECEPTION[3][RESEARCHNOTE[2]='Optional additional playwriting award(s): N']/RESEARCHNOTE[2]" -v "Optional additional playwriting award(s): No" %%f
+rem Optional additional award(s): 8a6, 8a7, 11f, 11k; if "Y" then change to "Yes", and if "N" then change to "No"
+xml ed -L -u "/CWRC/ENTRY[1]/OTHERLIFEEVENT[2]/CHRONSTRUCT[10]/CHRONPROSE[1][RESEARCHNOTE[2]='Optional additional award(s): Y']/RESEARCHNOTE[2]" -v "Optional additional award(s): Yes" %%f
+xml ed -L -u "/CWRC/ENTRY[1]/OTHERLIFEEVENT[2]/CHRONSTRUCT[10]/CHRONPROSE[1][RESEARCHNOTE[2]='Optional additional award(s): N']/RESEARCHNOTE[2]" -v "Optional additional award(s): No" %%f
+xml ed -L -u "/CWRC/ENTRY[1]/OTHERLIFEEVENT[2]/CHRONSTRUCT[5]/CHRONPROSE[1][RESEARCHNOTE[2]='Optional additional award(s): Y']/RESEARCHNOTE[2]" -v "Optional additional award(s): Yes" %%f
+xml ed -L -u "/CWRC/ENTRY[1]/OTHERLIFEEVENT[2]/CHRONSTRUCT[5]/CHRONPROSE[1][RESEARCHNOTE[2]='Optional additional award(s): N']/RESEARCHNOTE[2]" -v "Optional additional award(s): No" %%f
+xml ed -L -u "/CWRC/ENTRY[1]/RECEPTION[2]/CHRONSTRUCT[10]/CHRONPROSE[1][RESEARCHNOTE[3]='Optional additional award(s): Y']/RESEARCHNOTE[3]" -v "Optional additional award(s): Yes" %%f
+xml ed -L -u "/CWRC/ENTRY[1]/RECEPTION[2]/CHRONSTRUCT[10]/CHRONPROSE[1][RESEARCHNOTE[3]='Optional additional award(s): N']/RESEARCHNOTE[3]" -v "Optional additional award(s): No" %%f
+xml ed -L -u "/CWRC/ENTRY[1]/RECEPTION[2]/CHRONSTRUCT[5]/CHRONPROSE[1][RESEARCHNOTE[3]='Optional additional award(s): Y']/RESEARCHNOTE[3]" -v "Optional additional award(s): Yes" %%f
+xml ed -L -u "/CWRC/ENTRY[1]/RECEPTION[2]/CHRONSTRUCT[5]/CHRONPROSE[1][RESEARCHNOTE[3]='Optional additional award(s): N']/RESEARCHNOTE[3]" -v "Optional additional award(s): No" %%f
+rem Optional additional career highlight: 6f, 6k, 7f, 7l, 10f, 10k; if "Y" then change to "Yes", and if "N" then change to "No"
+xml ed -L -u "/CWRC/ENTRY[1]/OTHERLIFEEVENT[1]/CHRONSTRUCT[10]/CHRONPROSE[1][RESEARCHNOTE[2]='Optional additional career highlight: Y']/RESEARCHNOTE[2]" -v "Optional additional career highlight: Yes" %%f
+xml ed -L -u "/CWRC/ENTRY[1]/OTHERLIFEEVENT[1]/CHRONSTRUCT[10]/CHRONPROSE[1][RESEARCHNOTE[2]='Optional additional career highlight: N']/RESEARCHNOTE[2]" -v "Optional additional career highlight: No" %%f
+xml ed -L -u "/CWRC/ENTRY[1]/OTHERLIFEEVENT[1]/CHRONSTRUCT[5]/CHRONPROSE[1][RESEARCHNOTE[2]='Optional additional career highlight: Y']/RESEARCHNOTE[2]" -v "Optional additional career highlight: Yes" %%f
+xml ed -L -u "/CWRC/ENTRY[1]/OTHERLIFEEVENT[1]/CHRONSTRUCT[5]/CHRONPROSE[1][RESEARCHNOTE[2]='Optional additional career highlight: N']/RESEARCHNOTE[2]" -v "Optional additional career highlight: No" %%f
+xml ed -L -u "/CWRC/ENTRY[1]/OCCUPATION[3]/CHRONSTRUCT[10][RESEARCHNOTE[1]='Optional additional career highlight: Y']/RESEARCHNOTE[1]" -v "Optional additional career highlight: Yes" %%f
+xml ed -L -u "/CWRC/ENTRY[1]/OCCUPATION[3]/CHRONSTRUCT[10][RESEARCHNOTE[1]='Optional additional career highlight: N']/RESEARCHNOTE[1]" -v "Optional additional career highlight: No" %%f
+xml ed -L -u "/CWRC/ENTRY[1]/OCCUPATION[3]/CHRONSTRUCT[5]/CHRONPROSE[1][RESEARCHNOTE[2]='Optional additional career highlight: Y']/RESEARCHNOTE[2]" -v "Optional additional career highlight: Yes" %%f
+xml ed -L -u "/CWRC/ENTRY[1]/OCCUPATION[3]/CHRONSTRUCT[5]/CHRONPROSE[1][RESEARCHNOTE[2]='Optional additional career highlight: N']/RESEARCHNOTE[2]" -v "Optional additional career highlight: No" %%f
+xml ed -L -u "/CWRC/ENTRY[1]/OCCUPATION[2]/CHRONSTRUCT[10]/CHRONPROSE[1][RESEARCHNOTE[4]='Optional additional career highlight: Y']/RESEARCHNOTE[4]" -v "Optional additional career highlight: Yes" %%f
+xml ed -L -u "/CWRC/ENTRY[1]/OCCUPATION[2]/CHRONSTRUCT[10]/CHRONPROSE[1][RESEARCHNOTE[4]='Optional additional career highlight: N']/RESEARCHNOTE[4]" -v "Optional additional career highlight: No" %%f
+xml ed -L -u "/CWRC/ENTRY[1]/OCCUPATION[2]/CHRONSTRUCT[5]/CHRONPROSE[1][RESEARCHNOTE[4]='Optional additional career highlight: Y']/RESEARCHNOTE[4]" -v "Optional additional career highlight: Yes" %%f
+xml ed -L -u "/CWRC/ENTRY[1]/OCCUPATION[2]/CHRONSTRUCT[5]/CHRONPROSE[1][RESEARCHNOTE[4]='Optional additional career highlight: N']/RESEARCHNOTE[4]" -v "Optional additional career highlight: No" %%f
+rem Optional additional first production: 14*3; if "Y" then change to "Yes", and if "N" then change to "No"
+xml ed -L -u "/CWRC/ENTRY[1][RESEARCHNOTE[32]='Optional additional first production: Y']/RESEARCHNOTE[32]" -v "Optional additional first production: Yes" %%f
+xml ed -L -u "/CWRC/ENTRY[1][RESEARCHNOTE[32]='Optional additional first production: N']/RESEARCHNOTE[32]" -v "Optional additional first production: No" %%f
+xml ed -L -u "/CWRC/ENTRY[1][RESEARCHNOTE[31]='Optional additional first production: Y']/RESEARCHNOTE[31]" -v "Optional additional first production: Yes" %%f
+xml ed -L -u "/CWRC/ENTRY[1][RESEARCHNOTE[31]='Optional additional first production: N']/RESEARCHNOTE[31]" -v "Optional additional first production: No" %%f
+xml ed -L -u "/CWRC/ENTRY[1][RESEARCHNOTE[30]='Optional additional first production: Y']/RESEARCHNOTE[30]" -v "Optional additional first production: Yes" %%f
+xml ed -L -u "/CWRC/ENTRY[1][RESEARCHNOTE[30]='Optional additional first production: N']/RESEARCHNOTE[30]" -v "Optional additional first production: No" %%f
+xml ed -L -u "/CWRC/ENTRY[1][RESEARCHNOTE[29]='Optional additional first production: Y']/RESEARCHNOTE[29]" -v "Optional additional first production: Yes" %%f
+xml ed -L -u "/CWRC/ENTRY[1][RESEARCHNOTE[29]='Optional additional first production: N']/RESEARCHNOTE[29]" -v "Optional additional first production: No" %%f
+xml ed -L -u "/CWRC/ENTRY[1][RESEARCHNOTE[28]='Optional additional first production: Y']/RESEARCHNOTE[28]" -v "Optional additional first production: Yes" %%f
+xml ed -L -u "/CWRC/ENTRY[1][RESEARCHNOTE[28]='Optional additional first production: N']/RESEARCHNOTE[28]" -v "Optional additional first production: No" %%f
+xml ed -L -u "/CWRC/ENTRY[1][RESEARCHNOTE[27]='Optional additional first production: Y']/RESEARCHNOTE[27]" -v "Optional additional first production: Yes" %%f
+xml ed -L -u "/CWRC/ENTRY[1][RESEARCHNOTE[27]='Optional additional first production: N']/RESEARCHNOTE[27]" -v "Optional additional first production: No" %%f
+xml ed -L -u "/CWRC/ENTRY[1][RESEARCHNOTE[26]='Optional additional first production: Y']/RESEARCHNOTE[26]" -v "Optional additional first production: Yes" %%f
+xml ed -L -u "/CWRC/ENTRY[1][RESEARCHNOTE[26]='Optional additional first production: N']/RESEARCHNOTE[26]" -v "Optional additional first production: No" %%f
+xml ed -L -u "/CWRC/ENTRY[1][RESEARCHNOTE[25]='Optional additional first production: Y']/RESEARCHNOTE[25]" -v "Optional additional first production: Yes" %%f
+xml ed -L -u "/CWRC/ENTRY[1][RESEARCHNOTE[25]='Optional additional first production: N']/RESEARCHNOTE[25]" -v "Optional additional first production: No" %%f
+xml ed -L -u "/CWRC/ENTRY[1][RESEARCHNOTE[24]='Optional additional first production: Y']/RESEARCHNOTE[24]" -v "Optional additional first production: Yes" %%f
+xml ed -L -u "/CWRC/ENTRY[1][RESEARCHNOTE[24]='Optional additional first production: N']/RESEARCHNOTE[24]" -v "Optional additional first production: No" %%f
 
 rem **XML text node value substitutions, as well as XML element and text node deletions**
 rem Suitable for young actors: 13*8; if "Y" then change to "Yes", if "N" then change to "No", else delete P
