@@ -94,6 +94,7 @@ xml ed -L -u "/CWRC/ENTRY[1][RESEARCHNOTE[24]='Optional additional first product
 xml ed -L -u "/CWRC/ENTRY[1][RESEARCHNOTE[24]='Optional additional first production: N']/RESEARCHNOTE[24]" -v "Optional additional first production: No" %%f
 rem Optional additional play: 5d; if "Y" then change to "Yes", and if "N" then change to "No"
 xml ed -L -u "/CWRC/ENTRY[1]/RECEPTION[3][RESEARCHNOTE[4]='Optional additional play: Y']/RESEARCHNOTE[4]" -v "Optional additional play: Yes" %%f
+xml ed -L -u "/CWRC/ENTRY[1]/RECEPTION[3][RESEARCHNOTE[4]='Optional additional play: N']/RESEARCHNOTE[4]" -v "Optional additional play: No" %%f
 
 rem **XML text node value substitutions, as well as XML element and text node deletions**
 rem Suitable for young actors: 13*8; if "Y" then change to "Yes", if "N" then change to "No", else delete P
