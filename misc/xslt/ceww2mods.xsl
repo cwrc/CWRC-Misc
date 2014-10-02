@@ -2,7 +2,7 @@
 <!-- 
 # MRB: Wed 01-Oct-2014
 
-# Purpose: XSLT stylesheet to transform CEWW basic XML format bibliographic records to MODS records
+# Purpose: XSLT stylesheet to transform CEWW Excel spreadsheet bibliographic records to MODS records
 
 # Notes:
 #
@@ -19,7 +19,8 @@
 # in by using Ctrl-v.  The column was then highlighted, copied, and then pasted over using
 # Paste Special > Paste Values > Values.
 # * However, most cleanup operations had to be performed manually, such as parsing out the
-# second and third authors text strings, changing the country field to a MARC country field, etc.
+# second and third authors text strings, parsing out the second and third publication data text
+# strings, changing the country field to a MARC country field, etc.
 #
 # (2) After the data cleanup operations were finished, the data were imported from the Microsoft
 # Excel spreadsheet to a Google Sheet by copying and pasting the data from Excel to a Google
@@ -45,8 +46,8 @@
 # XML file containing the MODS records into individual MODS record XML files.
 #
 # * Source Microsoft Excel spreadsheet characteristics:
-# - 67 columns or variables in the header row; and
-# - 298 data rows or records.
+# - 67 columns, fields, or variables in the header row; and
+# - 298 data rows, lines, or records.
 #
 # MODS record mappings:
 # - The CEWW bibliographic records were mapped to 10 top-level elements in MODS:
@@ -219,7 +220,7 @@
             </xsl:if>
 
             <!-- originInfo element information -->
-            <xsl:if test="normalize-space(Place_of_publication_or_issuance) != '' or (normalize-space(Publishers) != '' or normalize-space(Date_published_or_issued) != '')">
+            <xsl:if test="normalize-space(Place_of_publication_or_issuance) != '' or (normalize-space(Publisher) != '' or normalize-space(Date_published_or_issued) != '')">
                 <originInfo eventType="publication">
                     <xsl:if test="normalize-space(Place_of_publication_or_issuance) != ''">
                         <place>
@@ -231,9 +232,9 @@
                             </placeTerm>
                         </place>
                     </xsl:if>
-                    <xsl:if test="normalize-space(Publishers) != ''">
+                    <xsl:if test="normalize-space(Publisher) != ''">
                         <publisher>
-                            <xsl:value-of select="normalize-space(Publishers)"/>
+                            <xsl:value-of select="normalize-space(Publisher)"/>
                         </publisher>
                     </xsl:if>
                     <xsl:if test="normalize-space(Place_of_publication_or_issuance2) != ''">
@@ -246,9 +247,9 @@
                             </placeTerm>
                         </place>
                     </xsl:if>
-                    <xsl:if test="normalize-space(Publishers2) != ''">
+                    <xsl:if test="normalize-space(Publisher2) != ''">
                         <publisher>
-                            <xsl:value-of select="normalize-space(Publishers2)"/>
+                            <xsl:value-of select="normalize-space(Publisher2)"/>
                         </publisher>
                     </xsl:if>
                     <xsl:if test="normalize-space(Place_of_publication_or_issuance3) != ''">
@@ -261,9 +262,9 @@
                             </placeTerm>
                         </place>
                     </xsl:if>
-                    <xsl:if test="normalize-space(Publishers3) != ''">
+                    <xsl:if test="normalize-space(Publisher3) != ''">
                         <publisher>
-                            <xsl:value-of select="normalize-space(Publishers3)"/>
+                            <xsl:value-of select="normalize-space(Publisher3)"/>
                         </publisher>
                     </xsl:if>
                     <xsl:if test="normalize-space(Date_published_or_issued) != '' and (normalize-space(Date_issued_qualifier) = '' and normalize-space(Copyright_date) = '')">
