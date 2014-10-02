@@ -16,7 +16,7 @@
 # =IF(ISTEXT(AQ2),"personal","")  The formula was autopopulated in each cell in the column by
 # copying the formula using Ctrl-c, navigating to the bottom of the spreadsheet, then holding
 # down the shift key, then clicking on the last cell in the column, and then pasting the formulas
-# in by using Ctrl-v.  The column was then highlighted, copied, and then pasted by over as
+# in by using Ctrl-v.  The column was then highlighted, copied, and then pasted over using
 # Paste Special > Paste Values > Values.
 # * However, most cleanup operations had to be performed manually, such as parsing out the
 # second and third authors text strings, changing the country field to a MARC country field, etc.
@@ -24,9 +24,9 @@
 # (2) After the data cleanup operations were finished, the data were imported from the Microsoft
 # Excel spreadsheet to a Google Sheet by copying and pasting the data from Excel to a Google
 # Sheet document; the data were then exported from the Google Sheet document as a tab-
-# delimited TSV file.  This is a workaround to address the inability of Microsoft Excel to export
+# delimited TSV file.  This was a workaround to address the inability of Microsoft Excel to export
 # UTF-8 encoded characters as a CSV or TSV file.  Another workaround that was tested and that
-# works well is importing the Excel data file into the Gnumeric spreadsheet program, and then
+# worked well was importing the Excel data file into the Gnumeric spreadsheet program, and then
 # exporting the data as a tab-delimited file; to export the data as a tab-delimited file in Gnumeric,
 # select Data, then Export Data, then Export as Text File ..., then Text (configurable), and then
 # select the appropriate settings in the dialog box that will pop up after you select the option to
@@ -38,11 +38,11 @@
 # file, and the header field names are used for the child element names for each data cell in a
 # field in a record.  This produces a basic well-formed XML file.
 #
-# (4) This XSLT file, ceww2mods.xsl, was then used to transform the basic XML file into a file
-# containing MODS records.
+# (4) This XSLT stylesheet file, ceww2mods.xsl, was then used to transform the basic XML file
+# into an XML file containing MODS records.
 # 
 # (5) The final step was to use the XSLT stylesheet split_modsCollection.xsl to split the single
-# XML file containing the MODS records into individual MODS record files.
+# XML file containing the MODS records into individual MODS record XML files.
 #
 # * Source Microsoft Excel spreadsheet characteristics:
 # - 67 columns or variables in the header row; and
@@ -219,10 +219,79 @@
             </xsl:if>
 
             <!-- originInfo element information -->
-            
-
-
-
+            <xsl:if test="normalize-space(Place_of_publication_or_issuance) != '' or (normalize-space(Publishers) != '' or normalize-space(Date_published_or_issued) != '')">
+                <originInfo eventType="publication">
+                    <xsl:if test="normalize-space(Place_of_publication_or_issuance) != ''">
+                        <place>
+                            <placeTerm type="text">
+                                <xsl:value-of select="normalize-space(Place_of_publication_or_issuance)"/>
+                            </placeTerm>
+                            <placeTerm type="code" authority="marccountry">
+                                <xsl:value-of select="normalize-space(MARC_country_code)"/>
+                            </placeTerm>
+                        </place>
+                    </xsl:if>
+                    <xsl:if test="normalize-space(Publishers) != ''">
+                        <publisher>
+                            <xsl:value-of select="normalize-space(Publishers)"/>
+                        </publisher>
+                    </xsl:if>
+                    <xsl:if test="normalize-space(Place_of_publication_or_issuance2) != ''">
+                        <place>
+                            <placeTerm type="text">
+                                <xsl:value-of select="normalize-space(Place_of_publication_or_issuance2)"/>
+                            </placeTerm>
+                            <placeTerm type="code" authority="marccountry">
+                                <xsl:value-of select="normalize-space(MARC_country_code2)"/>
+                            </placeTerm>
+                        </place>
+                    </xsl:if>
+                    <xsl:if test="normalize-space(Publishers2) != ''">
+                        <publisher>
+                            <xsl:value-of select="normalize-space(Publishers2)"/>
+                        </publisher>
+                    </xsl:if>
+                    <xsl:if test="normalize-space(Place_of_publication_or_issuance3) != ''">
+                        <place>
+                            <placeTerm type="text">
+                                <xsl:value-of select="normalize-space(Place_of_publication_or_issuance3)"/>
+                            </placeTerm>
+                            <placeTerm type="code" authority="marccountry">
+                                <xsl:value-of select="normalize-space(MARC_country_code3)"/>
+                            </placeTerm>
+                        </place>
+                    </xsl:if>
+                    <xsl:if test="normalize-space(Publishers3) != ''">
+                        <publisher>
+                            <xsl:value-of select="normalize-space(Publishers3)"/>
+                        </publisher>
+                    </xsl:if>
+                    <xsl:if test="normalize-space(Date_published_or_issued) != '' and (normalize-space(Date_issued_qualifier) = '' and normalize-space(Copyright_date) = '')">
+                        <dateIssued encoding="w3cdtf">
+                            <xsl:value-of select="normalize-space(Date_published_or_issued)"/>
+                        </dateIssued>
+                    </xsl:if>
+                    <xsl:if test="normalize-space(Date_published_or_issued) != '' and (normalize-space(Date_issued_qualifier) != '')">
+                        <dateIssued encoding="w3cdtf" qualifier="questionable">
+                            <xsl:value-of select="normalize-space(Date_published_or_issued)"/>
+                        </dateIssued>
+                    </xsl:if>
+                    <xsl:if test="normalize-space(Date_published_or_issued) != '' and (normalize-space(Copyright_date) != '')">
+                        <dateIssued encoding="w3cdtf" keyDate="yes">
+                            <xsl:value-of select="normalize-space(Date_published_or_issued)"/>
+                        </dateIssued>
+                        <copyrightDate encoding="w3cdtf">
+                            <xsl:value-of select="normalize-space(Copyright_date)"/>
+                        </copyrightDate>
+                    </xsl:if>
+                    <xsl:if test="normalize-space(Edition) != ''">
+                        <edition>
+                            <xsl:value-of select="normalize-space(Edition)"/>
+                        </edition>
+                    </xsl:if>
+                    <issuance>monographic</issuance>
+                </originInfo>
+            </xsl:if>
 
             <!-- language element information -->
             <language>
