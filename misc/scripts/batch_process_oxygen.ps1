@@ -38,18 +38,21 @@
 #done
 # 
 
+# NOTE: 2014-10-05 - had trouble running in Oxygen 16.0 switched back to 15.2
+
 [void][reflection.assembly]::loadwithpartialname("system.windows.forms")
 
 #$in = "C:\Users\jefferya.ARTSRN\Downloads\oxygen_batch_2014-02-12\"
-$in = "C:\Users\jefferya.ARTSRN\Downloads\oxygen_schema_batch_3\data"
-$oxygen_exe = "C:\Program Files\Oxygen XML Editor 15\oxygenAuthor15.1.exe"
+$in = "C:\Users\jefferya.ARTSRN\Downloads\o2_preferences"
+#$oxygen_exe = "C:\Program Files\Oxygen XML Editor 16\oxygenAuthor16.0.exe"
+$oxygen_exe = "C:\Program Files\Oxygen XML Editor 15\oxygenAuthor15.2.exe"
 
 Write-Host
 Write-Host 'Begin Batch Process'
 
 # open an instance of Oxygen XML and wait until finished opening 
 Write-Host "Wait...:"
-& $oxygen_exe 
+& "$oxygen_exe" 
 Start-Sleep -s 5 
 
 $fileList = Get-ChildItem $in
@@ -61,9 +64,11 @@ for ($i=0; $i -lt $fileList.Count; $i++)
 
     # open an tab in Oxygen XML and wait until finished opening 
     Write-Host
-    Write-Host "opening "($i+1)" of $count : $fileName"
+    Write-Host "opening "($i+1)" of $count : "$fileList[$i].FullName
     Write-Host
-    & $oxygen_exe $fileList[$i].FullName
+    Write-Host $oxygen_exe $fileList[$i].FullName
+    Write-Host
+    & "$oxygen_exe" $fileList[$i].FullName
     
     Write-Host "Wait...:"
     Start-Sleep -s 5 
