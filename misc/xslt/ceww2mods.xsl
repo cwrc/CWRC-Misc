@@ -28,14 +28,14 @@
 # delimited TSV file.  This was a workaround to address the inability of Microsoft Excel to export
 # UTF-8 encoded characters as a CSV or TSV file.  Another workaround that was tested and that
 # worked well was importing the Excel data file into the Gnumeric spreadsheet program, and then
-# exporting the data as a tab-delimited file; to export the data as a tab-delimited file in Gnumeric,
-# select Data, then Export Data, then Export as Text File ..., then Text (configurable), and then
-# select the appropriate settings in the dialog box that will pop up after you select the option to
-# save the file.
+# exporting the data as a tab-delimited file; to export the data as a tab-delimited file in
+# Gnumeric, select Data, then Export Data, then Export as Text File ..., then Text
+# (configurable), and then select the appropriate settings in the dialog box that will pop up
+# after you select the option to save the file.
 #
 # (3) The tab-delimited TSV file was then converted into a basic XML file using the AWK script
 # csv2xml.awk; one can also use csv2xml.pl or csv2xml.xsl to do the conversion.  This results in
-# an XML file where each line in the input CSV file becomes a record element in the output XML
+# an XML file where each line in the input TSV file becomes a record element in the output XML
 # file, and the header field names are used for the child element names for each data cell in a
 # field in a record.  This produces a basic well-formed XML file.
 #
@@ -47,7 +47,7 @@
 #
 # * Source Microsoft Excel spreadsheet characteristics:
 # - 67 columns, fields, or variables in the header row; and
-# - 298 data rows, lines, or records.
+# - 582 data rows, lines, or records.
 #
 # MODS record mappings:
 # - The CEWW bibliographic records were mapped to 10 top-level elements in MODS:
@@ -151,6 +151,11 @@
                     <namePart type="family">
                         <xsl:value-of select="normalize-space(Family_name2)"/>
                     </namePart>
+                    <xsl:if test="normalize-space(Dates2) != ''">
+                        <namePart type="date">
+                            <xsl:value-of select="normalize-space(Dates2)"/>
+                        </namePart>
+                    </xsl:if>
                     <xsl:if test="normalize-space(Role2) != ''">
                         <role>
                             <roleTerm type="text" authority="marcrealtor">
@@ -170,6 +175,11 @@
                     <namePart type="family">
                         <xsl:value-of select="normalize-space(Family_name3)"/>
                     </namePart>
+                    <xsl:if test="normalize-space(Dates3) != ''">
+                        <namePart type="date">
+                            <xsl:value-of select="normalize-space(Dates3)"/>
+                        </namePart>
+                    </xsl:if>
                     <xsl:if test="normalize-space(Role3) != ''">
                         <role>
                             <roleTerm type="text" authority="marcrealtor">
@@ -267,18 +277,36 @@
                             <xsl:value-of select="normalize-space(Publisher3)"/>
                         </publisher>
                     </xsl:if>
-                    <xsl:if test="normalize-space(Date_published_or_issued) != '' and (normalize-space(Date_issued_qualifier) = '' and normalize-space(Copyright_date) = '')">
-                        <dateIssued encoding="w3cdtf">
+                    <xsl:if test="normalize-space(Date_published_or_issued) != '' and (normalize-space(Date_issued_qualifier) = '' and normalize-space(Date_issued_point_end) = '' and normalize-space(Copyright_date) = '')">
+                        <dateIssued encoding="marc">
                             <xsl:value-of select="normalize-space(Date_published_or_issued)"/>
                         </dateIssued>
                     </xsl:if>
-                    <xsl:if test="normalize-space(Date_published_or_issued) != '' and (normalize-space(Date_issued_qualifier) != '')">
-                        <dateIssued encoding="w3cdtf" qualifier="questionable">
+                    <xsl:if test="normalize-space(Date_published_or_issued) != '' and (normalize-space(Date_issued_qualifier) = 'questionable')">
+                        <dateIssued encoding="marc" qualifier="questionable">
                             <xsl:value-of select="normalize-space(Date_published_or_issued)"/>
+                        </dateIssued>
+                    </xsl:if>
+                    <xsl:if test="normalize-space(Date_published_or_issued) != '' and (normalize-space(Date_issued_qualifier) = 'approximate')">
+                        <dateIssued encoding="marc" qualifier="approximate">
+                            <xsl:value-of select="normalize-space(Date_published_or_issued)"/>
+                        </dateIssued>
+                    </xsl:if>
+                    <xsl:if test="normalize-space(Date_published_or_issued) != '' and (normalize-space(Date_issued_qualifier) = 'inferred')">
+                        <dateIssued encoding="marc" qualifier="inferred">
+                            <xsl:value-of select="normalize-space(Date_published_or_issued)"/>
+                        </dateIssued>
+                    </xsl:if>
+                    <xsl:if test="normalize-space(Date_published_or_issued) != '' and (normalize-space(Date_issued_point_end) != '')">
+                        <dateIssued encoding="marc" point="start">
+                            <xsl:value-of select="normalize-space(Date_published_or_issued)"/>
+                        </dateIssued>
+                        <dateIssued encoding="marc" point="end">
+                            <xsl:value-of select="normalize-space(Date_issued_point_end)"/>
                         </dateIssued>
                     </xsl:if>
                     <xsl:if test="normalize-space(Date_published_or_issued) != '' and (normalize-space(Copyright_date) != '')">
-                        <dateIssued encoding="w3cdtf" keyDate="yes">
+                        <dateIssued encoding="marc" keyDate="yes">
                             <xsl:value-of select="normalize-space(Date_published_or_issued)"/>
                         </dateIssued>
                         <copyrightDate encoding="w3cdtf">
@@ -324,9 +352,9 @@
             </xsl:if>
 
             <!-- accessCondition element information -->
-            <accessCondition type="use and reproduction">This work is licensed under a
-                <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 
-                    4.0 International License</a> (CC BY-NC-SA 4.0).</accessCondition>
+            <accessCondition type="use and reproduction">Use of this public-domain resource is governed by the
+                <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">Creative Commons
+                    Attribution-NonCommercial 4.0 International License</a>.</accessCondition>
 
             <!-- recordInfo element information -->
             <recordInfo>
