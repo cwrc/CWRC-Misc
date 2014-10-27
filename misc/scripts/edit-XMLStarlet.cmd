@@ -9,19 +9,27 @@ rem MRB -- Fri 29-Aug-2014
 :: replace text node values, and delete nodes, using defined XPaths and conditional text patterns,
 :: in the Playwrights CWRC entry XML files.  All file edits are performed "in place" in the source
 :: XML files by the utility XMLStarlet.  The Playwrights files to be batch processed are put in a
-:: directory called "files", and the batch file script "edit-XMLStarlet.bat" is placed in the
+:: directory called "files", and the batch file script "edit-XMLStarlet.cmd" is placed in the
 :: parent directory of the "files" directory.  To run the script, type the following at the
 :: command prompt:
 
-::     edit-XMLStarlet.bat
+::     edit-XMLStarlet.cmd
 
 rem Note: XMLStarlet must be installed; the XMLStarlet executable is called via the command "xml"
 
+rem count the number of files in the "files" directory and put this total in the total_files variable
+cd files
+for /f %%a in ('dir ^| find "File(s)"') do set total_files=%%a
+cd ..
+
 rem echo beginning processing statement
-echo Processing Playwrights CWRC entry XML files . . .
+echo Processing %total_files% Playwrights CWRC entry XML files . . .
 
 rem loop through the "files" directory
 for /r files %%f in (*) do (
+
+rem echo file processing statement
+echo Processing the file %%f . . .
 
 rem **XML text node value substitutions**
 rem Gender: 1b1; change numeric values to the appropriate label equivalents
@@ -222,4 +230,4 @@ xml ed -L -d "/CWRC/ENTRY[1]/RESEARCHNOTE[9][self::RESEARCHNOTE/text()='Optional
 )
 
 rem echo ending processing statement
-echo Processing of Playwrights CWRC entry XML files is now finished.
+echo Processing of %total_files% Playwrights CWRC entry XML files is now finished.
