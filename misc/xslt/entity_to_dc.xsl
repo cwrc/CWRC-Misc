@@ -27,7 +27,7 @@
   <!--
   * build DC
   -->
-  <xsl:template match="/cwrc/entity | /mods:modsCollection/mods:mods | /mods:mods">
+  <xsl:template match="/entity | /mods:modsCollection/mods:mods | /mods:mods">
     <oai_dc:dc xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd" >
       <dc:title>
         <xsl:call-template name="GET_DC_TITLE" />
@@ -50,7 +50,7 @@
   <!--
   * build the DC title - person entity
   * privelege identity/displayLabel
-  * over the identity/preferredForm/namePart[@partType="forename"] concatenated with the identity/preferredForm/namePart[@partType="surname"]
+  * over the identity/preferredForm/namePart[@partType="given"] concatenated with the identity/preferredForm/namePart[@partType="family"]
   * over the identity/preferredForm/namePart
   -->
   <xsl:template match="person" mode="entity_dc_title">
@@ -60,16 +60,16 @@
       <xsl:when test="identity/displayLabel">
         <xsl:value-of select="identity/displayLabel" />
       </xsl:when>
-      <!-- surname and forename -->
-      <xsl:when test="identity/preferredForm/namePart/@surname or identity/preferredForm/namePart/@forename">
-        <xsl:if test="identity/preferredForm/namePart/@surname">
-          <xsl:value-of select="identity/preferredForm/namePart[partType='surname']" />
+      <!-- family and given -->
+      <xsl:when test="identity/preferredForm/namePart/@family or identity/preferredForm/namePart/@given">
+        <xsl:if test="identity/preferredForm/namePart/@family">
+          <xsl:value-of select="identity/preferredForm/namePart[partType='family']" />
         </xsl:if>
-        <xsl:if test="identity/preferredForm/namePart/@surname and identity/preferredForm/namePart/@forename">
+        <xsl:if test="identity/preferredForm/namePart/@family and identity/preferredForm/namePart/@given">
           <xsl:text> </xsl:text>
         </xsl:if>
-        <xsl:if test="identity/preferredForm/namePart/@forename">
-          <xsl:value-of select="identity/preferredForm/namePart[type='forename']" />
+        <xsl:if test="identity/preferredForm/namePart/@given">
+          <xsl:value-of select="identity/preferredForm/namePart[type='given']" />
         </xsl:if>
       </xsl:when>
       <!-- namePart -->
