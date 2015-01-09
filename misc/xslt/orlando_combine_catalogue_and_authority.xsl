@@ -23,7 +23,7 @@
     
     <xsl:template match="/">
         <xsl:element name="orlando">
-            <xsl:attribute name="date" select="current-date()"/>
+            <xsl:attribute name="date" select="current-dateTime()"/>
             <xsl:apply-templates select="orlando/catalogue/entry" />    
         </xsl:element>
     </xsl:template>
