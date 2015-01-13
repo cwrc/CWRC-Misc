@@ -3,16 +3,26 @@
 <!-- A list of Orlando's British women writers, ideally the authority list version complete with the variant names and birth and death dates. -->
 
 <!-- 
-* input - concatentated file of the Orlando DeliverySystem catalogue and the Orlando authority lists
+* input - concatentated file of the Orlando Delivery System catalogue and the Orlando authority lists
 
 * input file format
 
-<orlando>
+
+<?xml version="1.0"?>
+<!DOCTYPE ORLANDO [ <!ENTITY % character_entities SYSTEM "http://cwrc.ca/schemas/character_entities.dtd"> %character_entities; ]>
+
+
+<orlando date="">
    <catalogue>
    </catalogue>
    <AUTHORITYLIST>
    </AUTHORITYLIST>
-</orlando
+</orlando>
+
+Catalogue generation:
+
+* see Orlando doc directory for details
+
 -->
 
 
