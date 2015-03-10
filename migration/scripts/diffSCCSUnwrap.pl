@@ -12,6 +12,9 @@
 # find ../data_mirror/ -regex '.*-[bw]\.sgm' | xargs diffSCCSUnwrap.pl
 # find ../data_mirror/ -regex '.*-[bw]\.sgm' | xargs nice -n 19 diffSCCSUnwrap.pl > /video/tmp/z.txt
 #
+# Context: CWRC Credit Representation Service (Credit Rating)
+# https://docs.google.com/a/ualberta.ca/document/d/1a9ffgOkGkJ5GXZbGjpTPpaobQ1cvWw5rV87CayMmKhk/edit#heading=h.qt4wpu2r90iv
+#
 # Filename: diffSCCSUnwrap.pl
 #
 # Created: 2013-01-15
