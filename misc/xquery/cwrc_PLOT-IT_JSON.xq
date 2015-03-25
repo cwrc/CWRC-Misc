@@ -23,10 +23,15 @@ declare variable $role_external external := ( "anonymous" );
 
 declare variable $role_seq := $role_external;
 
+declare function local:escapeJSON ($str as xs:string?)
+{
+  fn:replace($str, '[^""]""[^""]', '\\"')
+};
+
 declare function local:outputJSON ($key as xs:string?, $value as xs:string?)
 as xs:string?
 {
-  let $tmp := string('"'||$key||'": "'||$value||'"')
+  let $tmp := string('"'||$key||'": "'||local:escapeJSON($value)||'"')
   return $tmp
 };
 
@@ -97,12 +102,12 @@ as xs:string?
         return
           (
             try {
-              '"' || $placeMap('lat') || "," || $placeMap('lng') || '"'
+              '"' || local:escapeJSON($placeMap('lat') || "," || $placeMap('lng')) || '"'
             }
             catch *
             {
               (: if issue in lookup then return North Pole :)
-              "0,0"
+              "0,90"
             }
           )
   )
@@ -112,7 +117,7 @@ as xs:string?
         return
           (
             try {
-              '"' || $placeMap('placeStr') || '"'
+              '"' || local:escapeJSON($placeMap('placeStr')) || '"'
             }
             catch *
             {
