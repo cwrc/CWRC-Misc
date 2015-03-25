@@ -66,8 +66,8 @@ declare function cwPH:parse_geo_code_return($placeStr, $geoCodeResult)
             , 'lng': $geoCodeResult/lng/text()
             , 'ref': ''
             , 'placeStr': $placeStr
-            , 'geoNameId': $geoCodeResult/geonameId/text()
-            , 'geoNameCountryName': $geoCodeResult/countryName/text()
+            , 'geonameId': $geoCodeResult/geonameId/text()
+            , 'geonameCountryName': $geoCodeResult/countryName/text()
             , 'geonamePlaceName': $geoCodeResult/name/text()
           }
      } catch * {
