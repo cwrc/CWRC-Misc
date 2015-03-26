@@ -25,7 +25,7 @@ declare variable $role_seq := $role_external;
 
 declare function local:escapeJSON ($str as xs:string?)
 {
-  fn:replace($str, '[^""]""[^""]', '\\"')
+  fn:replace($str, '([^\\])["]', '$1\\"')
 };
 
 declare function local:outputJSON ($key as xs:string?, $value as xs:string?)
