@@ -82,9 +82,9 @@ as xs:string?
     else if (fn:name($src) eq 'event') then
     ( 
       (: TEI Place :)
-      for $placeNode in $src/desc/place
+      for $placeNode in $src/tei:desc[1]/tei:placeName
       return 
-        cwPH:get_geo_code("","",$placeNode/@REF/data(),$placeNode/text())
+        cwPH:get_geo_code("","",$placeNode/@ref/data(),$placeNode/text())
     )
     else if (fn:name($src) eq 'mods') then
     ( 

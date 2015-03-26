@@ -34,12 +34,12 @@ declare function cwPH:get_geo_code($lat, $lng, $ref, $placeStr)
 (: given a uri reference, lookup the geo code :)
 declare function cwPH:get_geo_code_by_ref($ref, $placeStr)
 {
-  if ( /geonames/geoname/@geonameId/data() eq $ref) then
-    cwPH:parse_geo_code_return($placeStr,/geonames/geoname[@geonameId/data() eq $ref])
+  if ( fn:collection()/places/geonames/geoname[@geonameId/data() eq $ref] ) then
+    cwPH:parse_geo_code_return($placeStr,fn:collection()/places/geonames/geoname[@geonameId/data() eq $ref][1])
   else if ($ref != '') then
     let $tmp := cwPH:getGeoCodeByIDViaGeoNames($ref)
     return
-      cwPH:parse_geo_code_return($placeStr,$tmp/geonames/geoname[1])
+      cwPH:parse_geo_code_return($placeStr,$tmp/geoname[1])
   else
     ()
 };

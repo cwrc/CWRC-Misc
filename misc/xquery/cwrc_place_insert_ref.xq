@@ -8,8 +8,10 @@ declare namespace mods = "http://www.loc.gov/mods/v3";
 declare namespace tei =  "http://www.tei-c.org/ns/1.0";
 
 (
-(: for $placeNode in //CHRONSTRUCT/CHRONPROSE/PLACE[(not(@LT) and not(@LNG)) and not(@REF)] | //event/desc[1]/place[not(@ref)] :)
-for $placeNode in //CHRONSTRUCT/CHRONPROSE/PLACE | //event/desc[1]/place
+
+(:
+for $placeNode in //CHRONSTRUCT/CHRONPROSE/PLACE | //event/desc[1]/placeName 
+:)
 return
   let $placeStr :=
   (
@@ -23,22 +25,21 @@ return
       ""    
   )
   let $tmp := cwPH:getGeoCodeByStrViaGeoNames($placeStr) 
-  let $placeMap := cwPH:parse_geo_code_return($placeStr,$tmp)
+  let $placeMap := cwPH:parse_geo_code_return($placeStr,$tmp/geonames/geoname[1])
   let $ref := $placeMap('geonameId')
   let $attrName :=
   (
     if ( fn:name($placeNode) eq 'PLACE' ) then
-      "REF8"
+      "REF"
     else
-      "ref8"
+      "ref"
   )
   return 
   (
-    
-    insert node (<geoname geonamesId="{$ref}">{$tmp/geoname/*}</geoname>) as first into /places/geonames
+    (:
     ,
-    
-    insert node (attribute {$attrName} {$placeStr} ) as last into $placeNode
+    :)
+    insert node (attribute {$attrName} {"http://www.geonames.org/"||$ref||"/"} ) as last into $placeNode
   )
 )
 
