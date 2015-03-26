@@ -13,10 +13,13 @@ declare namespace tei =  "http://www.tei-c.org/ns/1.0";
 
 (
 for $ref in //CHRONSTRUCT/CHRONPROSE/PLACE[not(@LAT) and not(@LNG)]/@REF | //tei:event/tei:desc[1]/tei:placeName/@ref
+group by $ref
+order by $ref
 return
   if ( not( /places/geonames/geoname[@geonameId = $ref])) then
   (
-    let $tmp := cwPH:getGeoCodeByIDViaGeoNames($ref) 
+    let $tmp := cwPH:getGeoCodeByIDViaGeoNames($ref)
+     
     return 
     (
       insert node (<geoname geonameId="{$ref}">{$tmp/geoname/*}</geoname>) as first into /places/geonames
@@ -56,9 +59,13 @@ return
   )
   return 
   (
-    insert node (<geoname geonameId="{$ref}">{$tmp/geonames/geoname/*}</geoname>) as first into /places/geonames
-    ,
-    insert node (attribute {$attrName} {"http://www.geonames.org/"||$ref||"/"} ) as last into $placeNode
+    let $refUri := "http://www.geonames.org/"||$ref||"/"
+    return 
+    (
+      insert node (<geoname geonameId="{$refUri}">{$tmp/geonames/geoname/*}</geoname>) as first into /places/geonames
+      ,
+      insert node (attribute {$attrName} {$refUri} ) as last into $placeNode
+    )
   )
 )
 
