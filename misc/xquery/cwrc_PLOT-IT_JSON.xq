@@ -45,17 +45,17 @@ as xs:string?
 
 
 (: build the "date" attribute from the different schemas: Orlando, TEI, MODS, and CWRC :)
-declare function local:get_date ($src)
+declare function local:get_start_date ($src)
 as xs:string?
 {
   let $tmp :=
   (
     if ( fn:name($src) eq 'EVENT' or fn:name($src) eq 'CHRONSTRUCT') then
     ( 
-      fn:replace( ($src/descendant-or-self::CHRONSTRUCT/(DATE[1]/@VALUE) ), '\-{1,2}$','') (: Fix Orlando date format :)
+      fn:replace( ($src/descendant-or-self::CHRONSTRUCT/((DATE|DATERANGE)[1]/(@VALUE|@FROM))), '\-{1,2}$','') (: Fix Orlando date format :)
     )
     else if (fn:name($src) eq 'event') then
-      ( $src/descendant-or-self::tei:date[1]/@when )
+      ( $src/descendant-or-self::tei:date[1]/(@when|@from|@notBefore) )
     else if (fn:name($src) eq 'mods') then
       ( $src//mods:dateIssued/text() )
     else
@@ -64,6 +64,27 @@ as xs:string?
   return fn:normalize-space(fn:string-join($tmp , ""))
 };
 
+
+
+(: build the "end date" attribute from the different schemas: Orlando, TEI, MODS, and CWRC :)
+declare function local:get_end_date ($src)
+as xs:string?
+{
+  let $tmp :=
+  (
+    if ( fn:name($src) eq 'EVENT' or fn:name($src) eq 'CHRONSTRUCT') then
+    ( 
+      fn:replace( ($src/descendant-or-self::CHRONSTRUCT/(DATERANGE[1]/@TO) ), '\-{1,2}$','') (: Fix Orlando date format :)
+    )
+    else if (fn:name($src) eq 'event') then
+      ( $src/descendant-or-self::tei:date[1]/(@to|@notAfter) )
+    else if (fn:name($src) eq 'mods') then
+      ( $src//mods:dateIssued/text() )
+    else
+      ( fn:name($src) )
+    )
+  return fn:normalize-space(fn:string-join($tmp , ""))
+};
 
 
 (: build the "latLng" (latitude/Longitude) attribute from the different schemas: Orlando, TEI, MODS, and CWRC :)
@@ -279,8 +300,10 @@ return
       "&#123;"
       || local:outputJSON( "schema", string(fn:node-name($event_item)) )
       || ","
-      || local:outputJSON( "startDate", local:get_date($event_item) )
+      || local:outputJSON( "startDate", local:get_start_date($event_item) )
       || ","
+      || local:outputJSON( "endDate", local:get_end_date($event_item) )
+      || ","      
       || local:get_lat_lng($event_item)
       || ","
       || local:outputJSON("eventType", local:get_event_type($event_item) )
