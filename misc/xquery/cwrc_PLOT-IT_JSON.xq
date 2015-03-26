@@ -125,12 +125,30 @@ as xs:string?
             }
           )
   ) 
+  let $placeRefStr :=
+    (
+    for $placeMap at $i in $placeSeq
+        return
+          (
+            try {
+              '"' || local:escapeJSON($placeMap('geonameId')) || '"'
+            }
+            catch *
+            {
+              ""
+            }
+          )
+  ) 
   return 
     local:outputJSONArray( "latLng", fn:string-join($latLngStr, ","))
     ||
     ","
     ||
     local:outputJSONArray( "location", fn:string-join($placeNameStr, ","))
+    ||
+    ","
+    ||
+    local:outputJSONArray( "geonameId", fn:string-join($placeRefStr, ","))
 };
 
 (: build the "eventType" (event type) attribute from the different schemas: Orlando, TEI, MODS, and CWRC :)
