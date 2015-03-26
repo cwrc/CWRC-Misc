@@ -12,6 +12,7 @@ declare namespace tei =  "http://www.tei-c.org/ns/1.0";
 (:
 for $placeNode in //CHRONSTRUCT/CHRONPROSE/PLACE | //event/desc[1]/placeName 
 :)
+for $placeNode in //CHRONSTRUCT/CHRONPROSE/PLACE[(not(@LAT) and not(@LNG)) and not(@REF)] | //tei:event/tei:desc[1]/tei:placeName[not(@ref)]
 return
   let $placeStr :=
   (
@@ -37,6 +38,7 @@ return
   return 
   (
     (:
+    insert node (<geoname geonameId="{$ref}">{$tmp/geonames/geoname/*}</geoname>) as first into /places/geonames
     ,
     :)
     insert node (attribute {$attrName} {"http://www.geonames.org/"||$ref||"/"} ) as last into $placeNode
