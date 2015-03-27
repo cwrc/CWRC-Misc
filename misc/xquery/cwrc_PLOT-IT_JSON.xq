@@ -3,6 +3,7 @@
 xquery version "3.0" encoding "utf-8";
 
 import module namespace cwPH="cwPlaceHelpers" at "./cw_place_helpers.xq";
+import module namespace cwOH="cwOrlandoHelpers" at "./cw_orlando_helpers.xq";
 
 declare namespace mods = "http://www.loc.gov/mods/v3";
 declare namespace tei =  "http://www.tei-c.org/ns/1.0";
@@ -52,7 +53,15 @@ as xs:string?
   (
     if ( fn:name($src) eq 'EVENT' or fn:name($src) eq 'CHRONSTRUCT') then
     ( 
-      fn:replace( ($src/descendant-or-self::CHRONSTRUCT/((DATE|DATERANGE)[1]/(@VALUE|@FROM))), '\-{1,2}$','') (: Fix Orlando date format :)
+      let $dateAttr := ($src/descendant-or-self::CHRONSTRUCT/((DATE|DATERANGE)[1]/(@VALUE|@FROM)))
+      let $dateTxt := ($src/descendant-or-self::CHRONSTRUCT/((DATE|DATERANGE)[1]/text()))
+      return
+        if ($dateAttr) then
+          fn:replace( ($dateAttr), '\-{1,2}$', '') (: Fix Orlando date format :)
+        else if ( $dateTxt )  then
+          fn:string-join(cwOH:parse-orlando-narrative-date($dateTxt),"-")
+        else
+          ()
     )
     else if (fn:name($src) eq 'event') then
       ( $src/descendant-or-self::tei:date[1]/(@when|@from|@notBefore) )
@@ -74,7 +83,7 @@ as xs:string?
   (
     if ( fn:name($src) eq 'EVENT' or fn:name($src) eq 'CHRONSTRUCT') then
     ( 
-      fn:replace( ($src/descendant-or-self::CHRONSTRUCT/(DATERANGE[1]/@TO) ), '\-{1,2}$','') (: Fix Orlando date format :)
+      fn:replace( ($src/descendant-or-self::CHRONSTRUCT/(DATERANGE[1]/@TO)) , '\-{1,2}$','') (: Fix Orlando date format :)
     )
     else if (fn:name($src) eq 'event') then
       ( $src/descendant-or-self::tei:date[1]/(@to|@notAfter) )

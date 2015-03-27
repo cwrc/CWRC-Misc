@@ -1,4 +1,4 @@
-(: a set of helper funcitons to add GeoCode to place elements :)
+(: a set of helper functions to add GeoCode to place elements :)
 
 xquery version "3.0" encoding "utf-8";
 
