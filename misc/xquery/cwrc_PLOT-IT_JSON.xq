@@ -123,12 +123,15 @@ as xs:string?
         return
           (
             try {
-              '"' || local:escapeJSON($placeMap('lat') || "," || $placeMap('lng')) || '"'
+              if ($placeMap) then
+                '"' || local:escapeJSON($placeMap('lat') || "," || $placeMap('lng')) || '"'
+              else
+                "89,0"
             }
             catch *
             {
               (: if issue in lookup then return North Pole :)
-              "0,90"
+              "90,0"
             }
           )
   )

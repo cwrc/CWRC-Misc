@@ -71,7 +71,7 @@ declare function cwPH:parse_geo_code_return($placeStr, $geoCodeResult)
             , 'geonamePlaceName': $geoCodeResult/name/text()
           }
      } catch * {
-       ''
+       ()
    }
    return
      $ret
