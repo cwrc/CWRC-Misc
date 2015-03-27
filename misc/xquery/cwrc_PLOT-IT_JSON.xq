@@ -59,7 +59,7 @@ as xs:string?
     else if (fn:name($src) eq 'mods') then
       ( $src//mods:dateIssued/text() )
     else
-      ( fn:name($src) )
+      ( )
     )
   return fn:normalize-space(fn:string-join($tmp , ""))
 };
@@ -81,7 +81,7 @@ as xs:string?
     else if (fn:name($src) eq 'mods') then
       ( $src//mods:dateIssued/text() )
     else
-      ( fn:name($src) )
+      ( )
     )
   return fn:normalize-space(fn:string-join($tmp , ""))
 };
