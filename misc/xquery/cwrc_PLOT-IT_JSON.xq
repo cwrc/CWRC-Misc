@@ -95,11 +95,14 @@ as xs:string?
     else if (fn:name($src) eq 'mods') then
       (: MODS XML :)
       ( 
-        switch ( local:modsBiblType($src) )
-        case "monographic" return $src/mods:originInfo/mods:dateIssued/text()
-        case "monographic part" return $src/mods:relatedItem/mods:originInfo/mods:dateIssued/text()
-        case "continuing" return $src/mods:relatedItem/mods:part/date/text()
-        default return $src/mods:originInfo/mods:dateIssued/text()
+        let $dateTxt :=
+          switch ( local:modsBiblType($src) )
+            case "monographic" return $src/mods:originInfo/mods:dateIssued/text()
+            case "monographic part" return $src/mods:relatedItem/mods:originInfo/mods:dateIssued/text()
+            case "continuing" return $src/mods:relatedItem/mods:part/mods:date/text()
+            default return $src/mods:originInfo/mods:dateIssued/text()
+        return
+          fn:string-join(cwOH:parse-orlando-narrative-date($dateTxt),"-")
       )
     else
       ( )

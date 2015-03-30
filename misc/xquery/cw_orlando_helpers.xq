@@ -23,6 +23,18 @@ declare variable $cwPO:monthMap as map(*) :=
     , "October": "10" 
     , "November": "11" 
     , "December": "12" 
+    , "janvier": "01" 
+    , "février": "02" 
+    , "mars": "03" 
+    , "avril": "04" 
+    , "mai": "05" 
+    , "juin": "06" 
+    , "juillet": "07" 
+    , "août": "08" 
+    , "september": "09" 
+    , "octobre": "10" 
+    , "novembre": "11" 
+    , "décembre": "12" 
   };
 
 (: 
