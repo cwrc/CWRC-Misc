@@ -44,12 +44,14 @@ as xs:string?
 };
 
 
-declare function local:isModsMonograph($src)
+declare function local:modsBiblType($src)
 {
   if ( $src/mods:originInfo/mods:issuance/text() eq "monographic" ) then
-    "true"
+    "monographic"
   else if ( $src/mods:relatedItem/mods:originInfo/mods:issuance/text() eq "monographic" ) then
-    "false"
+    "monographic part"
+  else if ( $src/mods:relatedItem/mods:originInfo/mods:issuance/text() eq "continuing" ) then
+    "continuing"
   else
     ()
 };
@@ -64,7 +66,7 @@ declare function local:modsFormatDescription($src)
   ||
   "<div>Publisher: "||fn:string-join($src/mods:originInfo/mods:publisher, " ")||"</div>"
   ||
-  "<div>Year: "||fn:string-join($src/mods:originInfo/mods:dateIssued, " ")||"</div>"
+  "<div>Year: "||fn:string-join($src/(mods:originInfo/mods:dateIssued|part/date), " ")||"</div>"
 };
 
 
@@ -93,9 +95,10 @@ as xs:string?
     else if (fn:name($src) eq 'mods') then
       (: MODS XML :)
       ( 
-        switch ( local:isModsMonograph($src) )
-        case "true" return $src/mods:originInfo/mods:dateIssued/text()
-        case "false" return $src/mods:relatedItem/mods:originInfo/mods:dateIssued/text()
+        switch ( local:modsBiblType($src) )
+        case "monographic" return $src/mods:originInfo/mods:dateIssued/text()
+        case "monographic part" return $src/mods:relatedItem/mods:originInfo/mods:dateIssued/text()
+        case "continuing" return $src/mods:relatedItem/mods:part/date/text()
         default return $src/mods:originInfo/mods:dateIssued/text()
       )
     else
@@ -158,9 +161,10 @@ as xs:string?
       (: MODS Place :)
       let $placeNode :=
       (
-          switch ( local:isModsMonograph($src) )
-          case "true" return $src/mods:originInfo/mods:place/mods:placeTerm[not(@authority eq "marccountry")]
-          case "false" return $src/mods:originInfo/mods:place/mods:placeTerm[not(@authority eq "marccountry")]
+          switch ( local:modsBiblType($src) )
+          case "monographic" return $src/mods:originInfo/mods:place/mods:placeTerm[not(@authority eq "marccountry")]
+          case "monographic part" return $src/mods:originInfo/mods:place/mods:placeTerm[not(@authority eq "marccountry")]
+          case "continuing" return $src/mods:originInfo/mods:place/mods:placeTerm[not(@authority eq "marccountry")]          
           default return ()
       )
       return
@@ -289,9 +293,10 @@ as xs:string?
     else if (fn:name($src) eq 'mods') then
     (: MODS XML :)
     (
-      switch ( local:isModsMonograph($src) )
-      case "true" return $src/mods:titleInfo/mods:title/text() 
-      case "false" return $src/mods:relatedItem/mods:orginInfo/mods:titleInfo/mods:title/text() 
+      switch ( local:modsBiblType($src) )
+      case "monographic" return $src/mods:titleInfo/mods:title/text() 
+      case "monographic part" return $src/mods:relatedItem/mods:orginInfo/mods:titleInfo/mods:title/text() 
+      case "continuing" return $src/mods:relatedItem/mods:orginInfo/mods:titleInfo/mods:title/text() 
       default return $src/mods:titleInfo/mods:title/text()
     )
     else
@@ -346,9 +351,10 @@ as xs:string?
     else if (fn:name($src) eq 'mods') then
     (: MODS XML :)
     (
-      switch ( local:isModsMonograph($src) )
-      case "true" return local:modsFormatDescription($src) 
-      case "false" return local:modsFormatDescription($src/mods:relatedItem) 
+      switch ( local:modsBiblType($src) )
+      case "monographic" return local:modsFormatDescription($src) 
+      case "monographic part" return local:modsFormatDescription($src/mods:relatedItem) 
+      case "continuing" return local:modsFormatDescription($src/mods:relatedItem)       
       default return local:modsFormatDescription($src)
     )
     else
