@@ -36,8 +36,8 @@ declare function cwPH:get_geo_code_by_ref($ref, $placeStr)
 {
   if ( fn:collection()/places/geonames/geoname[@geonameId/data() eq $ref] ) then
     cwPH:parse_geo_code_return($placeStr,fn:collection()/places/geonames/geoname[@geonameId/data() eq $ref][1])
-  else if ( fn:collection()/places/cwrc_place_entity/entity[@uri/data() eq $ref] ) then
-    cwPH:parse_geo_code_cwrc($placeStr,fn:collection()/places/cwrc_place_entity/entity[@uri/data() eq $ref][1]/place)
+  else if ( fn:collection()/places/cwrc_place_entities/entity[@uri/data() eq $ref] ) then
+    cwPH:parse_geo_code_cwrc($placeStr,fn:collection()/places/cwrc_place_entities/entity[@uri/data() eq $ref][1]/place)
   else if ($ref != '') then
     let $tmp := cwPH:getGeoCodeByIDViaGeoNames($ref)
     return
