@@ -36,6 +36,8 @@ declare function cwPH:get_geo_code_by_ref($ref, $placeStr)
 {
   if ( fn:collection()/places/geonames/geoname[@geonameId/data() eq $ref] ) then
     cwPH:parse_geo_code_return($placeStr,fn:collection()/places/geonames/geoname[@geonameId/data() eq $ref][1])
+  else if ( fn:collection()/places/cwrc_place_entity/entity[@uri/data() eq $ref] ) then
+    cwPH:parse_geo_code_cwrc($placeStr,fn:collection()/places/cwrc_place_entity/entity[@uri/data() eq $ref][1]/place)
   else if ($ref != '') then
     let $tmp := cwPH:getGeoCodeByIDViaGeoNames($ref)
     return
@@ -67,8 +69,8 @@ declare function cwPH:parse_geo_code_return($placeStr, $geoCodeResult)
             , 'ref': ''
             , 'placeStr': $placeStr
             , 'geonameId': $geoCodeResult/geonameId/text()
-            , 'geonameCountryName': $geoCodeResult/countryName/text()
-            , 'geonamePlaceName': $geoCodeResult/name/text()
+            , 'countryName': $geoCodeResult/countryName/text()
+            , 'placeName': $geoCodeResult/name/text()
           }
      } catch * {
        map {
@@ -78,6 +80,31 @@ declare function cwPH:parse_geo_code_return($placeStr, $geoCodeResult)
    return
      $ret
 };
+   
+   
+(: given the result of a CWRC Place entity, parse and place into a map :)
+declare function cwPH:parse_geo_code_cwrc($placeStr, $geoCodeResult)
+{
+   let $ret := 
+     try {
+          map { 
+            'lat': $geoCodeResult/description/latitude/text()
+            , 'lng': $geoCodeResult/description/longitude/text()
+            , 'ref': ''
+            , 'placeStr': $placeStr
+            , 'geonameId': ''
+            , 'countryName': $geoCodeResult/description/countryName/text()
+            , 'placeName': fn:string-join($geoCodeResult/identity/preferedform/namePart/text()) 
+          }
+     } catch * {
+       map {
+         'placeStr': $placeStr
+       }
+   }
+   return
+     $ret
+};
+      
    
    
 
