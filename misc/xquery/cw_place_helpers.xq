@@ -18,10 +18,11 @@ declare function cwPH:get_geo_code($lat, $lng, $ref, $placeStr)
 {
   let $ret := map {}
   return 
+  (:
     if ( $lat and $lng ) then
-      (: map:merge(($ret, (map { 'lat': $lat, 'lng': $lng, 'ref': $ref, 'placeStr': $placeStr}))) :)
       map { 'lat': $lat, 'lng': $lng, 'ref': $ref, 'placeStr': $placeStr}
-    else if ( $ref ) then
+    else :) 
+    if ( $ref ) then
       (: lookup reference and get map :)
       cwPH:get_geo_code_by_ref($ref, $placeStr)
     else if ( $placeStr ) then

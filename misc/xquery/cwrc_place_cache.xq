@@ -12,6 +12,28 @@ declare namespace mods = "http://www.loc.gov/mods/v3";
 declare namespace tei =  "http://www.tei-c.org/ns/1.0";
 
 (
+for $ref in //CHRONSTRUCT/CHRONPROSE/PLACE/@REF
+group by $ref
+order by $ref
+return
+  if ( not( /places/geonames/geoname[@geonameId = $ref])) then
+  (
+    let $tmp := cwPH:getGeoCodeByIDViaGeoNames($ref)
+     
+    return 
+    (
+      insert node (<geoname geonameId="{$ref}">{$tmp/geoname/*}</geoname>) as first into /places/geonames
+     (:
+      ,
+      insert node (attribute {'geonameId'} {$ref} ) as last into /places/geonames/geoname[last()]
+      :)
+    )
+  )
+  else
+    ()
+)
+,
+(
 for $ref in //CHRONSTRUCT/CHRONPROSE/PLACE[not(@LAT) and not(@LNG)]/@REF | //tei:event/tei:desc[1]/tei:placeName/@ref
 group by $ref
 order by $ref
