@@ -214,7 +214,7 @@ as xs:string?
         return
           (
             try {
-              '"' || local:escapeJSON($placeMap('geonameId')) || '"'
+              '"' || local:escapeJSON($placeMap('countryName')) || '"'
             }
             catch *
             {
@@ -231,7 +231,7 @@ as xs:string?
     ||
     ","
     ||
-    local:outputJSONArray( "geonameId", fn:string-join($placeRefStr, ","))
+    local:outputJSONArray( "countryName", fn:string-join($placeRefStr, ","))
 };
 
 (: build the "eventType" (event type) attribute from the different schemas: Orlando, TEI, MODS, and CWRC :)
