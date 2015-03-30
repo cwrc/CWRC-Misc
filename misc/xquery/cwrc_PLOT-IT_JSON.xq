@@ -44,6 +44,29 @@ as xs:string?
 };
 
 
+declare function local:isModsMonograph($src)
+{
+  if ( $src/mods:originInfo/mods:issuance/text() eq "monographic" ) then
+    "true"
+  else if ( $src/mods:relatedItem/mods:originInfo/mods:issuance/text() eq "monographic" ) then
+    "false"
+  else
+    ()
+};
+
+declare function local:modsFormatDescription($src) 
+{
+  "<div>Author: "||fn:string-join($src/mods:name/mods:namePart, " ")||"</div>"
+  ||
+  "<div>Title: "||fn:string-join($src/mods:titleInfo/mods:title, " ")||"</div>"
+  ||
+  "<div>Place: "||fn:string-join($src/mods:originInfo/mods:place/mods:placeTerm[not(@authority eq "marccountry")], " ")||"</div>"
+  ||
+  "<div>Publisher: "||fn:string-join($src/mods:originInfo/mods:publisher, " ")||"</div>"
+  ||
+  "<div>Year: "||fn:string-join($src/mods:originInfo/mods:dateIssued, " ")||"</div>"
+};
+
 
 (: build the "date" attribute from the different schemas: Orlando, TEI, MODS, and CWRC :)
 declare function local:get_start_date ($src)
@@ -52,6 +75,7 @@ as xs:string?
   let $tmp :=
   (
     if ( fn:name($src) eq 'EVENT' or fn:name($src) eq 'CHRONSTRUCT') then
+      (: Orlando XML :)
     ( 
       let $dateAttr := ($src/descendant-or-self::CHRONSTRUCT/((DATE|DATERANGE)[1]/(@VALUE|@FROM)))
       let $dateTxt := ($src/descendant-or-self::CHRONSTRUCT/((DATE|DATERANGE)[1]/text()))
@@ -64,9 +88,16 @@ as xs:string?
           ()
     )
     else if (fn:name($src) eq 'event') then
+      (: TEI XML :)
       ( $src/descendant-or-self::tei:date[1]/(@when|@from|@notBefore) )
     else if (fn:name($src) eq 'mods') then
-      ( $src//mods:dateIssued/text() )
+      (: MODS XML :)
+      ( 
+        switch ( local:isModsMonograph($src) )
+        case "true" return $src/mods:originInfo/mods:dateIssued/text()
+        case "false" return $src/mods:relatedItem/mods:originInfo/mods:dateIssued/text()
+        default return $src/mods:originInfo/mods:dateIssued/text()
+      )
     else
       ( )
     )
@@ -82,15 +113,18 @@ as xs:string?
   let $tmp :=
   (
     if ( fn:name($src) eq 'EVENT' or fn:name($src) eq 'CHRONSTRUCT') then
+    (: Orlando XML :)
     ( 
       fn:replace( ($src/descendant-or-self::CHRONSTRUCT/(DATERANGE[1]/@TO)) , '\-{1,2}$','') (: Fix Orlando date format :)
     )
     else if (fn:name($src) eq 'event') then
-      ( $src/descendant-or-self::tei:date[1]/(@to|@notAfter) )
+    (: TEI XML :)
+    ( $src/descendant-or-self::tei:date[1]/(@to|@notAfter) )
     else if (fn:name($src) eq 'mods') then
-      ( $src//mods:dateIssued/text() )
+    (: MODS XML :)
+      ()
     else
-      ( )
+      ()
     )
   return fn:normalize-space(fn:string-join($tmp , ""))
 };
@@ -103,6 +137,7 @@ as xs:string?
   let $placeSeq :=
   (
     if ( fn:name($src) eq 'EVENT' or fn:name($src) eq 'CHRONSTRUCT') then
+    (: Orlando XML :)
     ( 
       (: Orlando Place :)
       for $placeNode in $src//CHRONPROSE//PLACE
@@ -110,6 +145,7 @@ as xs:string?
         cwPH:get_geo_code($placeNode/@LAT/data(),$placeNode/@LONG/data(),$placeNode/@REF/data(),cwPH:getOrlandoPlaceString($placeNode))
     )
     else if (fn:name($src) eq 'event') then
+    (: TEI XML :)
     ( 
       (: TEI Place :)
       for $placeNode in $src/tei:desc[1]/tei:placeName
@@ -117,11 +153,18 @@ as xs:string?
         cwPH:get_geo_code("","",$placeNode/@ref/data(),$placeNode/text())
     )
     else if (fn:name($src) eq 'mods') then
+    (: MODS XML :)
     ( 
       (: MODS Place :)
-      for $placeNode in $src//mods:place/placeTerm/text() 
+      let $placeNode :=
+      (
+          switch ( local:isModsMonograph($src) )
+          case "true" return $src/mods:originInfo/mods:place/mods:placeTerm[not(@authority eq "marccountry")]
+          case "false" return $src/mods:originInfo/mods:place/mods:placeTerm[not(@authority eq "marccountry")]
+          default return ()
+      )
       return
-        cwPH:get_geo_code("","",$placeNode/@REF/data(),$placeNode/text())
+        cwPH:get_geo_code("","",$placeNode/@REF/data(),fn:string-join($placeNode/text()) )
     )
     else
       ( fn:name($src) )
@@ -191,6 +234,7 @@ as xs:string?
   let $tmp :=
   (
     if ( fn:name($src) eq 'EVENT' or fn:name($src) eq 'CHRONSTRUCT') then
+    (: Orlando XML :)
     ( 
       switch ( $src/descendant-or-self::CHRONSTRUCT/@CHRONCOLUMN/data() )
         case "NATIONALINTERNATIONAL" return "political"
@@ -200,16 +244,18 @@ as xs:string?
         default return "unspecified"
     )
     else if (fn:name($src) eq 'event') then
-      ( 
-        let $eventType := $src/@type/data()
-        return 
-          if ($eventType) then
-            $eventType
-          else
-            "unspecified"
-       )
+    (: TEI XML :)
+    ( 
+      let $eventType := $src/@type/data()
+      return 
+        if ($eventType) then
+          $eventType
+        else
+          "unspecified"
+    )
     else if (fn:name($src) eq 'mods') then
-      ( "literary" )
+    (: MODS XML :)
+    ( "literary" )
     else
       ( fn:name($src) )
     )
@@ -228,6 +274,7 @@ as xs:string?
   let $label :=
   (
     if ( fn:name($src) eq 'EVENT' or fn:name($src) eq 'CHRONSTRUCT') then
+    (: Orlando XML :)
     ( 
       fn:concat(
         (: $src/descendant-or-self::CHRONSTRUCT/(DATE|DATERANGE|DATESTRUCT)/text() :)
@@ -237,11 +284,18 @@ as xs:string?
       )
     )
     else if (fn:name($src) eq 'event') then
-      ( $src//tei:label )
+    (: TEI XML :)
+    ( $src//tei:label )
     else if (fn:name($src) eq 'mods') then
-      ( $src//mods:title )
+    (: MODS XML :)
+    (
+      switch ( local:isModsMonograph($src) )
+      case "true" return $src/mods:titleInfo/mods:title/text() 
+      case "false" return $src/mods:relatedItem/mods:orginInfo/mods:titleInfo/mods:title/text() 
+      default return $src/mods:titleInfo/mods:title/text()
+    )
     else
-      ( fn:name($src) )
+      ( )
     )
   return fn:normalize-space(fn:string-join($label , ""))
 };
@@ -254,6 +308,7 @@ as xs:string?
   let $tmp :=
   (
     if ( fn:name($src) eq 'EVENT' or fn:name($src) eq 'CHRONSTRUCT') then
+    (: Orlando XML :)
     (
       let $shortprose := 
       (
@@ -278,7 +333,8 @@ as xs:string?
         $shortprose
     )
     else if (fn:name($src) eq 'event') then
-      ( 
+    (: TEI XML :)
+    ( 
       for $tmp in $src//tei:desc
       return 
         '<p>'
@@ -288,7 +344,13 @@ as xs:string?
         '</p>'
     )
     else if (fn:name($src) eq 'mods') then
-      ( $src//mods:title )
+    (: MODS XML :)
+    (
+      switch ( local:isModsMonograph($src) )
+      case "true" return local:modsFormatDescription($src) 
+      case "false" return local:modsFormatDescription($src/mods:relatedItem) 
+      default return local:modsFormatDescription($src)
+    )
     else
       ( fn:name($src) )
     )
@@ -298,8 +360,8 @@ as xs:string?
 
 
 
-
-let $events_sequence := (//tei:event | /EVENT | /EVENTS//(FREESTANDING_EVENT/CHRONSTRUCT) | (WRITING|BIOGRAPHY)//CHRONSTRUCT | mods:mod)
+(: the main section: define the set of elements that constitute an "event" and output as JSON :)
+let $events_sequence := (//tei:event | /EVENT | /EVENTS//(FREESTANDING_EVENT/CHRONSTRUCT) | (WRITING|BIOGRAPHY)//CHRONSTRUCT | //mods:mods)
 return
 (
 '{ "items": [&#10;'
