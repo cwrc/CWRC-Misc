@@ -66,7 +66,7 @@ declare function local:modsFormatDescription($src)
   ||
   "<div>Publisher: "||fn:string-join($src/mods:originInfo/mods:publisher, " ")||"</div>"
   ||
-  "<div>Year: "||fn:string-join($src/(mods:originInfo/mods:dateIssued|part/date), " ")||"</div>"
+  "<div>Year: "||fn:string-join($src/(mods:originInfo/mods:dateIssued|mods:part/mods:date), " ")||"</div>"
 };
 
 
@@ -166,7 +166,7 @@ as xs:string?
       (
           switch ( local:modsBiblType($src) )
           case "monographic" return $src/mods:originInfo/mods:place/mods:placeTerm[not(@authority eq "marccountry")]
-          case "monographic part" return $src/mods:originInfo/mods:place/mods:placeTerm[not(@authority eq "marccountry")]
+          case "monographic part" return $src/mods:relatedItem/mods:originInfo/mods:place/mods:placeTerm[not(@authority eq "marccountry")]
           case "continuing" return $src/mods:originInfo/mods:place/mods:placeTerm[not(@authority eq "marccountry")]          
           default return ()
       )
