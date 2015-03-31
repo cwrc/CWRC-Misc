@@ -15,7 +15,7 @@ declare namespace tei =  "http://www.tei-c.org/ns/1.0";
 (
 (: for $ref in //CHRONSTRUCT/CHRONPROSE/PLACE[not(@LAT) and not(@LNG)]/@REF | //tei:event/tei:desc[1]/tei:placeName/@ref:)
 (: if @ref then lookup @ref and add the record details to a BaseX cache to prevent having to access geonames.org an slow down a query (e.g. generate JSON :)  
-for $ref in //CHRONSTRUCT/CHRONPROSE/PLACE/@REF | //tei:event/tei:desc[1]/tei:placeName/@ref
+for $ref in //CHRONSTRUCT/CHRONPROSE/PLACE/@REF | //tei:event/tei:desc[1]/tei:placeName/@ref | //mods:place/@ref
 group by $ref
 order by $ref
 return
@@ -34,16 +34,18 @@ return
 ,
 (
 (: if no @REF then attempt to lookup place text in geonames and if successful, add a @ref to the "place" element :)
-for $placeNode in //CHRONSTRUCT/CHRONPROSE/PLACE[(not(@LAT) and not(@LNG)) and not(@REF)] | //tei:event/tei:desc[1]/tei:placeName[not(@ref)]
+for $placeNode in //CHRONSTRUCT/CHRONPROSE/PLACE[(not(@LAT) and not(@LNG)) and not(@REF)] | //tei:event/tei:desc[1]/tei:placeName[not(@ref)] | //mods:place[not(@ref)]
 return
   let $placeStr :=
   (
     if ( fn:name($placeNode) eq 'PLACE' ) then
       cwPH:getOrlandoPlaceString($placeNode)
+    else if ( fn:name($placeNode[child::placeTerm]) ) then
+      $placeNode/text()
     else if ( fn:name($placeNode) eq 'place' ) then
-      $placeNode/text()
+      fn:string-join($placeNode/mods:placeTerm[not(@authority eq 'marccountry')]/text(), " ")
     else if ( fn:name($placeNode) eq 'placeTerm' ) then
-      $placeNode/text()
+      fn:string-join($placeNode/mods:placeTerm[not(@authority eq 'marccountry')]/text(), " ")
     else
       ""    
   )
@@ -59,13 +61,18 @@ return
   )
   return 
   (
-    let $refUri := "http://www.geonames.org/"||$ref||"/"
-    return 
-    (
-      insert node (<geoname geonameId="{$refUri}">{$tmp/geonames/geoname/*}</geoname>) as first into /places/geonames
-      ,
-      insert node (attribute {$attrName} {$refUri} ) as last into $placeNode
-    )
+    if ($ref) then
+      let $refUri := "http://www.geonames.org/"||$ref||"/"
+      return 
+      (
+        insert node (<geoname geonameId="{$refUri}">{$tmp/geonames/geoname/*}</geoname>) as first into /places/geonames
+        ,
+        insert node (attribute {$attrName} {$refUri} ) as last into $placeNode
+      )
+    else
+      (
+        insert node (attribute {'failed_lookup'} {$placeStr} ) as last into $placeNode
+      )
   )
 )
 

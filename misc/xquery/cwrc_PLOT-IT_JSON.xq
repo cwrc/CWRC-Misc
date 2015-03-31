@@ -298,8 +298,8 @@ as xs:string?
     (
       switch ( local:modsBiblType($src) )
       case "monographic" return $src/mods:titleInfo/mods:title/text() 
-      case "monographic part" return $src/mods:relatedItem/mods:orginInfo/mods:titleInfo/mods:title/text() 
-      case "continuing" return $src/mods:relatedItem/mods:orginInfo/mods:titleInfo/mods:title/text() 
+      case "monographic part" return $src/mods:relatedItem/mods:titleInfo/mods:title/text() 
+      case "continuing" return $src/mods:relatedItem/mods:titleInfo/mods:title/text() 
       default return $src/mods:titleInfo/mods:title/text()
     )
     else
