@@ -8,7 +8,7 @@ declare namespace mods = "http://www.loc.gov/mods/v3";
 declare namespace tei =  "http://www.tei-c.org/ns/1.0";
 
 
-
+(: map to help converting dates to ISO8601 (YYYY-MM-DD) dates that use month numbers :)
 declare variable $cwPO:monthMap as map(*) := 
   map {
     "January": "01" 

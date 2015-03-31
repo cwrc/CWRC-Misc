@@ -12,6 +12,7 @@ declare namespace tei =  "http://www.tei-c.org/ns/1.0";
 (:
 for $placeNode in //CHRONSTRUCT/CHRONPROSE/PLACE | //event/desc[1]/placeName 
 :)
+(: if a "place" element is missing a @ref attribute, attempt to lookup the text of the element in goenames and add a @ref attribute :)
 for $placeNode in //CHRONSTRUCT/CHRONPROSE/PLACE[(not(@LAT) and not(@LNG)) and not(@REF)] | //tei:event/tei:desc[1]/tei:placeName[not(@ref)]
 return
   let $placeStr :=

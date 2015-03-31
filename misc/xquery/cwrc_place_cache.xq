@@ -1,4 +1,5 @@
 (: 
+* purpose: create a cache of geospatial information if not already present in BaseX to facilitate faster lookups
 * iterate through a set of place elements 
 * add a "ref" attribute if none exist via a cloud lookup 
 * cache the GeoNames HTTP response to speed up future lookups by not having to go to the cloud
@@ -12,7 +13,9 @@ declare namespace mods = "http://www.loc.gov/mods/v3";
 declare namespace tei =  "http://www.tei-c.org/ns/1.0";
 
 (
-for $ref in //CHRONSTRUCT/CHRONPROSE/PLACE/@REF
+(: for $ref in //CHRONSTRUCT/CHRONPROSE/PLACE[not(@LAT) and not(@LNG)]/@REF | //tei:event/tei:desc[1]/tei:placeName/@ref:)
+(: if @ref then lookup @ref and add the record details to a BaseX cache to prevent having to access geonames.org an slow down a query (e.g. generate JSON :)  
+for $ref in //CHRONSTRUCT/CHRONPROSE/PLACE/@REF | //tei:event/tei:desc[1]/tei:placeName/@ref
 group by $ref
 order by $ref
 return
@@ -23,10 +26,6 @@ return
     return 
     (
       insert node (<geoname geonameId="{$ref}">{$tmp/geoname/*}</geoname>) as first into /places/geonames
-     (:
-      ,
-      insert node (attribute {'geonameId'} {$ref} ) as last into /places/geonames/geoname[last()]
-      :)
     )
   )
   else
@@ -34,29 +33,8 @@ return
 )
 ,
 (
-for $ref in //CHRONSTRUCT/CHRONPROSE/PLACE[not(@LAT) and not(@LNG)]/@REF | //tei:event/tei:desc[1]/tei:placeName/@ref
-group by $ref
-order by $ref
-return
-  if ( not( /places/geonames/geoname[@geonameId = $ref])) then
-  (
-    let $tmp := cwPH:getGeoCodeByIDViaGeoNames($ref)
-     
-    return 
-    (
-      insert node (<geoname geonameId="{$ref}">{$tmp/geoname/*}</geoname>) as first into /places/geonames
-     (:
-      ,
-      insert node (attribute {'geonameId'} {$ref} ) as last into /places/geonames/geoname[last()]
-      :)
-    )
-  )
-  else
-    ()
-)
-,
-(
-for $placeNode in //CHRONSTRUCT/CHRONPROSE/PLACE[(not(@LT) and not(@LNG)) and not(@REF)] | //tei:event/tei:desc[1]/tei:placeName[not(@ref)]
+(: if no @REF then attempt to lookup place text in geonames and if successful, add a @ref to the "place" element :)
+for $placeNode in //CHRONSTRUCT/CHRONPROSE/PLACE[(not(@LAT) and not(@LNG)) and not(@REF)] | //tei:event/tei:desc[1]/tei:placeName[not(@ref)]
 return
   let $placeStr :=
   (

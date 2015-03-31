@@ -1,4 +1,4 @@
-(: a set of helper functions to add GeoCode to place elements :)
+(: a set of helper functions work with "place" elements including geospatial lookups :)
 
 xquery version "3.0" encoding "utf-8";
 
@@ -18,10 +18,11 @@ declare function cwPH:get_geo_code($lat, $lng, $ref, $placeStr)
 {
   let $ret := map {}
   return 
-  (:
+  (: 2015-03-30: lat/lng removed to allow capture of the countryName when "ref" is dereferenced
     if ( $lat and $lng ) then
       map { 'lat': $lat, 'lng': $lng, 'ref': $ref, 'placeStr': $placeStr}
-    else :) 
+    else 
+    :) 
     if ( $ref ) then
       (: lookup reference and get map :)
       cwPH:get_geo_code_by_ref($ref, $placeStr)
