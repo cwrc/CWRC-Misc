@@ -97,8 +97,8 @@ as xs:string?
       ( 
         let $dateTxt :=
           switch ( local:modsBiblType($src) )
-            case "monographic" return $src/mods:originInfo/mods:dateIssued/text()
-            case "monographic part" return $src/mods:relatedItem/mods:originInfo/mods:dateIssued/text()
+            case "monographic" return $src/mods:originInfo/(mods:dateIssued|mods:copyrightDate)/text()
+            case "monographic part" return $src/mods:relatedItem/mods:originInfo/(mods:dateIssued|mods:copyrightDate)/text()
             case "continuing" return $src/mods:relatedItem/mods:part/mods:date/text()
             default return $src/mods:originInfo/mods:dateIssued/text()
         return
@@ -162,16 +162,16 @@ as xs:string?
     (: MODS XML :)
     ( 
       (: MODS Place :)
-      let $placeNode :=
+      let $tmp :=
       (
           switch ( local:modsBiblType($src) )
-          case "monographic" return $src/mods:originInfo/mods:place/mods:placeTerm[not(@authority eq "marccountry")]
-          case "monographic part" return $src/mods:relatedItem/mods:originInfo/mods:place/mods:placeTerm[not(@authority eq "marccountry")]
-          case "continuing" return $src/mods:originInfo/mods:place/mods:placeTerm[not(@authority eq "marccountry")]          
+          case "monographic" return $src/mods:originInfo/mods:place
+          case "monographic part" return $src/mods:relatedItem/mods:originInfo/mods:place
+          case "continuing" return $src/mods:originInfo/mods:place
           default return ()
       )
+      for $placeNode in $tmp
       return
-        cwPH:get_geo_code("","",$placeNode/@REF/data(),fn:string-join($placeNode/text()) )
     )
     else
       ( fn:name($src) )
@@ -299,7 +299,7 @@ as xs:string?
       switch ( local:modsBiblType($src) )
       case "monographic" return $src/mods:titleInfo/mods:title/text() 
       case "monographic part" return $src/mods:relatedItem/mods:titleInfo/mods:title/text() 
-      case "continuing" return $src/mods:relatedItem/mods:titleInfo/mods:title/text() 
+      case "continuing" return $src/mods:titleInfo/mods:title/text() 
       default return $src/mods:titleInfo/mods:title/text()
     )
     else
@@ -357,7 +357,7 @@ as xs:string?
       switch ( local:modsBiblType($src) )
       case "monographic" return local:modsFormatDescription($src) 
       case "monographic part" return local:modsFormatDescription($src/mods:relatedItem) 
-      case "continuing" return local:modsFormatDescription($src/mods:relatedItem)       
+      case "continuing" return local:modsFormatDescription($src)       
       default return local:modsFormatDescription($src)
     )
     else

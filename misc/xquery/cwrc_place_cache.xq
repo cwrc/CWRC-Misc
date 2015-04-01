@@ -68,10 +68,14 @@ return
         insert node (<geoname geonameId="{$refUri}">{$tmp/geonames/geoname/*}</geoname>) as first into /places/geonames
         ,
         insert node (attribute {$attrName} {$refUri} ) as last into $placeNode
+        (:
+        ,
+        insert node (attribute {'lookup_str'} {$placeStr} ) as last into $placeNode
+        :)
       )
     else
       (
-        insert node (attribute {'failed_lookup'} {$placeStr} ) as last into $placeNode
+        insert node (attribute {'failed_lookup_str'} {$placeStr} ) as last into $placeNode
       )
   )
 )
