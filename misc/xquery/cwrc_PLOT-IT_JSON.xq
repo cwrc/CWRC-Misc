@@ -172,6 +172,7 @@ as xs:string?
       )
       for $placeNode in $tmp
       return
+        cwPH:get_geo_code("","",$placeNode/@ref/data(),fn:string-join($placeNode/mods:placeTerm[not(@authority eq "marccountry")]/text(), " ") )
     )
     else
       ( fn:name($src) )
