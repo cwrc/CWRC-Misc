@@ -24,9 +24,11 @@ declare variable $role_external external := ( "anonymous" );
 
 declare variable $role_seq := $role_external;
 
+(: escape double quotes (") within a JSON value :)
 declare function local:escapeJSON ($str as xs:string?)
 {
-  fn:replace($str, '([^\\])["]', '$1\\"')
+  (: XQuery 3.1 doesn't support look-behinds so need extra replace for case where " is the first character :)
+  fn:replace( fn:replace($str, '^["]', '\\"') , '([^\\])["]', '$1\\"')
 };
 
 declare function local:outputJSON ($key as xs:string?, $value as xs:string?)
