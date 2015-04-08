@@ -96,7 +96,7 @@ declare function cwPH:parse_geo_code_cwrc($placeStr, $geoCodeResult)
             , 'placeStr': $placeStr
             , 'geonameId': ''
             , 'countryName': $geoCodeResult/description/countryName/text()
-            , 'placeName': fn:string-join($geoCodeResult/identity/preferedform/namePart/text()) 
+            , 'placeName': fn:string-join($geoCodeResult/identity/prefferedform/namePart/text()) 
           }
      } catch * {
        map {

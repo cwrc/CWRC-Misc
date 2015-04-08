@@ -19,7 +19,7 @@ for $ref in //CHRONSTRUCT/CHRONPROSE/PLACE/@REF | //tei:event/tei:desc[1]/tei:pl
 group by $ref
 order by $ref
 return
-  if ( not( /places/geonames/geoname[@geonameId = $ref])) then
+  if ( not( /places/geonames/geoname[@geonameId = $ref]) and not(/places/cwrc_place_entities/entity[@uri = $ref]) )  then
   (
     let $tmp := cwPH:getGeoCodeByIDViaGeoNames($ref)
      
@@ -73,10 +73,12 @@ return
         insert node (attribute {'lookup_str'} {$placeStr} ) as last into $placeNode
         :)
       )
-    else
+    else if ( not($placeNode/@failed_lookup_str) ) then
       (
         insert node (attribute {'failed_lookup_str'} {$placeStr} ) as last into $placeNode
       )
+    else
+      ()
   )
 )
 
