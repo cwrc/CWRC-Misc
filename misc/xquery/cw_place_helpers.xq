@@ -45,7 +45,10 @@ declare function cwPH:get_geo_code_by_ref($ref, $placeStr)
     return
       cwPH:parse_geo_code_return($placeStr,$tmp/geoname[1])
   else
-    ()
+    map {
+         'placeStr': 'ERROR 01'
+    }
+
 };
 
 (:given only a string, lookup the geo code :)
