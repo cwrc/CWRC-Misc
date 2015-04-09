@@ -346,7 +346,8 @@ as xs:string?
     else if (fn:name($src) eq 'event') then
     (: TEI XML :)
     ( 
-      for $tmp in $src//tei:desc
+      (: MRB: Thu 09-Apr-2015: changed so that description for TEI event is only second desc element :)
+      for $tmp in $src//tei:desc[2]
       return 
         '<p>'
         ||
