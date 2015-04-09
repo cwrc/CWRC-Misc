@@ -287,8 +287,9 @@ as xs:string?
     (: Orlando XML :)
     ( 
       fn:concat(
-        (: $src/descendant-or-self::CHRONSTRUCT/(DATE|DATERANGE|DATESTRUCT)/text() :)
-        (: , ": " :)
+        (: MRB: Thu 09-Apr-2015: uncommented JCA's code to prepend date for Orlando event labels :)
+        $src/descendant-or-self::CHRONSTRUCT/(DATE|DATERANGE|DATESTRUCT)/text()
+        , ": ",
         substring($tmp, 1, $label_max_length + string-length(substring-before(substring($tmp, $label_max_length+1),' '))) 
         , '...'
       )
