@@ -324,11 +324,11 @@ as xs:string?
     (
       let $shortprose := 
       (
-        if ($src/descendant-or-self::CHRONSTRUCT/SHORTPROSE) then
+        if ($src/descendant-or-self::SHORTPROSE) then
         (
         "<p>"
         ||
-        $src/descendant-or-self::CHRONSTRUCT/SHORTPROSE
+        $src/descendant-or-self::SHORTPROSE
         ||
         "</p>"
         )
@@ -381,7 +381,14 @@ return
 '{ "items": [&#10;'
 ,
    for $event_item as element() at $n in $events_sequence
-
+   
+     let $endDateStr :=
+       if ( local:get_end_date($event_item) ) then
+         local:outputJSON( "endDate", local:get_end_date($event_item) )
+         ||
+         ","
+       else
+         ()
      
    return
     string( 
@@ -390,8 +397,7 @@ return
       || ","
       || local:outputJSON( "startDate", local:get_start_date($event_item) )
       || ","
-      || local:outputJSON( "endDate", local:get_end_date($event_item) )
-      || ","      
+      || $endDateStr
       || local:get_lat_lng($event_item)
       || ","
       || local:outputJSON("eventType", local:get_event_type($event_item) )
