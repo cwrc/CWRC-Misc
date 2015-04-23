@@ -49,13 +49,6 @@
                             </recordIdentifier>
                         </xsl:if>
 
-                        <!-- modificationDate ==> recordCreationDate -->
-                        <xsl:if test="normalize-space(modificationDate) != ''">
-                            <recordCreationDate>
-                                <xsl:value-of select="normalize-space(modificationDate)"/>
-                            </recordCreationDate>
-                        </xsl:if>
-
                         <!-- modificationDate ==> recordChangeDate -->
                         <xsl:if test="normalize-space(modificationDate) != ''">
                             <recordChangeDate>
