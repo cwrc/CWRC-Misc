@@ -191,7 +191,7 @@ declare function cwPH:getOrlandoPlaceString($place)
        
    let $placename := 
      if ($place_placename!='' and $place_settlement!='') then
-       $place_settlement||', '||$place_placename
+       $place_placename||', '||$place_settlement
      else if ($place_placename) then
        $place_settlement
      else if ($place_settlement) then
@@ -203,7 +203,7 @@ declare function cwPH:getOrlandoPlaceString($place)
      
    let $location :=
     if ($place_country != '' and $placename != '') then
-      string($place_country||','||$placename)
+      string($placename||', '||$place_country)
     else if ($place_country != '') then
       string($place_country)
     else if ($placename != '') then
