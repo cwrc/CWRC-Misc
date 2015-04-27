@@ -26,7 +26,14 @@
 # following example: 4-20 Humanities Centre,University of Alberta,Edmonton,AB
 # * A dash can appear between the street address and the street name.
 # * The Google Geocoding API has a limit of 2,500 requests per 24 hour period.
+# * A Google API key is required to query the API using a Google record's place_id value;
+# * information about the Google API key can be found here https://developers.google.com/api-client-library/python/guide/aaa_apikeys
+# * and an API key can be created from the Google Developers Console located here https://console.developers.google.com/
 # * Sample GET URL string: http://maps.googleapis.com/maps/api/geocode/xml?address=London,ON&sensor=false
+# * Sample GET URL string using API key (AIzaSyBnKE7aZSWodIiAUEGZ1LL4WPJmshtDUnc):
+# https://maps.googleapis.com/maps/api/geocode/xml?address=London,ON&sensor=false&key=AIzaSyBnKE7aZSWodIiAUEGZ1LL4WPJmshtDUnc
+# * Sample GET URL string using unique place_id (e.g., London, ON: ChIJC5uNqA7yLogRlWsFmmnXxyg) and API key (AIzaSyBnKE7aZSWodIiAUEGZ1LL4WPJmshtDUnc):
+# https://maps.googleapis.com/maps/api/geocode/xml?place_id=ChIJC5uNqA7yLogRlWsFmmnXxyg&sensor=false&key=AIzaSyBnKE7aZSWodIiAUEGZ1LL4WPJmshtDUnc
 
 # Useful documentation about the Google Geocoding API:
 # * The Google Geocoding API: https://developers.google.com/maps/documentation/geocoding/

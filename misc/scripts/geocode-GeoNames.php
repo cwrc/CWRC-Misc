@@ -25,7 +25,8 @@
 # A GeoNames user account needs to be created; accounts can be created from this page:
 # http://www.geonames.org/login  The user account username will then be used as the $username
 # variable value.
-# * Sample GET URL string: http://api.geonames.org/search?name_equals=London&adminCode1=08&country=CA&featureClass=P&type=XML&username=demo
+# * Sample GET URL string: http://api.geonames.org/search?name_equals=London&adminCode1=08&country=CA&featureClass=P&type=XML&username=brundin
+# * Sample GET URL string using unique GeoNames ID (e.g., London, ON: 6058560): http://ws.geonames.org/get?geonameId=6058560&username=brundin
 
 # Useful documentation about the GeoNames Web Services API:
 # * GeoNames Web Services Documentation: http://www.geonames.org/export/web-services.html
@@ -45,7 +46,7 @@ $featureClass = "P";
 // set format type
 $type = "xml";
 // set username
-$username = "demo";
+$username = "brundin";
 
 if (($handle = fopen("$inputFile.", "r")) !== FALSE) {
     while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
