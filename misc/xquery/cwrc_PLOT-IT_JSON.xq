@@ -150,7 +150,7 @@ as xs:string?
       (: Orlando Place :)
       for $placeNode in $src//CHRONPROSE//PLACE
       return
-        cwPH:get_geo_code($placeNode/@LAT/data(),$placeNode/@LONG/data(),$placeNode/@REF/data(),cwPH:getOrlandoPlaceString($placeNode))
+        cwPH:get_geo_code($placeNode/@LAT/data(),$placeNode/@LONG/data(),$placeNode/@REF/data(),fn:normalize-space(cwPH:getOrlandoPlaceString($placeNode)))
     )
     else if (fn:name($src) eq 'event') then
     (: TEI XML :)
@@ -158,7 +158,7 @@ as xs:string?
       (: TEI Place :)
       for $placeNode in $src/tei:desc[1]/tei:placeName
       return 
-        cwPH:get_geo_code("","",$placeNode/@ref/data(),$placeNode/text())
+        cwPH:get_geo_code("","",$placeNode/@ref/data(),fn:normalize-space($placeNode/text()))
     )
     else if (fn:name($src) eq 'mods') then
     (: MODS XML :)
@@ -174,7 +174,7 @@ as xs:string?
       )
       for $placeNode in $tmp
       return
-        cwPH:get_geo_code("","",$placeNode/@ref/data(),fn:string-join($placeNode/mods:placeTerm[not(@authority eq "marccountry")]/text(), " ") )
+        cwPH:get_geo_code("","",$placeNode/@ref/data(),fn:normalize-space(fn:string-join($placeNode/mods:placeTerm[not(@authority eq "marccountry")]/text()), " ") )
     )
     else
       ( fn:name($src) )
