@@ -77,7 +77,7 @@ declare function cwOH:build_citation_sequence($src)
       for $str at $i in $src 
       return
       (
-        "<div2>" 
+        "<div>" 
         ||
         (
         if ( $src/@DBREF and $src/@PLACEHOLDER ) then
