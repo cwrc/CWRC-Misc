@@ -2,14 +2,14 @@
 
 xquery version "3.0" encoding "utf-8";
 
-module namespace cwPO = "cwOrlandoHelpers";
+module namespace cwOH = "cwOrlandoHelpers";
 
 declare namespace mods = "http://www.loc.gov/mods/v3";
 declare namespace tei =  "http://www.tei-c.org/ns/1.0";
 
 
 (: map to help converting dates to ISO8601 (YYYY-MM-DD) dates that use month numbers :)
-declare variable $cwPO:monthMap as map(*) := 
+declare variable $cwOH:monthMap as map(*) := 
   map {
     "January": "01" 
     , "February": "02" 
@@ -42,7 +42,7 @@ declare variable $cwPO:monthMap as map(*) :=
 * in the form of day month year - e.g. 6 June 1994
 * convert to ISO8601 (YYYY-MM-DD) date
  :)
-declare function cwPO:parse-orlando-narrative-date($dateStr)
+declare function cwOH:parse-orlando-narrative-date($dateStr)
 {
     try
     {
@@ -51,12 +51,44 @@ declare function cwPO:parse-orlando-narrative-date($dateStr)
       (
         if ( fn:matches($str, "\d\d\d\d") and $i eq 1 ) then
           $str
-        else if ( $cwPO:monthMap($str) and $i eq 2 ) then
-          $cwPO:monthMap($str)
+        else if ( $cwOH:monthMap($str) and $i eq 2 ) then
+          $cwOH:monthMap($str)
         else if ( fn:matches($str, "\d{1,2}") and $i eq 3 ) then
           fn:format-number(xs:double($str),"#00")
         else
           ()
+      )
+    }
+    catch * {
+      ()
+    }
+};
+
+
+(: 
+* Given an Orlando citation sequence
+* build a seqence of displayable results
+* ToDo: 2015-05-04 - improve - entire XML citation and client renders XML/html
+ :)
+declare function cwOH:build_citation_sequence($src)
+{
+    try
+    {
+      for $str at $i in $src 
+      return
+      (
+        "<div2>" 
+        ||
+        (
+        if ( $src/@DBREF and $src/@PLACEHOLDER ) then
+          ( "<a href='http://orlando.cambridge.org/protected/wheel?f=frame&amp;bi_id="||$src/@DBREF||"'>"||$src/@PLACEHOLDER||"</a>" )
+        else if ( $src/@PLACEHOLDER ) then
+          ( $src/@PLACEHOLDER )
+        else
+          ( $src/text() )
+        )
+        ||
+        "</div>"  
       )
     }
     catch * {

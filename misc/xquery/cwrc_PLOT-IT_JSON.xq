@@ -374,6 +374,51 @@ as xs:string?
 
 
 
+(: build the "citation" attribute from the different schemas: Orlando, TEI, MODS, and CWRC :)
+declare function local:determineSchemaByRootElement($src)
+as xs:string?
+{
+    if ( fn:name($src) eq 'EVENT' or fn:name($src) eq 'CHRONSTRUCT') then
+      ( "Orlando / CWRC")
+    else if (fn:name($src) eq 'event') then
+      ( "TEI" )
+    else if (fn:name($src) eq 'mods') then
+      ( "MODS" )
+    else
+      ( "" )
+};
+
+(: build the "citation" attribute from the different schemas: Orlando, TEI, MODS, and CWRC :)
+declare function local:get_citations ($src, $type)
+as xs:string?
+{
+
+  let $tmp :=
+  (
+    switch ( $type )
+      (: Orlando or CWRC XML :)
+      case "Orlando / CWRC"
+        return cwOH:build_citation_sequence($src//BIBCITS/BIBCIT)
+      (: TEI XML :)
+      case "TEI"
+        return 
+          for $item in $src//tei:listBibl/tei:bibl/text()
+          return 
+            ( "<div>"||$item||"</div>" )
+      (: MODS XML :)
+      case "MODS"
+        return ()
+      default
+        return
+          ( fn:name($src) )
+  )
+  return fn:normalize-space(fn:string-join($tmp , ""))
+};
+
+
+
+
+
 (: the main section: define the set of elements that constitute an "event" and output as JSON :)
 let $events_sequence := (//tei:event | /EVENT | /EVENTS//(FREESTANDING_EVENT/CHRONSTRUCT) | (WRITING|BIOGRAPHY)//CHRONSTRUCT | //mods:mods)
 return
@@ -381,7 +426,7 @@ return
 '{ "items": [&#10;'
 ,
    for $event_item as element() at $n in $events_sequence
-   
+     let $type := local:determineSchemaByRootElement($event_item)
      let $endDateStr :=
        if ( local:get_end_date($event_item) ) then
          local:outputJSON( "endDate", local:get_end_date($event_item) )
@@ -393,6 +438,8 @@ return
    return
     string( 
       "&#123;"
+      || local:outputJSON( "schemaType", string( $type ) )
+      || ","
       || local:outputJSON( "schema", string(fn:node-name($event_item)) )
       || ","
       || local:outputJSON( "startDate", local:get_start_date($event_item) )
@@ -405,6 +452,8 @@ return
       || local:outputJSON("label", local:get_label($event_item) )
       || ","
       || local:outputJSON( "description", local:get_description($event_item) )
+      || ","
+      || local:outputJSON( "citations", local:get_citations($event_item, $type) )
       || ""
       || "&#125;,&#10;"
     )
