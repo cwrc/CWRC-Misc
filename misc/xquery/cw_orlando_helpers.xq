@@ -81,7 +81,7 @@ declare function cwOH:build_citation_sequence($src)
         ||
         (
         if ( $src/@DBREF and $src/@PLACEHOLDER ) then
-          ( "<a href='http://orlando.cambridge.org/protected/wheel?f=frame&amp;bi_id="||$src/@DBREF||"'>"||$src/@PLACEHOLDER||"</a>" )
+          ( "<a target='_blank' href='http://orlando.cambridge.org/protected/wheel?f=frame&amp;bi_id="||$src/@DBREF||"'>"||$src/@PLACEHOLDER||"</a>" )
         else if ( $src/@PLACEHOLDER ) then
           ( $src/@PLACEHOLDER )
         else
