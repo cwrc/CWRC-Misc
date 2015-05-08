@@ -2,7 +2,7 @@
  : MRB: Thu 07-May-2015
  : Purpose: XQuery script to insert strings in certain XML elements
  : Description: XQuery script to insert double quotation marks
- : within QUOTE elements, and insert double quotation marks or
+ : within QUOTE elements, and insert double quotation marks or italics
  : placeholder strings within TITLE or title elements.  This script
  : is part of the Plot-It pipeline or workflow chain to process and
  : convert Orlando and TEI events into Plot-It-conformant JSON events,
@@ -11,16 +11,13 @@
  :     - kluge_insert_strings.xq
  :     - cwrc_place_cache.xq
  :     - cwrc_PLOT-IT_JSON.xq
- : Note: three final processing operations need to be performed on the
+ : Note: two final processing operations need to be performed on the
  : resulting JSON data file using the Oxygen XML Editor application:
  : * (1) Run two find and replace operations (Ctrl-f) to substitute the
  :   italics placeholders with the HTML italics tag:
  :       - placeholderOpenItalics ==> <i>
  :       - placeholderCloseItalics ==> </i>
- : * (2) Delete the empty JSON citation variables using a regular
- :   expression find and replace operation (Ctrl-f):
- :       - ,\n\s*"citations": ""\n ==> [blank]
- : * (3) Do a final format and indent operation before saving the JSON
+ : * (2) Do a final format and indent operation before saving the JSON
  :   data file:
  :   - Ctrl-Shift-p (to format and indent in Oxygen)
  :)
