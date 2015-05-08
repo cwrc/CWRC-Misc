@@ -480,7 +480,7 @@ return
         , local:outputJSON("eventType", local:get_event_type($event_item) )
         , local:outputJSON("label", local:get_label($event_item) )
         , local:outputJSON( "description", local:get_description($event_item) )
-        , local:outputJSON( "citations", local:get_citations($event_item, $type) )
+        , local:outputJSONNotNull( "citations", local:get_citations($event_item, $type) )
         , local:outputJSONNotNull( "contributors", local:get_contributors($event_item, $type) )
         )
         ,
