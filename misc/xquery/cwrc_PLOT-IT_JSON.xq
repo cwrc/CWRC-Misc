@@ -417,7 +417,7 @@ as xs:string?
         return 
           for $item in $src//tei:listBibl/tei:bibl
           return 
-            ( "<div>"||fn:string-join($item/text() , " ")||"</div>" )
+            ( "<div>"||fn:string-join($item, " ")||"</div>" )
       (: MODS XML :)
       case "MODS"
         return ()
