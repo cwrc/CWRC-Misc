@@ -31,6 +31,19 @@ declare function local:escapeJSON ($str as xs:string?)
   fn:replace( fn:replace($str, '^["]', '\\"') , '([^\\])["]', '$1\\"')
 };
 
+
+(: if value is empty then do not output JSON key/value :)
+declare function local:outputJSONNotNull ($key as xs:string?, $value as xs:string?)
+as xs:string?
+{
+  (
+  if ($value != "") then
+    local:outputJSON ($key, $value)
+  else
+    ()
+  )
+};
+
 declare function local:outputJSON ($key as xs:string?, $value as xs:string?)
 as xs:string?
 {
@@ -402,15 +415,41 @@ as xs:string?
       (: TEI XML :)
       case "TEI"
         return 
-          for $item in $src//tei:listBibl/tei:bibl/text()
+          for $item in $src//tei:listBibl/tei:bibl
           return 
-            ( "<div>"||$item||"</div>" )
+            ( "<div>"||fn:string-join($item/text() , " ")||"</div>" )
       (: MODS XML :)
       case "MODS"
         return ()
       default
         return
           ( fn:name($src) )
+  )
+  return fn:normalize-space(fn:string-join($tmp , ""))
+};
+
+
+
+(: build the "contributors" attribute from the different schemas: Orlando, TEI, MODS, and CWRC :)
+declare function local:get_contributors ($src, $type)
+as xs:string?
+{
+
+  let $tmp :=
+  (
+    switch ( $type )
+      (: Orlando or CWRC XML :)
+      case "Orlando / CWRC"
+        return cwOH:build_contributors_sequence($src/ancestor-or-self::*/ORLANDOHEADER/FILEDESC/PUBLICATIONSTMT/AUTHORITY)
+      (: TEI XML :)
+      case "TEI"
+        return cwOH:build_contributors_sequence($src/ancestor-or-self::*/tei:teiHeader/tei:fileDesc/tei:titleStmt/tei:respStmt/(tei:persName || tei:name | tei:orgName))
+      (: MODS XML :)
+      case "MODS"
+        return cwOH:build_contributors_sequence($src/ancestor-or-self::*/mods:recordInfo/mods:recordContentSource)
+      default
+        return
+          ( )
   )
   return fn:normalize-space(fn:string-join($tmp , ""))
 };
@@ -425,38 +464,32 @@ return
 (
 '{ "items": [&#10;'
 ,
-   for $event_item as element() at $n in $events_sequence
-     let $type := local:determineSchemaByRootElement($event_item)
-     let $endDateStr :=
-       if ( local:get_end_date($event_item) ) then
-         local:outputJSON( "endDate", local:get_end_date($event_item) )
-         ||
-         ","
-       else
-         ()
-     
-   return
-    string( 
+  for $event_item as element() at $n in $events_sequence
+    let $type := local:determineSchemaByRootElement($event_item)
+    return
       "&#123;"
-      || local:outputJSON( "schemaType", string( $type ) )
-      || ","
-      || local:outputJSON( "schema", string(fn:node-name($event_item)) )
-      || ","
-      || local:outputJSON( "startDate", local:get_start_date($event_item) )
-      || ","
-      || $endDateStr
-      || local:get_lat_lng($event_item)
-      || ","
-      || local:outputJSON("eventType", local:get_event_type($event_item) )
-      || ","      
-      || local:outputJSON("label", local:get_label($event_item) )
-      || ","
-      || local:outputJSON( "description", local:get_description($event_item) )
-      || ","
-      || local:outputJSON( "citations", local:get_citations($event_item, $type) )
-      || ""
+      ||
+      (: build sequence and join as a string therefore no need to deal with "," in JSON :)
+      fn:string-join( 
+        (
+        local:outputJSON( "schemaType", string( $type ) )
+        (: , local:outputJSON( "schema", string(fn:node-name($event_item)) ) :)
+        , local:outputJSON( "startDate", local:get_start_date($event_item) ) 
+        , local:outputJSONNotNull( "endDate", local:get_end_date($event_item) )
+        , local:get_lat_lng($event_item)
+        , local:outputJSON("eventType", local:get_event_type($event_item) )
+        , local:outputJSON("label", local:get_label($event_item) )
+        , local:outputJSON( "description", local:get_description($event_item) )
+        , local:outputJSON( "citations", local:get_citations($event_item, $type) )
+        , local:outputJSONNotNull( "contributors", local:get_contributors($event_item, $type) )
+        )
+        ,
+        ","
+      )
       || "&#125;,&#10;"
-    )
+        ,
+      ""
+    
 ,
 ']}'
 )

@@ -96,4 +96,30 @@ declare function cwOH:build_citation_sequence($src)
     }
 };
 
+(: 
+* Given an Orlando schema
+* build a seqence of displayable results representing a contributor
+ :)
+declare function cwOH:build_contributors_sequence($src)
+{
+    try
+    {
+      for $node at $i in $src 
+      let $tmp := fn:normalize-space(fn:string-join($node))
+      return
+      (
+        if ( $tmp ) then
+          "<div>" 
+          ||
+          ( $tmp )
+          ||
+          "</div>"  
+        else
+          ( )
+      )
+    }
+    catch * {
+      ()
+    }
+};
 
