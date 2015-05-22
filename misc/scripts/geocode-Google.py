@@ -30,6 +30,8 @@
 # * information about the Google API key can be found here https://developers.google.com/api-client-library/python/guide/aaa_apikeys
 # * and an API key can be created from the Google Developers Console located here https://console.developers.google.com/
 # * Sample GET URL string: http://maps.googleapis.com/maps/api/geocode/xml?address=London,ON&sensor=false
+# * Sample GET URL string (another version): http://www.google.ca/maps/api/geocode/xml?address=London,%20ON
+# * Sample GET URL string to get map version: https://www.google.ca/maps/place/London,%20ON
 # * Sample GET URL string using API key (AIzaSyBnKE7aZSWodIiAUEGZ1LL4WPJmshtDUnc):
 # https://maps.googleapis.com/maps/api/geocode/xml?address=London,ON&sensor=false&key=AIzaSyBnKE7aZSWodIiAUEGZ1LL4WPJmshtDUnc
 # * Sample GET URL string using unique place_id (e.g., London, ON: ChIJC5uNqA7yLogRlWsFmmnXxyg) and API key (AIzaSyBnKE7aZSWodIiAUEGZ1LL4WPJmshtDUnc):

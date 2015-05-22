@@ -27,6 +27,7 @@
 # variable value.
 # * Sample GET URL string: http://api.geonames.org/search?name_equals=London&adminCode1=08&country=CA&featureClass=P&type=XML&username=brundin
 # * Sample GET URL string using unique GeoNames ID (e.g., London, ON: 6058560): http://ws.geonames.org/get?geonameId=6058560&username=brundin
+# * Sample GET URL string to get map version: http://www.geonames.org/6058560/
 
 # Useful documentation about the GeoNames Web Services API:
 # * GeoNames Web Services Documentation: http://www.geonames.org/export/web-services.html
