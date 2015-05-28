@@ -12,6 +12,8 @@ import module namespace cwPH="cwPlaceHelpers" at "./cw_place_helpers.xq";
 declare namespace mods = "http://www.loc.gov/mods/v3";
 declare namespace tei =  "http://www.tei-c.org/ns/1.0";
 
+
+
 (
 (: for $ref in //CHRONSTRUCT/CHRONPROSE/PLACE[not(@LAT) and not(@LNG)]/@REF | //tei:event/tei:desc[1]/tei:placeName/@ref:)
 (: if @ref then lookup @ref and add the record details to a BaseX cache to prevent having to access geonames.org an slow down a query (e.g. generate JSON :)  
@@ -19,7 +21,7 @@ for $ref in //CHRONSTRUCT/CHRONPROSE/PLACE/@REF | //tei:event/tei:desc[1]/tei:pl
 group by $ref
 order by $ref
 return
-  if ( not( /places/geonames/geoname[@geonameId = $ref]) and not(/places/cwrc_place_entities/entity[@uri = $ref]) )  then
+  if ( not( /places/geonames/geoname[@geonameId = $ref]) and not(/places/cwrc_place_entities/entity[@uri = $ref]) and not (/places/google_place_entities/entity[@uri = $ref]) )  then
   (
     let $tmp := cwPH:getGeoCodeByIDViaGeoNames($ref)
      
@@ -50,7 +52,7 @@ return
       ""    
   )
   let $tmp := cwPH:getGeoCodeByStrViaGeoNames($placeStr) 
-  let $placeMap := cwPH:parse_geo_code_return($placeStr,$tmp/geonames/geoname[1])
+  let $placeMap := cwPH:parse_geo_code_geonames($placeStr,$tmp/geonames/geoname[1])
   let $ref := $placeMap('geonameId')
   let $attrName :=
   (
