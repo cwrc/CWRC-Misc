@@ -8,8 +8,8 @@ declare namespace mods = "http://www.loc.gov/mods/v3";
 declare namespace tei =  "http://www.tei-c.org/ns/1.0";
 
 declare variable $cwPH:geonames_str := "geonames";
-declare variable $cwPH:google_str := "geonames";
-declare variable $cwPH:cwrc_str := "geonames";
+declare variable $cwPH:google_str := "google";
+declare variable $cwPH:cwrc_str := "cwrc";
 
 (:
 : give either a latitude/longitude pair, a uri reference, or a string to lookup
@@ -55,8 +55,8 @@ declare function cwPH:get_geo_code_by_ref($ref, $placeStr)
     cwPH:parse_geo_code_geonames($placeStr,fn:collection()/places/geonames/geoname[@geonameId/data() eq $ref][1])
   else if ( fn:collection()/places/cwrc_place_entities/entity[@uri/data() eq $ref][1] ) then
     cwPH:parse_geo_code_cwrc($placeStr,fn:collection()/places/cwrc_place_entities/entity[@uri/data() eq $ref][1]/place)
-  else if ( fn:collection()/places/google_place_entities/entity[@uri/data() eq $ref][1] ) then
-    cwPH:parse_geo_code_google($placeStr,fn:collection()/places/cwrc_place_entities/entity[@uri/data() eq $ref][1]/place)
+  else if ( fn:collection()/places/google_geocode/entity[@uri/data() eq $ref][1] ) then
+    cwPH:parse_geo_code_google($placeStr,fn:collection()/places/google_geocode/entity[@uri/data() eq $ref][1])
   else if ($ref != '') then
   (
           switch ( cwPH:placeRefType($ref) )
@@ -72,14 +72,14 @@ declare function cwPH:get_geo_code_by_ref($ref, $placeStr)
              (
                let $tmp := cwPH:getGeoCodeByIDViaCWRC($ref)
                return
-                 cwPH:parse_geo_code_cwrc($placeStr,$tmp/geoname[1])
+                 cwPH:parse_geo_code_cwrc($placeStr,$tmp/entity/place[1])
              )
           case $cwPH:google_str 
              return 
              (
                let $tmp := cwPH:getGeoCodeByIDViaGoogle($ref)
                return
-                 cwPH:parse_geo_code_google($placeStr,$tmp/geoname[1])
+                 cwPH:parse_geo_code_google($placeStr,$tmp/GeocodeResponse/result[1])
              )
           default return ()
   
@@ -240,14 +240,16 @@ declare function cwPH:getGeoCodeByIDViaCWRC ($ref as xs:string?)
 (: :)
 declare function cwPH:getGeoCodeByIDViaGoogle ($ref as xs:string?)
 {
-  let $geonameId := fn:replace($ref, 'https://www.google.ca/maps/place/(\d*)[/]?','$1')
+  let $geonameId := fn:replace($ref, 'http[s]?://www.google.ca/maps/place/([^/]*)[/]?','$1')
+
   let $tmp := http:send-request(
     <http:request 
       method='get'
-      href=" http://maps.googleapis.com/maps/api/geocode/xml?address={$geonameId}"
+      href="http://maps.googleapis.com/maps/api/geocode/xml?address={$geonameId}"
       >
     </http:request>
-  )[2]
+  )[2]/GeocodeResponse/result/*
+
   return 
     $tmp
 };  

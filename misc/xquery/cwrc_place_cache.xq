@@ -21,14 +21,30 @@ for $ref in //CHRONSTRUCT/CHRONPROSE/PLACE/@REF | //tei:event/tei:desc[1]/tei:pl
 group by $ref
 order by $ref
 return
-  if ( not( /places/geonames/geoname[@geonameId = $ref]) and not(/places/cwrc_place_entities/entity[@uri = $ref]) and not (/places/google_place_entities/entity[@uri = $ref]) )  then
+  if ( not( /places/geonames/geoname[@geonameId = $ref]) and not(/places/cwrc_place_entities/entity[@uri = $ref]) and not (/places/google_geocode/entity[@uri = $ref]) )  then
   (
-    let $tmp := cwPH:getGeoCodeByIDViaGeoNames($ref)
-     
-    return 
-    (
-      insert node (<geoname geonameId="{$ref}">{$tmp/geoname/*}</geoname>) as first into /places/geonames
-    )
+    
+          switch ( cwPH:placeRefType($ref) )
+          case $cwPH:geonames_str 
+             return (
+               let $tmp := cwPH:getGeoCodeByIDViaGeoNames($ref)
+               return insert node (<geoname geonameId="{$ref}">{$tmp/geoname/*}</geoname>) as first into /places/geonames
+             )
+          case $cwPH:cwrc_str 
+             return (
+               let $tmp := cwPH:getGeoCodeByIDViaCWRC($ref)
+               return insert node (<entity uri="{$ref}">{$tmp/entity/*}</entity>) as first into /places/cwrc_place_entities
+             )
+          case $cwPH:google_str 
+             return 
+             (
+               let $tmp := cwPH:getGeoCodeByIDViaGoogle($ref)
+               return insert node (<entity uri="{$ref}">{$tmp}</entity>) as first into /places/google_geocode
+             )
+           default
+             return    
+             (
+             )
   )
   else
     ()
