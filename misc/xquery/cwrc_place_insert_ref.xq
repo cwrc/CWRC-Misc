@@ -27,7 +27,7 @@ return
       ""    
   )
   let $tmp := cwPH:getGeoCodeByStrViaGeoNames($placeStr) 
-  let $placeMap := cwPH:parse_geo_code_return($placeStr,$tmp/geonames/geoname[1])
+  let $placeMap := cwPH:parse_geo_code_geonames($placeStr,$tmp/geonames/geoname[1])
   let $ref := $placeMap('geonameId')
   let $attrName :=
   (
