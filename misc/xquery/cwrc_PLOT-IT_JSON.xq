@@ -302,7 +302,7 @@ as xs:string?
     ( 
       fn:concat(
         (: MRB: Thu 09-Apr-2015: uncommented JCA's code to prepend date for Orlando event labels :)
-        $src/descendant-or-self::CHRONSTRUCT/(DATE|DATERANGE|DATESTRUCT)[1]/text()[1]
+        fn:string-join($src/descendant-or-self::CHRONSTRUCT/(DATE|DATERANGE|DATESTRUCT/descendant-or-self::*)/text())
         , ": ",
         substring($tmp, 1, $label_max_length + string-length(substring-before(substring($tmp, $label_max_length+1),' '))) 
         , '...'
