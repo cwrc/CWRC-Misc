@@ -6,7 +6,7 @@
 
 # Description: Shell script to geocode place names into their associated coordinates of
 # latitude and longitude using Natural Resources Canada's (NRCan) Canadian Geographical
-# Names Data Data Base (CGNDB) API.  The input file consists of place names for a particular
+# Names Data Base (CGNDB) API.  The input file consists of place names for a particular
 # province, with each place name appearing on a separate new line.  The output data returned
 # from the server is in CSV format.  The resulting output file contains three comma-separated
 # fields: place name, latitude, and longitude.  To run the script, type the following at the

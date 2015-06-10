@@ -169,7 +169,8 @@ declare function cwPH:getOrlandoPlaceString($place)
      else if ($place/SETTLEMENT/text()) then
        $place/SETTLEMENT/text()
      else 
-       ''  
+       ()
+         
    let $place_placename :=
      if ($place/PLACENAME/@CURRENT) then
        $place/PLACENAME/@CURRENT/data()
@@ -178,41 +179,22 @@ declare function cwPH:getOrlandoPlaceString($place)
      else if ($place/PLACENAME) then
        $place/PLACENAME/text()
      else
-       ''
+       ()
+       
    let $place_region :=
      if ($place/REGION/@CURRENT) then
        $place/REGION/@CURRENT/data()
      else if ($place/REGION/@REG) then
        $place/REGION/@REG/data()
-     else if ($place/REGION) then
-       $place/REGION
+     else if ($place/REGION/text()) then
+       $place/REGION/text()
      else 
-       ''
+       ()
        
-   let $placename := 
-     if ($place_placename!='' and $place_settlement!='') then
-       $place_placename||', '||$place_settlement
-     else if ($place_placename) then
-       $place_settlement
-     else if ($place_settlement) then
-       $place_settlement
-     else if ($place_region) then
-       $place_region
-     else
-       ''
-     
-   let $location :=
-    if ($place_country != '' and $placename != '') then
-      string($placename||', '||$place_country)
-    else if ($place_country != '') then
-      string($place_country)
-    else if ($placename != '') then
-      string($placename)
-    else
-      '' 
-       
+   let $concatPlace :=  fn:string-join(($place_placename, $place_settlement, $place_region, $place_country), ', ')    
+   
    return   
-     $location
+     $concatPlace
 };
 
     

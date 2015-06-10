@@ -94,7 +94,8 @@ as xs:string?
     if ( fn:name($src) eq 'EVENT' or fn:name($src) eq 'CHRONSTRUCT') then
       (: Orlando XML :)
     ( 
-      let $dateAttr := ($src/descendant-or-self::CHRONSTRUCT/((DATE|DATERANGE)[1]/(@VALUE|@FROM)))
+      (: To do: If DATERANCE has not attribute value, determine how to interpret the decendant tags and test. :)
+      let $dateAttr := ($src/descendant-or-self::CHRONSTRUCT/((DATE|DATERANGE|DATESTRUCT)[1]/(@VALUE|@FROM)))
       let $dateTxt := ($src/descendant-or-self::CHRONSTRUCT/((DATE|DATERANGE)[1]/text()))
       return
         if ($dateAttr) then
@@ -301,7 +302,7 @@ as xs:string?
     ( 
       fn:concat(
         (: MRB: Thu 09-Apr-2015: uncommented JCA's code to prepend date for Orlando event labels :)
-        $src/descendant-or-self::CHRONSTRUCT/(DATE|DATERANGE|DATESTRUCT)/text()
+        $src/descendant-or-self::CHRONSTRUCT/(DATE|DATERANGE|DATESTRUCT)[1]/text()[1]
         , ": ",
         substring($tmp, 1, $label_max_length + string-length(substring-before(substring($tmp, $label_max_length+1),' '))) 
         , '...'
@@ -411,7 +412,7 @@ as xs:string?
     switch ( $type )
       (: Orlando or CWRC XML :)
       case "Orlando / CWRC"
-        return cwOH:build_citation_sequence($src//BIBCITS/BIBCIT)
+        return cwOH:build_citation_sequence($src//BIBCITS/BIBCIT | $src/following-sibling::BIBCITS/BIBCIT)
       (: TEI XML :)
       case "TEI"
         return 
@@ -459,7 +460,7 @@ as xs:string?
 
 
 (: the main section: define the set of elements that constitute an "event" and output as JSON :)
-let $events_sequence := (//tei:event | /EVENT | /EVENTS//(FREESTANDING_EVENT/CHRONSTRUCT) | (WRITING|BIOGRAPHY)//CHRONSTRUCT | //mods:mods)
+let $events_sequence := (//tei:event | /EVENT | /EVENTS//((FREESTANDING_EVENT|HOSTED_EVENT)/CHRONSTRUCT) | (WRITING|BIOGRAPHY)//CHRONSTRUCT | //mods:mods)
 return
 (
 '{ "items": [&#10;'

@@ -72,16 +72,17 @@ declare function cwOH:parse-orlando-narrative-date($dateStr)
  :)
 declare function cwOH:build_citation_sequence($src)
 {
+
+  for $str at $i in $src 
+    return 
     try
     {
-      for $str at $i in $src 
-      return
       (
         "<div>" 
         ||
         (
-        if ( $src/@DBREF and $src/@PLACEHOLDER ) then
-          ( "<a target='_blank' href='http://orlando.cambridge.org/protected/wheel?f=frame&amp;bi_id="||$src/@DBREF||"'>"||$src/@PLACEHOLDER||"</a>" )
+        if ( $str/@DBREF and $str/@PLACEHOLDER ) then
+          ( "<a target='_blank' href='http://orlando.cambridge.org/protected/wheel?f=frame&amp;bi_id="||$str/@DBREF||"'>"||$str/@PLACEHOLDER||"</a>" )
         else if ( $src/@PLACEHOLDER ) then
           ( $src/@PLACEHOLDER )
         else
@@ -92,8 +93,9 @@ declare function cwOH:build_citation_sequence($src)
       )
     }
     catch * {
-      ()
+      '<div>ERROR</div>'
     }
+  
 };
 
 (: 
