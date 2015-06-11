@@ -412,7 +412,7 @@ as xs:string?
     switch ( $type )
       (: Orlando or CWRC XML :)
       case "Orlando / CWRC"
-        return cwOH:build_citation_sequence($src//BIBCITS/BIBCIT | $src/following-sibling::BIBCITS/BIBCIT)
+        return cwOH:build_citation_sequence($src//BIBCITS[position()=1]/BIBCIT | $src/following-sibling::BIBCITS/BIBCIT)
       (: TEI XML :)
       case "TEI"
         return 
