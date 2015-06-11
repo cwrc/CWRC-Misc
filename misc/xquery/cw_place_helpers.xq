@@ -121,6 +121,8 @@ declare function cwPH:parse_geo_code_geonames($placeStr, $geoCodeResult)
      } catch * {
        map {
          'placeStr': $placeStr
+          , 'lat': '-90'
+          , 'lng': '-90'
        }
    }
    return
