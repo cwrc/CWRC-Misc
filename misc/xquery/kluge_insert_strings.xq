@@ -11,15 +11,30 @@
  :     - kluge_insert_strings.xq
  :     - cwrc_place_cache.xq
  :     - cwrc_PLOT-IT_JSON.xq
- : Note: two final processing operations need to be performed on the
+ : Note: four final processing operations need to be performed on the
  : resulting JSON data file using the Oxygen XML Editor application:
- : * (1) Run two find and replace operations (Ctrl-f) to substitute the
+  : * (1) Do a format and indent operation before saving the JSON data
+ :   file:
+ :   - Ctrl-Shift-p (to format and indent in Oxygen)
+ : * (2) Run two find and replace operations (Ctrl-f) to substitute the
  :   italics placeholders with the HTML italics tag:
  :       - placeholderOpenItalics ==> <i>
  :       - placeholderCloseItalics ==> </i>
- : * (2) Do a final format and indent operation before saving the JSON
- :   data file:
- :   - Ctrl-Shift-p (to format and indent in Oxygen)
+ : * (3) After running the above operations, there will be four
+     "widowed" <i> tags in the "label" property for the Orlando
+ :   events, where the title was truncated and no closing </i>
+ :   tag was added.  Use this regular expression search in the Oxygen
+ :   Find dialog to find all label strings with an <i> tag, and
+ :   just manually go through these to find the four that are
+ :   missing the closing </i> tag:
+ :       label:.*<i>
+ : * (4) Do a search to find the 20 events that have earth as the lat
+ :   and long, i.e.,  search for
+ :       "latLng": \["0,0"\]
+ :   and manually change the location property to
+ :       Earth
+ :   and the countryName property to
+ :       (Earth)
  :)
 
 xquery version "3.0" encoding "utf-8";
