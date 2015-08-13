@@ -20,12 +20,12 @@
 $url = "http://localhost:8080/validator/validate.html";
 
 # *** Provide the directory path to the source XML files to be validated ***
-# $dir_name = 'file:///$HOME/Desktop/tmp/'; // *nix version
-$dir_name = 'file:///%USERPROFILE%/Desktop/tmp/'; // Windows version
+# $dir_name = 'file:///Users/Brundin/Desktop/tmp/'; // *nix version
+$dir_name = 'file:///C:/Users/brundin/Desktop/tmp/'; // Windows version
 
 # *** Provide the directory path to the schema to be used for validating the XML files ***
-# $schema = "file:///$HOME/Documents/GitHub/CWRC-Schema/schemas/orlando_event.rng"; // *nix version
-$schema = "file:///%USERPROFILE%/Documents/GitHub/CWRC-Schema/schemas/orlando_event.rng"; // Windows version
+# $schema = "file:///Users/Brundin/Documents/GitHub/CWRC-Schema/schemas/orlando_event.rng"; // *nix version
+$schema = "file:///Users/brundin/Documents/GitHub/CWRC-Schema/schemas/orlando_event.rng"; // Windows version
 
 # *** Provide the schema type: "RNG_XML" (RELAX NG) or "XSD_XML" (XML Schema) ***
 $schema_type = "RNG_XML";
