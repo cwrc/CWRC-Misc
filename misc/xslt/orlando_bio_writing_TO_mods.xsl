@@ -3,8 +3,8 @@
 
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0">
 
-    <xsl:output encoding="UTF-8" method="xml" indent="yes" omit-xml-declaration="no"></xsl:output>
-    <xsl:include href="lib_orlando_date_helper.xsl"></xsl:include>
+    <xsl:output encoding="UTF-8" method="xml" indent="yes" omit-xml-declaration="no"/>
+    <xsl:include href="lib_orlando_date_helper.xsl"/>
 
     <!--
     * extract the MODS information section from an 
@@ -17,27 +17,26 @@
     -->
 
     <!-- input parameter, the name of the original XML (SGML) file) -->
-    <xsl:param name="param_original_filename" select="'xxxxxx-x.sgm'"></xsl:param>
+    <xsl:param name="param_original_filename" select="'xxxxxx-x.sgm'"/>
 
 
     <!-- root element - assumes start with an Orlando bio or writing document -->
     <xsl:template match="/">
-        <mods xmlns="http://www.loc.gov/mods/v3" 
-            xmlns:mods="http://www.loc.gov/mods/v3" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/mods.xsd">
+        <mods xmlns="http://www.loc.gov/mods/v3" xmlns:mods="http://www.loc.gov/mods/v3" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/mods.xsd">
 
             <titleInfo>
                 <title>
                     <xsl:choose>
                         <xsl:when test="BIOGRAPHY | WRITING | DOCUMENTATION">
-                            <xsl:value-of select="/(BIOGRAPHY|WRITING|DOCUMENTATION)/ORLANDOHEADER/FILEDESC/TITLESTMT/DOCTITLE/text()"></xsl:value-of>
+                            <xsl:value-of select="/(BIOGRAPHY|WRITING|DOCUMENTATION)/ORLANDOHEADER/FILEDESC/TITLESTMT/DOCTITLE/text()"/>
                         </xsl:when>
-                        <xsl:when test="FREESTANDING_EVENT" xml:space="default">
-                            <xsl:variable name="TEXT_TO_SUBSTRING" select="normalize-space(/FREESTANDING_EVENT/CHRONSTRUCT/CHRONPROSE)" xml:space="default" />
-                            <xsl:value-of select="/FREESTANDING_EVENT/CHRONSTRUCT/(DATE|DATERANGE|DATESTRUCT)/text()"/>
+                        <xsl:when test="EVENT" xml:space="default">
+                            <xsl:variable name="TEXT_TO_SUBSTRING" select="normalize-space(/EVENT/CHRONEVENT/CHRONSTRUCT/CHRONPROSE)" xml:space="default"/>
+                            <xsl:value-of select="/EVENT/CHRONEVENT/CHRONSTRUCT/(DATE|DATERANGE|DATESTRUCT)/text()"/>
                             <xsl:text>: </xsl:text>
-                            <!-- <xsl:value-of select="/FREESTANDING_EVENT/CHRONSTRUCT/CHRONPROSE"></xsl:value-of> -->
-                            <!-- build snippet from longer chronprose, break at a "space", and restrict output to a max of "n" characters --> 
-                            <xsl:value-of select="substring($TEXT_TO_SUBSTRING, 1, 40 + string-length(substring-before(substring($TEXT_TO_SUBSTRING, 41),' ')))" xml:space="default" />
+                            <!-- <xsl:value-of select="/EVENT/CHRONEVENT/CHRONSTRUCT/CHRONPROSE"></xsl:value-of> -->
+                            <!-- build snippet from longer chronprose, break at a "space", and restrict output to a max of "n" characters -->
+                            <xsl:value-of select="substring($TEXT_TO_SUBSTRING, 1, 40 + string-length(substring-before(substring($TEXT_TO_SUBSTRING, 41),' ')))" xml:space="default"/>
                             <xsl:text>...</xsl:text>
                         </xsl:when>
                         <xsl:otherwise>
@@ -80,7 +79,7 @@
                 <originInfo>
                     <dateIssued encoding="w3cdtf">
                         <xsl:call-template name="convert_mla_to_iso">
-                            <xsl:with-param name="INPUT_DATE" select="/(BIOGRAPHY|WRITING|DOCUMENTATION)/ORLANDOHEADER/REVISIONDESC/(RESPONSIBILITY[@WORKSTATUS='PUB' and @WORKVALUE='C'])[1]/DATE/text()"></xsl:with-param>
+                            <xsl:with-param name="INPUT_DATE" select="/(BIOGRAPHY|WRITING|DOCUMENTATION)/ORLANDOHEADER/REVISIONDESC/(RESPONSIBILITY[@WORKSTATUS='PUB' and @WORKVALUE='C'])[1]/DATE/text()"/>
                         </xsl:call-template>
                     </dateIssued>
                     <place>
@@ -91,7 +90,7 @@
             </relatedItem>
 
             <identifier type="local">
-                <xsl:value-of select="$param_original_filename"></xsl:value-of>
+                <xsl:value-of select="$param_original_filename"/>
             </identifier>
 
             <location>
@@ -105,7 +104,7 @@
             </accessCondition>
 
             <note type="researchNote">
-                <xsl:value-of select="/(BIOGRAPHY|WRITING|DOCUMENTATION)/DIV0/STANDARD"></xsl:value-of>
+                <xsl:value-of select="/(BIOGRAPHY|WRITING|DOCUMENTATION)/DIV0/STANDARD"/>
             </note>
 
 
@@ -132,13 +131,13 @@
             <recordInfo>
                 <recordContentSource>Orlando, Cambridge University Press</recordContentSource>
                 <recordCreationDate encoding="w3cdtf">
-                    <xsl:value-of select="format-date(current-date(),'[Y0001]-[M01]-[D01]')"></xsl:value-of>
+                    <xsl:value-of select="format-date(current-date(),'[Y0001]-[M01]-[D01]')"/>
                 </recordCreationDate>
                 <recordChangeDate encoding="w3cdtf">
-                    <xsl:value-of select="format-date(current-date(),'[Y0001]-[M01]-[D01]')"></xsl:value-of>
+                    <xsl:value-of select="format-date(current-date(),'[Y0001]-[M01]-[D01]')"/>
                 </recordChangeDate>
                 <recordIdentifier source="The Orlando Project">
-                    <xsl:value-of select="$param_original_filename"></xsl:value-of>
+                    <xsl:value-of select="$param_original_filename"/>
                 </recordIdentifier>
                 <recordOrigin>
                     <xsl:text>MODS record has been created from an SGML record using an XSLT stylesheet.</xsl:text>
