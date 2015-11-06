@@ -7,9 +7,14 @@ module namespace cwPH = "cwPlaceHelpers";
 declare namespace mods = "http://www.loc.gov/mods/v3";
 declare namespace tei =  "http://www.tei-c.org/ns/1.0";
 
+declare variable $cwPH:XMLDB_CACHE_NAME external := "cwrc_cache";
+
 declare variable $cwPH:geonames_str := "geonames";
 declare variable $cwPH:google_str := "google";
 declare variable $cwPH:cwrc_str := "cwrc";
+
+declare variable $cwPH:enable_string_lookup := fn:false();
+declare variable $cwPH:enable_external_ref_lookup as xs:boolean := fn:true();
 
 (:
 : give either a latitude/longitude pair, a uri reference, or a string to lookup
@@ -21,16 +26,17 @@ declare function cwPH:get_geo_code($lat, $lng, $ref, $placeStr)
 {
   let $ret := map {}
   return 
-  (: 2015-03-30: lat/lng removed to allow capture of the countryName when "ref" is dereferenced
+    (: 2015-03-30: lat/lng removed to allow capture of the countryName when "ref" is dereferenced :)
+    (:
     if ( $lat and $lng ) then
       map { 'lat': $lat, 'lng': $lng, 'ref': $ref, 'placeStr': $placeStr}
     else 
     :) 
     if ( $ref ) then
-      (: lookup reference and get map :)
+      (: lookup reference and get lat/long geo location details :)
       cwPH:get_geo_code_by_ref($ref, $placeStr)
-    else if ( $placeStr and $placeStr != '' ) then
-      (: query string and get map :)
+    else if ( $placeStr and $placeStr != '' and $cwPH:enable_string_lookup) then
+      (: lookup string and get lat/long geo location details :)
       cwPH:get_geo_code_by_str($placeStr)
     else
       ()
@@ -51,13 +57,13 @@ declare function cwPH:placeRefType($ref)
 (: given a uri reference, lookup the geo code :)
 declare function cwPH:get_geo_code_by_ref($ref, $placeStr)
 {
-  if ( fn:collection()/places/geonames/geoname[@geonameId/data() eq $ref][1] ) then
-    cwPH:parse_geo_code_geonames($placeStr,fn:collection()/places/geonames/geoname[@geonameId/data() eq $ref][1])
-  else if ( fn:collection()/places/cwrc_place_entities/entity[@uri/data() eq $ref][1] ) then
-    cwPH:parse_geo_code_cwrc($placeStr,fn:collection()/places/cwrc_place_entities/entity[@uri/data() eq $ref][1]/place)
-  else if ( fn:collection()/places/google_geocode/entity[@uri/data() eq $ref][1] ) then
-    cwPH:parse_geo_code_google($placeStr,fn:collection()/places/google_geocode/entity[@uri/data() eq $ref][1])
-  else if ($ref != '') then
+  if ( db:open($cwPH:XMLDB_CACHE_NAME)/places/geonames/geoname[@geonameId/data() eq $ref][1] ) then
+    cwPH:parse_geo_code_geonames($placeStr,db:open($cwPH:XMLDB_CACHE_NAME)/places/geonames/geoname[@geonameId/data() eq $ref][1])
+  else if ( db:open($cwPH:XMLDB_CACHE_NAME)/places/cwrc_place_entities/entity[@uri/data() eq $ref][1] ) then
+    cwPH:parse_geo_code_cwrc($placeStr,db:open($cwPH:XMLDB_CACHE_NAME)/places/cwrc_place_entities/entity[@uri/data() eq $ref][1]/place)
+  else if ( db:open($cwPH:XMLDB_CACHE_NAME)/places/google_geocode/entity[@uri/data() eq $ref][1] ) then
+    cwPH:parse_geo_code_google($placeStr,db:open($cwPH:XMLDB_CACHE_NAME)/places/google_geocode/entity[@uri/data() eq $ref][1])
+  else if ($ref != '' and $cwPH:enable_external_ref_lookup) then
   (
           switch ( cwPH:placeRefType($ref) )
           case $cwPH:geonames_str 
@@ -88,6 +94,8 @@ declare function cwPH:get_geo_code_by_ref($ref, $placeStr)
   else
     map {
          'placeStr': 'ERROR 01'
+          (: , 'lat': '85' :)
+          (: , 'lng': '0' :)
     }
 
 };
@@ -207,7 +215,7 @@ declare function cwPH:getGeoCodeByIDViaGeoNames ($ref as xs:string?)
   let $tmp := http:send-request(
     <http:request 
       method='get'
-      href="http://ws.geonames.org/get?geonameId={$geonameId}&amp;username=brundin"
+      href="http://ws.geonames.org/get?geonameId={$geonameId}&amp;username=cwrcgeonames"
       >
     </http:request>
   )[2]
