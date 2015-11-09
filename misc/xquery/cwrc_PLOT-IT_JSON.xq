@@ -473,7 +473,9 @@ let $ac := /*
 
 (: the main section: define the set of elements that constitute an "event" and output as JSON :)
 let $events_sequence := ($ac//tei:event | $ac/EVENT[position()<2] | $ac/*/EVENTS//((FREESTANDING_EVENT|HOSTED_EVENT)/CHRONSTRUCT) | $ac/*/(WRITING|BIOGRAPHY)//CHRONSTRUCT | $ac/*/mods:mods)
-return
+
+
+let $ret :=
 (
 '{ "items": [&#10;'
 ,
@@ -509,3 +511,6 @@ return
 ,
 ']}'
 )
+
+return
+  $ret

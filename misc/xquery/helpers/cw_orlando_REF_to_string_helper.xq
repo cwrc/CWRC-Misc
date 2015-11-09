@@ -5,6 +5,7 @@ import module namespace cwPH="cwPlaceHelpers" at "./cw_place_helpers.xq";
 let $src := //PLACE[@REF]
 let $tmp :=
     for $placeNode in $src
+    let $placeMap := cwPH:get_geo_code("","",$placeNode/@REF/data(),"")
     return
       (
         '{'
@@ -12,8 +13,9 @@ let $tmp :=
         '"' || $placeNode/@REF/data() || '",'
         ||
         '"' || cwPH:getOrlandoPlaceString($placeNode) || '",'
-        ||
-        '"' || cwPH:get_geo_code("","",$placeNode/@REF/data(),"")('placeName') || '"'
+   (:     ||
+        '"' || $placeMap('placeName') || ' ' || $placeMap('countryName') || '"'
+        :)
         ||
         '}&#10;'
      )

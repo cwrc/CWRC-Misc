@@ -197,7 +197,7 @@ declare function cwPH:getGeoCodeByStrViaGeoNames ($qryStr as xs:string?)
   let $tmp := http:send-request(
     <http:request 
       method='get'
-      href="http://api.geonames.org/search?q={$qryEncoded}&amp;username=brundin&amp;maxRows=1"
+      href="http://api.geonames.org/search?q={$qryEncoded}&amp;username=cwrcgeonames&amp;maxRows=1"
       >
     </http:request>
   )[2]
