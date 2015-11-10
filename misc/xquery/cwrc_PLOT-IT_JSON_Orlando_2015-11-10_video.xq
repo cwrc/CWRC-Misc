@@ -57,6 +57,15 @@ as xs:string?
   return $tmp
 };
 
+declare function local:outputJSONArrayNotNull  ($key as xs:string?, $value)
+as xs:string?
+{
+  if ($value != "") then
+    local:outputJSONArray($key, $value)
+  else
+    ()  
+};
+
 declare function local:outputJSONArray ($key as xs:string?, $value)
 as xs:string?
 {
@@ -423,7 +432,7 @@ as xs:string?
         return
           ( "ERROR: " || fn:name($src) )
   )
-  return fn:normalize-space(fn:string-join($tmp , ""))
+  return '"'||fn:normalize-space(fn:string-join($tmp , ""))||'"'
 };
 
 
@@ -475,6 +484,7 @@ let $ac := /*
 let $events_sequence := ($ac//tei:event | $ac/EVENT[position()<2] | $ac/*/EVENTS//((FREESTANDING_EVENT|HOSTED_EVENT)/CHRONSTRUCT) | $ac/*/(WRITING|BIOGRAPHY)//CHRONSTRUCT | $ac/*/mods:mods)
 
 (: 1700-1799  and ( .//SETTLEMENT/text()='London' or .//@REG='London') :)
+(:
 let $groupStr := "1700-1799 London"
 let $events_sequence := (
   //EVENT[@FILENAME = (
@@ -483,8 +493,10 @@ let $events_sequence := (
 
   )  and ( .//SETTLEMENT/text()='London' or .//@REG='London')]
 )
+:)
 
 (: 1800-1899 :)
+(::)
 let $groupStr := "1800-1899"
 let $events_sequence := (
   //EVENT[@FILENAME = (
@@ -492,13 +504,13 @@ let $events_sequence := (
 'cartel-b.sgm', 'montel-b.sgm', 'wartja-b.sgm', 'grifha-b.sgm', 'chaphe-b.sgm', 'halema-b.sgm', 'warrme-b.sgm', 'reevcl-b.sgm', 'lennch-b.sgm', 'reynfr-b.sgm', 'cowpwi-b.sgm', 'wheeag-b.sgm', 'jebban-b.sgm', 'walkma-b.sgm', 'moodel-b.sgm', 'painth-b.sgm', 'fergel-b.sgm', 'coopma-b.sgm', 'darwma-b.sgm', 'butlel-b.sgm', 'parsel-b.sgm', 'fletma-b.sgm', 'lucama-b.sgm', 'gibbph-b.sgm', 'candan-b.sgm', 'trimsa-b.sgm', 'piozhe-b.sgm', 'kindje-b.sgm', 'adamab-b.sgm', 'pagais-b.sgm', 'sewaan-b.sgm', 'cowlha-b.sgm', 'barban-b.sgm', 'helmel-b.sgm', 'murrsa-b.sgm', 'cookc2-b.sgm', 'bonhel-b.sgm', 'gardsa-b.sgm', 'moreha-b.sgm', 'holcth-b.sgm', 'radcma-b.sgm', 'genlst-b.sgm', 'hawkca-b.sgm', 'handel-b.sgm', 'gunnsu-b.sgm', 'hervel-b.sgm', 'chamm2-b.sgm', 'strama-b.sgm', 'smitch-b.sgm', 'damean-b.sgm', 'lewial-b.sgm', 'bennan-b.sgm', 'bowdhe-b.sgm', 'gomean-b.sgm', 'hersca-b.sgm', 'soutjo-b.sgm', 'lee_so-b.sgm', 'wakepr-b.sgm', 'barnan-b.sgm', 'batthe-b.sgm', 'murrju-b.sgm', 'craihe-b.sgm', 'sherri-b.sgm', 'burnfr-b.sgm', 'yearan-b.sgm', 'inchel-b.sgm', 'huntra-b.sgm', 'elligr-b.sgm', 'jacsfr-b.sgm', 'branha-b.sgm', 'jacsma-b.sgm', 'granan-b.sgm', 'fay_el-b.sgm', 'huttca-b.sgm', 'godwwi-b.sgm', 'hamiel-b.sgm', 'robima-b.sgm', 'taylan-b.sgm', 'holfma-b.sgm', 'lee_ha-b.sgm', 'knigel-b.sgm', 'devoge-b.sgm', 'goocel-b.sgm', 'stualo-b.sgm', 'devoel-b.sgm', 'blakwi-b.sgm', 'larpan-b.sgm', 'bradm2-b.sgm', 'westja-b.sgm', 'fostha-b.sgm', 'leadma-b.sgm', 'haysma-b.sgm', 'kellis-b.sgm', 'willhe-b.sgm', 'hawkla-b.sgm', 'littja-b.sgm', 'mortsa-b.sgm', 'bryama-b.sgm', 'mackan-b.sgm', 'pluman-b.sgm', 'beckwi-b.sgm', 'wellhe-b.sgm', 'logade-b.sgm', 'meekel-b.sgm', 'rowssu-b.sgm', 'catcma-b.sgm', 'tennta-b.sgm', 'caveja-b.sgm', 'bailjo-b.sgm', 'simcel-b.sgm', 'bowlwi-b.sgm', 'starma-b.sgm', 'sumble-b.sgm', 'tatlel-b.sgm', 'palmal-b.sgm', 'tomlel-b.sgm', 'sleael-b.sgm', 'burkan-b.sgm', 'wolfel-b.sgm', 'rochre-b.sgm', 'cobbel-b.sgm', 'hattan-b.sgm', 'radcan-b.sgm', 'lambma-b.sgm', 'fansca-b.sgm', 'bannan-b.sgm', 'fenwel-b.sgm', 'staege-b.sgm', 'nairca-b.sgm', 'sykehe-b.sgm', 'bentel-b.sgm', 'corpha-b.sgm', 'gilba2-b.sgm', 'edgema-b.sgm', 'spenel-b.sgm', 'trenme-b.sgm', 'wattsu-b.sgm', 'gunnel-b.sgm', 'stocma-b.sgm', 'pluma2-b.sgm', 'marcja-b.sgm', 'falcan-b.sgm', 'opieam-b.sgm', 'heyrel-b.sgm', 'crisan-b.sgm', 'oneifr-b.sgm', 'pearsu-b.sgm', 'greesa-b.sgm', 'fletel-b.sgm', 'hoflba-b.sgm', 'wordwi-b.sgm', 'dacrch-b.sgm', 'harvja-b.sgm', 'scotwa-b.sgm', 'thome2-b.sgm', 'worddo-b.sgm', 'graych-b.sgm', 'mathel-b.sgm', 'burnsa-b.sgm', 'tighma-b.sgm', 'colesa-b.sgm', 'riddma-b.sgm', 'chamma-b.sgm', 'milnch-b.sgm', 'charma-b.sgm', 'kilhha-b.sgm', 'soutro-b.sgm', 'younma-b.sgm', 'bethm2-b.sgm', 'kembma-b.sgm', 'burych-b.sgm', 'sherma-b.sgm', 'bengel-b.sgm', 'portja-b.sgm', 'austja-b.sgm', 'okeead-b.sgm', 'weetel-b.sgm', 'morgsy-b.sgm', 'smitel-b.sgm', 'showmr-b.sgm', 'crokma-b.sgm', 'downha-b.sgm', 'hazlwi-b.sgm', 'holfm2-b.sgm', 'brouhe-b.sgm', 'brunma-b.sgm', 'schima-b.sgm', 'trolfr-b.sgm', 'moorth-b.sgm', 'davese-b.sgm', 'wilksa-b.sgm', 'liddjs-b.sgm', 'cuthca-b.sgm', 'clarem-b.sgm', 'holcfr-b.sgm', 'bryam2-b.sgm', 'portan-b.sgm', 'crokjo-b.sgm', 'somema-b.sgm', 'johnch-b.sgm', 'aikilu-b.sgm', 'kingso-b.sgm', 'gilban-b.sgm', 'ferrsu-b.sgm', 'struel-b.sgm', 'brisam-b.sgm', 'taylja-b.sgm', 'ham_el-b.sgm', 'nootch-b.sgm', 'huntle-b.sgm', 'lickis-b.sgm', 'mosshe-b.sgm', 'clarol-b.sgm', 'wheean-b.sgm', 'woodso-b.sgm', 'callma-b.sgm', 'dequth-b.sgm', 'lambla-b.sgm', 'wilsha-b.sgm', 'cornca-b.sgm', 'bowlca-b.sgm', 'burkjo-b.sgm', 'clarch-b.sgm', 'mitfma-b.sgm', 'prinma-b.sgm', 'byroge-b.sgm', 'halesa-b.sgm', 'barhri-b.sgm', 'keltma-b.sgm', 'ellich-b.sgm', 'blesma-b.sgm', 'sedgca-b.sgm', 'byrome-b.sgm', 'parkem-b.sgm', 'beauam-b.sgm', 'crowca-b.sgm', 'tonnch-b.sgm', 'brayan-b.sgm', 'marsan-b.sgm', 'robeem-b.sgm', 'listan-b.sgm', 'sigoly-b.sgm', 'bellgi-b.sgm', 'bailma-b.sgm', 'shelpe-b.sgm', 'alisar-b.sgm', 'austsa-b.sgm', 'campdo-b.sgm', 'clarjo-b.sgm', 'hemafe-b.sgm', 'jamean-b.sgm', 'striel-b.sgm', 'lestel-b.sgm', 'pordel-b.sgm', 'jevoma-b.sgm', 'wrigfr-b.sgm', 'hamija-b.sgm', 'keatjo-b.sgm', 'carlth-b.sgm', 'elwoan-b.sgm', 'bohnhe-b.sgm', 'striag-b.sgm', 'trutso-b.sgm', 'abdyma-b.sgm', 'edenem-b.sgm', 'sewema-b.sgm', 'granel-b.sgm', 'shelma-b.sgm', 'comtau-b.sgm', 'rathha-b.sgm', 'beveel-b.sgm', 'costlo-b.sgm', 'ellisa-b.sgm', 'howima-b.sgm', 'atkian-b.sgm', 'balzho-b.sgm', 'goreca-b.sgm', 'hallan-b.sgm', 'sincca-b.sgm', 'hillis-b.sgm', 'jewsma-b.sgm', 'macath-b.sgm', 'newmjo-b.sgm', 'clivca-b.sgm', 'carlja-b.sgm', 'bradge-b.sgm', 'woodem-b.sgm', 'bunbse-b.sgm', 'traica-b.sgm', 'chilly-b.sgm', 'martha-b.sgm', 'dumaal-b.sgm', 'lel___-b.sgm', 'lyttro-b.sgm', 'coles2-b.sgm', 'mozlha-b.sgm', 'hornri-b.sgm', 'trisfl-b.sgm', 'stonel-b.sgm', 'bulwed-b.sgm', 'emerra-b.sgm', 'moodsu-b.sgm', 'fentel-b.sgm', 'sandge-b.sgm', 'pardju-b.sgm', 'disrbe-b.sgm', 'seacma-b.sgm', 'ainsha-b.sgm', 'adamsa-b.sgm', 'andeha-b.sgm', 'collm3-b.sgm', 'willja-b.sgm', 'browel-b.sgm', 'milljo-b.sgm', 'chatge-b.sgm', 'wilsh2-b.sgm', 'mannan-b.sgm', 'hamie2-b.sgm', 'taylha-b.sgm', 'tautje-b.sgm', 'jenkhe-b.sgm', 'tinsan-b.sgm', 'nortca-b.sgm', 'chisca-b.sgm', 'balfcl-b.sgm', 'poe_ed-b.sgm', 'darwch-b.sgm', 'fitzed-b.sgm', 'gattma-b.sgm', 'clarmc-b.sgm', 'tennal-b.sgm', 'mozlan-b.sgm', 'rigbel-b.sgm', 'kembfa-b.sgm', 'fullma-b.sgm', 'browjo-b.sgm', 'gaskel-b.sgm', 'boylma-b.sgm', 'stowha-b.sgm', 'fernfa-b.sgm', 'thacwi-b.sgm', 'housma-b.sgm', 'gautth-b.sgm', 'hawkan-b.sgm', 'dickch-b.sgm', 'forsjo-b.sgm', 'sandma-b.sgm', 'browro-b.sgm', 'guesch-b.sgm', 'crosca-b.sgm', 'merelo-b.sgm', 'jewsge-b.sgm', 'fullge-b.sgm', 'browma-b.sgm', 'streju-b.sgm', 'mayhhe-b.sgm', 'cookel-b.sgm', 'smytha-b.sgm', 'robiis-b.sgm', 'aytowi-b.sgm', 'swanan-b.sgm', 'jacoha-b.sgm', 'robiem-b.sgm', 'woodel-b.sgm', 'kingfa-b.sgm', 'shirem-b.sgm', 'seweel-b.sgm', 'reidma-b.sgm', 'martma-b.sgm', 'kembad-b.sgm', 'byroau-b.sgm', 'browfr-b.sgm', 'greyma-b.sgm', 'bronch-b.sgm', 'aguigr-b.sgm', 'meteel-b.sgm', 'taylma-b.sgm', 'lewege-b.sgm', 'blagis-b.sgm', 'tindhe-b.sgm', 'montc2-b.sgm', 'burcja-b.sgm', 'alexce-b.sgm', 'frouja-b.sgm', 'marxka-b.sgm', 'hubbca-b.sgm', 'bronem-b.sgm', 'clouar-b.sgm', 'mossce-b.sgm', 'lothro-b.sgm', 'ruskjo-b.sgm', 'victqu-b.sgm', 'howeju-b.sgm', 'melvhe-b.sgm', 'elioge-b.sgm', 'shorma-b.sgm', 'bronan-b.sgm', 'munrge-b.sgm', 'ingeje-b.sgm', 'sewean-b.sgm', 'spenhe-b.sgm', 'nighfl-b.sgm', 'evanan-b.sgm', 'haysm2-b.sgm', 'smedme-b.sgm', 'boucdi-b.sgm', 'notlfr-b.sgm', 'kortfa-b.sgm', 'burtri-b.sgm', 'bankis-b.sgm', 'baudch-b.sgm', 'tuckch-b.sgm', 'skenfe-b.sgm', 'dufflu-b.sgm', 'amiehe-b.sgm', 'mossma-b.sgm', 'dostfy-b.sgm', 'godlch-b.sgm', 'buckhe-b.sgm', 'greedo-b.sgm', 'flaugu-b.sgm', 'wildja-b.sgm', 'shorar-b.sgm', 'ogilel-b.sgm', 'lintel-b.sgm', 'cobbfr-b.sgm', 'arnoma-b.sgm', 'warian-b.sgm', 'patmco-b.sgm', 'yongch-b.sgm', 'caryma-b.sgm', 'kavaju-b.sgm', 'collwi-b.sgm', 'howian-b.sgm', 'macqka-b.sgm', 'hardma-b.sgm', 'shorlo-b.sgm', 'alliwi-b.sgm', 'lewisa-b.sgm', 'dobesy-b.sgm', 'humema-b.sgm', 'kearan-b.sgm', 'worbem-b.sgm', 'ballrm-b.sgm', 'blacrd-b.sgm', 'alexmr-b.sgm', 'harpfr-b.sgm', 'procad-b.sgm', 'boucje-b.sgm', 'bagewa-b.sgm', 'craidi-b.sgm', 'beckly-b.sgm', 'tytlsa-b.sgm', 'leakca-b.sgm', 'bodiba-b.sgm', 'pfeiem-b.sgm', 'charel-b.sgm', 'merege-b.sgm', 'ibsehe-b.sgm', 'olipma-b.sgm', 'butljo-b.sgm', 'rossda-b.sgm', 'marsem-b.sgm', 'tytlha-b.sgm', 'chanch-b.sgm', 'parkbe-b.sgm', 'siddel-b.sgm', 'dubefr-b.sgm', 'hoeyfr-b.sgm', 'daviem-b.sgm', 'rossch-b.sgm', 'dickem-b.sgm', 'craige-b.sgm', 'barkma-b.sgm', 'davire-b.sgm', 'edwaam-b.sgm', 'taylhe-b.sgm', 'birdis-b.sgm', 'craiis-b.sgm', 'leonan-b.sgm', 'lytted-b.sgm', 'oglean-b.sgm', 'carrle-b.sgm', 'marije-b.sgm', 'strehe-b.sgm', 'clapja-b.sgm', 'riddch-b.sgm', 'alcolo-b.sgm', 'longma-b.sgm', 'fortma-b.sgm', 'robema-b.sgm', 'doregu-b.sgm', 'wedgju-b.sgm', 'cullha-b.sgm', 'diltwi-b.sgm', 'middje-b.sgm', 'morrwi-b.sgm', 'johnel-b.sgm', 'dempch-b.sgm', 'pearfr-b.sgm', 'faitem-b.sgm', 'trolfe-b.sgm', 'bradma-b.sgm', 'walkan-b.sgm', 'bethma-b.sgm', 'beetis-b.sgm', 'besawa-b.sgm', 'bramch-b.sgm', 'havefr-b.sgm', 'veitso-b.sgm', 'machag-b.sgm', 'websau-b.sgm', 'swinal-b.sgm', 'ritcan-b.sgm', 'harwis-b.sgm', 'marrfl-b.sgm', 'adamhe-b.sgm', 'smitlu-b.sgm', 'ouid__-b.sgm', 'molema-b.sgm', 'ellic2-b.sgm', 'patewa-b.sgm', 'brasan-b.sgm', 'stopch-b.sgm', 'kingha-b.sgm', 'hardth-b.sgm', 'carero-b.sgm', 'clerel-b.sgm', 'brourh-b.sgm', 'steean-b.sgm', 'linsma-b.sgm', 'willsa-b.sgm', 'blinma-b.sgm', 'ewinju-b.sgm', 'buchro-b.sgm', 'barrem-b.sgm', 'spenem-b.sgm', 'clerag-b.sgm', 'blache-b.sgm', 'courwi-b.sgm', 'dougge-b.sgm', 'fanevi-b.sgm', 'jamehe-b.sgm', 'velema-b.sgm', 'meadlt-b.sgm', 'despch-b.sgm', 'hopkge-b.sgm', 'simced-b.sgm', 'cadeje-b.sgm', 'phelel-b.sgm', 'nietfr-b.sgm', 'cambad-b.sgm', 'brooem-b.sgm', 'hickem-b.sgm', 'walflu-b.sgm', 'bevils-b.sgm', 'dillea-b.sgm', 'lawlem-b.sgm', 'frerma-b.sgm', 'baldlo-b.sgm', 'knoxlu-b.sgm', 'gibeag-b.sgm', 'obrich-b.sgm', 'mullhe-b.sgm', 'greeka-b.sgm', 'kingan-b.sgm', 'fielmi-b.sgm', 'cornbl-b.sgm', 'steefl-b.sgm', 'bouldo-b.sgm', 'fawcmi-b.sgm', 'besaan-b.sgm', 'meynal-b.sgm', 'plumce-b.sgm', 'frasch-b.sgm', 'allegr-b.sgm', 'blaceo-b.sgm', 'chanla-b.sgm', 'parkel-b.sgm', 'laffma-b.sgm', 'geraem-b.sgm', 'colefr-b.sgm', 'jewesa-b.sgm', 'burnf2-b.sgm', 'russje-b.sgm', 'chopka-b.sgm', 'harrja-b.sgm', 'hardiz-b.sgm', 'wilcel-b.sgm', 'humpce-b.sgm', 'fothje-b.sgm', 'wardma-b.sgm', 'mathhe-b.sgm', 'gregau-b.sgm', 'malelu-b.sgm', 'shawfl-b.sgm', 'caffka-b.sgm', 'blaccl-b.sgm', 'frazja-b.sgm', 'harkma-b.sgm', 'cairmo-b.sgm', 'gransa-b.sgm', 'wildos-b.sgm', 'schrol-b.sgm', 'corema-b.sgm', 'fordis-b.sgm', 'dixifl-b.sgm', 'gerado-b.sgm', 'wintjo-b.sgm', 'duttto-b.sgm', 'shawge-b.sgm', 'lee_ve-b.sgm', 'jay_ha-b.sgm', 'robiam-b.sgm', 'lyaled-b.sgm', 'dixoel-b.sgm', 'campco-b.sgm', 'conrjo-b.sgm', 'webbbe-b.sgm', 'nadeco-b.sgm', 'ramapa-b.sgm', 'smytet-b.sgm', 'someed-b.sgm', 'robifm-b.sgm', 'pankem-b.sgm', 'nesbe_-b.sgm', 'tynaka-b.sgm', 'housae-b.sgm', 'doylar-b.sgm', 'bakeel-b.sgm', 'cholma-b.sgm', 'swana2-b.sgm', 'franju-b.sgm', 'egerge-b.sgm', 'chekan-b.sgm', 'barrjm-b.sgm', 'gilmch-b.sgm', 'farrfl-b.sgm', 'pastge-b.sgm', 'watsro-b.sgm', 'ros_am-b.sgm', 'johnp2-b.sgm', 'colema-b.sgm', 'levyam-b.sgm', 'kendma-b.sgm', 'garnco-b.sgm', 'duncsa-b.sgm', 'whared-b.sgm', 'bannhe-b.sgm', 'rossm2-b.sgm', 'robiel-b.sgm', 'billma-b.sgm', 'huntvi-b.sgm', 'levead-b.sgm', 'kingma-b.sgm', 'gravcl-b.sgm', 'sincma-b.sgm', 'ecclch-b.sgm', 'harrbe-b.sgm', 'glynel-b.sgm', 'lytte2-b.sgm', 'saviet-b.sgm', 'hopela-b.sgm', 'yeatwi-b.sgm', 'bussdo-b.sgm', 'almala-b.sgm', 'scotca-b.sgm', 'scotc_-b.sgm', 'orczem-b.sgm', 'kiplru-b.sgm', 'ginghe-b.sgm', 'delael-b.sgm', 'whitro-b.sgm', 'dowime-b.sgm', 'pottbe-b.sgm', 'sigedo-b.sgm', 'arniel-b.sgm', 'wellhg-b.sgm', 'fry_ro-b.sgm', 'gonnma-b.sgm', 'klicfl-b.sgm', 'bennar-b.sgm', 'galsjo-b.sgm', 'glaska-b.sgm', 'pethem-b.sgm', 'hobbjo-b.sgm', 'markco-b.sgm', 'bellge-b.sgm', 'lownma-b.sgm', 'crosvi-b.sgm', 'lyttco-b.sgm', 'sharev-b.sgm', 'mew_ch-b.sgm', 'gidean-b.sgm', 'brazan-b.sgm', 'craied-b.sgm', 'richhe-b.sgm', 'goreev-b.sgm', 'bensin-b.sgm', 'syngjm-b.sgm', 'prouma-b.sgm', 'moored-b.sgm', 'stjoch-b.sgm', 'rathel-b.sgm', 'hamici-b.sgm', 'leggma-b.sgm', 'mordel-b.sgm', 'colech-b.sgm', 'cole__-b.sgm', 'richdo-b.sgm', 'morrot-b.sgm', 'cathwi-b.sgm', 'fordfo-b.sgm', 'glovev-b.sgm', 'steige-b.sgm', 'montlm-b.sgm', 'thurka-b.sgm', 'roydna-b.sgm', 'buchjo-b.sgm', 'undeev-b.sgm', 'bakee2-b.sgm', 'smedco-b.sgm', 'weavha-b.sgm', 'sowegi-b.sgm', 'barnna-b.sgm', 'roydma-b.sgm', 'thomfl-b.sgm', 'sidget-b.sgm', 'wentpa-b.sgm', 'fryeka-b.sgm', 'murreu-b.sgm', 'cablmi-b.sgm', 'ruckbe-b.sgm', 'forsem-b.sgm', 'naidsa-b.sgm', 'carsca-b.sgm', 'youneh-b.sgm', 'hallra-b.sgm', 'hullem-b.sgm', 'pankch-b.sgm', 'holmco-b.sgm', 'stopma-b.sgm', 'gawtma-b.sgm', 'ayreru-b.sgm', 'farjel-b.sgm', 'webbma-b.sgm', 'macaro-b.sgm', 'dellet-b.sgm', 'sackma-b.sgm', 'woolvi-b.sgm', 'joycja-b.sgm', 'marsdo-b.sgm', 'panksy-b.sgm', 'bottph-b.sgm', 'tweesu-b.sgm', 'hamima-b.sgm', 'lewiwy-b.sgm', 'peckwi-b.sgm', 'loy_mi-b.sgm', 'inneka-b.sgm', 'wickan-b.sgm', 'rhonma-b.sgm', 'edgima-b.sgm', 'compiv-b.sgm', 'jacona-b.sgm', 'schugl-b.sgm', 'treevi-b.sgm', 'uttlal-b.sgm', 'dineis-b.sgm', 'lawrdh-b.sgm', 'meynvi-b.sgm', 'pounez-b.sgm', 'bowema-b.sgm', 'cornfr-b.sgm', 'hd____-b.sgm', 'daryel-b.sgm', 'kayesh-b.sgm', 'trouun-b.sgm', 'beacsy-b.sgm', 'mirrho-b.sgm', 'strara-b.sgm', 'reevam-b.sgm', 'brooru-b.sgm', 'sitwed-b.sgm', 'asqucy-b.sgm', 'barche-b.sgm', 'moorma-b.sgm', 'wilset-b.sgm', 'danecl-b.sgm', 'jessft-b.sgm', 'milesu-b.sgm', 'eliots-b.sgm', 'manska-b.sgm', 'waddhe-b.sgm', 'akhman-b.sgm', 'welldo-b.sgm', 'lawrma-b.sgm', 'bridan-b.sgm', 'bagnen-b.sgm', 'forbro-b.sgm', 'allaro-b.sgm', 'thiran-b.sgm', 'hamnni-b.sgm', 'muirwi-b.sgm', 'delaem-b.sgm', 'stergb-b.sgm', 'rhysje-b.sgm', 'chriag-b.sgm', 'cromri-b.sgm', 'buttma-b.sgm', 'hurszo-b.sgm', 'jamest-b.sgm', 'wilsro-b.sgm', 'bensst-b.sgm', 'milled-b.sgm', 'sackvi-b.sgm', 'napiel-b.sgm', 'jaegmu-b.sgm', 'barndj-b.sgm', 'bostlu-b.sgm', 'westre-b.sgm', 'starfr-b.sgm', 'whipdo-b.sgm', 'carrdo-b.sgm', 'joneeb-b.sgm', 'sayedo-b.sgm', 'cannma-b.sgm', 'warnsy-b.sgm', 'britve-b.sgm', 'russdo-b.sgm', 'willam-b.sgm', 'trefvi-b.sgm', 'huxlal-b.sgm', 'bryh__-b.sgm', 'bentph-b.sgm', 'boweli-b.sgm', 'streno-b.sgm', 'cunana-b.sgm', 'kennma-b.sgm', 'smitdo-b.sgm', 'cannjo-b.sgm', 'tey_jo-b.sgm', 'treeir-b.sgm', 'omanca-b.sgm', 'walldo-b.sgm', 'blyten-b.sgm', 'coople-b.sgm', 'mitcna-b.sgm', 'pittru-b.sgm', 'obrika-b.sgm', 'holtwi-b.sgm', 'whitan-b.sgm', 'boweel-b.sgm', 'travpl-b.sgm', 'bellfr-b.sgm' 
   )]
 )
-
+(::)
 
 (: 1800-1899 and (.//SETTLEMENT/text()='London' or .//@REG='London') :)
-(: 
+(:
 let $groupStr := "1800-1899 London"
 let $events_sequence := $events_sequence[.//SETTLEMENT/text()='London' or .//@REG='London'] 
-:)
+ :)
 
 (: 1500-1599:)
 (:
@@ -518,7 +530,8 @@ let $events_sequence := (
     'birdis-b.sgm', 'birdis-w.sgm'
   )]
 )
-
+:)
+(:
 let $groupStr := "Dervla Murphy"
 let $events_sequence := (
   //EVENT[@FILENAME = (
@@ -526,13 +539,14 @@ let $events_sequence := (
   )]
 )
 :)
+(:
 let $groupStr := "Mary Ward"
 let $events_sequence := (
   //EVENT[@FILENAME = (
     'wardm2-b.sgm', 'wardm2-w.sgm'
   ) ]
 )
-
+:)
 
 let $ret :=
 (
@@ -558,7 +572,7 @@ let $ret :=
           , local:outputJSON("eventType", local:get_event_type($event_item, $type) )
           , local:outputJSON("label", local:get_label($event_item, $type) )
           , local:outputJSON("description", local:get_description($event_item, $type) )
-          , local:outputJSONNotNull( "citations", local:get_citations($event_item, $type) )
+          , local:outputJSONArrayNotNull( "citations", local:get_citations($event_item, $type) )
           , local:outputJSONNotNull( "contributors", local:get_contributors($event_item, $type) )
           , local:outputJSONNotNull( "link", $BASE_URL||$event_item/fn:substring(@FILENAME, 1, 6) )
           )
@@ -573,5 +587,10 @@ let $ret :=
 )
 
 return
+  
+
   $ret
-  (: file:write('C:\Users\jefferya.ARTSRN\Desktop\GitHub\CWRC-Misc\misc\xquery\zzzz', $ret) :)
+  (: 
+    file:write('Desktop\'||$groupStr||'.json', $ret) 
+    
+  :)

@@ -5,6 +5,11 @@
 * cache the GeoNames HTTP response to speed up future lookups by not having to go to the cloud
 *
 * V2 2015-11-10 - add more sophistication for Orlando docs
+* see 2015-11-09 e-mails ""Google Maps and Geocode API GET methods"
+* ""GeoNames queries and codes"
+* try with featureClass=P
+*  to prevent "London Middlesex England" geo referenced as "Central Middlesex
+Hospital" and blank place elements pointing to random locations
 :)
 
 xquery version "3.0" encoding "utf-8";
