@@ -14,7 +14,7 @@
 # placed in the parent directory of the "mods" directory.  To run the script, type the
 # following at the command prompt:
 
-#     sh playwrights_split_modsCollection.sd
+#     sh playwrights_split_modsCollection.sh
 
 # Notes:
 #    * The full directory path to the source MODS collection XML files must not
