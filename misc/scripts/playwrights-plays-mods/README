@@ -1,0 +1,52 @@
+MRB: Thu 07-Jan-2016
+
+Purpose: This directory contains files that are used in the
+two-part operation to extract and transform Playwrights CWRC
+entry BIBCIT bibliographic XML blocks describing published
+plays into individual MODS bibliographic record files.
+
+Description: There are two principal phases in the processing
+operation to transform CWRC entry BIBCIT XML blocks into MODS
+records:
+
+(1) Using an XProc pipeline file and an XSLT file to transform
+and write out MODS collection files.  See the introductory
+comments at the top of the "playwrights_published_plays2mods.xpl"
+pipeline file for detailed instructions on how to carry out this
+first phase of the operation.
+
+(2) Using a batch file or a shell script, and an XSLT file, to
+split and write out the MODS collection of bibliographic records
+into individual MODS record files.  See the introductory comments
+at the top of either the "playwrights_split_modsCollection.cmd"
+batch file (used on Windows machines) or the
+"playwrights_split_modsCollection.sh" shell script (used on
+Unix-like machines) for detailed instructions on how to carry out
+this second phase of the operation.
+
+Manifest list of files in this directory:
+
+* playwrights_published_plays2mods.xpl
+    - XProc pipeline file that calls the
+      "playwrights_published_plays2mods.xsl" XSLT file
+* playwrights_published_plays2mods.xsl
+    - XSLT stylesheet file that transforms BIBCIT blocks into
+      MODS collection files
+* playwrights_split_modsCollection.cmd
+    - Batch file that calls the Saxon-HE processor JAR file
+      "saxon9he.jar" and the XSLT stylesheet file
+      "playwrights_split_modsCollection.xsl"
+* playwrights_split_modsCollection.sh
+    - Shell script that calls the Saxon-HE processor JAR file
+      "saxon9he.jar" and the XSLT stylesheet file
+      "playwrights_split_modsCollection.xsl"
+* playwrights_split_modsCollection.xsl
+    - XSLT stylesheet file that splits the MODS collection files
+      into individual MODS record files
+* README
+    - This readme file that contains information about the files
+      in this directory
+* saxon9he.jar
+    - Saxon-HE processor JAR file that is invoked by either the
+      batch file "playwrights_split_modsCollection.cmd" or the
+      shell script "playwrights_split_modsCollection.sh"
