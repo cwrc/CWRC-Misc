@@ -5,7 +5,7 @@
         *   Playwrights entry files and output them as published plays MODS files in a destination
         *   directory.
         *   Description: Before running this pipeline file which calls the
-        *   "playwrights_published_plays2mods.xsl" styelsheet file, you need to ensure that there
+        *   "playwrights_published_plays2mods.xsl" stylesheet file, you need to ensure that there
         *   are no spaces in the names of the source files.  The following commands will convert
         *   any spaces in filenames to underscores:
         *        * Windows Command Prompt one-liner commands and Windows PowerShell command:
@@ -31,9 +31,9 @@
 
 <p:declare-step xmlns:p="http://www.w3.org/ns/xproc" xmlns:c="http://www.w3.org/ns/xproc-step" version="1.0">
 
-    <!-- CEWW entry source directory -->
+    <!-- Playwrights CWRC entry source directory -->
     <p:variable name="src_dir" select="'./playwrights_entries/'"/>
-    <!-- MODS destination directory -->
+    <!-- Playwrights MODS destination directory -->
     <p:variable name="dest_dir" select="'./published_plays_mods/'"/>
 
     <p:directory-list>

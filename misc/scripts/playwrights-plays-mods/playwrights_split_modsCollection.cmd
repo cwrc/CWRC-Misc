@@ -17,13 +17,13 @@ rem MRB -- Thu 07-Jan-2016
 
 ::     playwrights_split_modsCollection.cmd
 
-rem Notes:
-rem    * The full directory path to the source MODS collection XML files must not
-rem      contain any blank spaces.
-rem    * To produce the source MODS collection XML files, the XProc pipeline file
-rem      "playwrights_published_plays2mods.xpl" is run, which calls the XSLT file
-rem      "playwrights_published_plays2mods.xsl" which produces the MODS collection
-rem      (<modsCollection>) XML files.
+:: Notes:
+::    * The full directory path to the source MODS collection XML files must not
+::      contain any blank spaces.
+::    * To produce the source MODS collection XML files, the XProc pipeline file
+::      "playwrights_published_plays2mods.xpl" is run, which calls the XSLT file
+::      "playwrights_published_plays2mods.xsl" which produces the MODS collection
+::      (<modsCollection>) XML files.
 
 rem count the number of files in the "mods" directory and put this total in the total_files variable
 cd mods
