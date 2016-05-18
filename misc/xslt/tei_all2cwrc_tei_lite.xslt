@@ -7,7 +7,7 @@
     - Only the core elements and attributes that are typically present when a
     Project Gutenberg text is converted into a "TEI all" document using the Gutentag
     program are addressed, so some post-conversion tweaking of the document may be
-    required using the Oxygen XML Editor to find validation errors.
+    required, using the Oxygen XML Editor to find validation errors.
     - Run this XSLT using the Oxygen XML Editor on the source file to be converted. 
     - Ingest the file into the CWRC repository and into a collection that is associated
     with the CWRC Document CModel (i.e., cwrc:documentCModel).
@@ -17,7 +17,7 @@
     xmlns="http://www.tei-c.org/ns/1.0" xpath-default-namespace="http://www.tei-c.org/ns/1.0">
 
     <xsl:output method="xml" encoding="UTF-8" indent="yes"/>
-    <!-- Remove any white-space-only text nodes that are immediate siblings to deleted elements -->
+    <!-- Remove any white-space-only text nodes -->
     <xsl:strip-space elements="*"/>
 
     <!-- Match the whole source document -->
@@ -67,7 +67,7 @@
         </publicationStmt>
     </xsl:template>
 
-    <!-- Delete element tag but keep content, i.e., keep all descendant nodes -->
+    <!-- Delete element tag but keep descendant nodes -->
     <xsl:template match="/TEI/teiHeader/fileDesc/sourceDesc/biblStruct/monogr">
         <xsl:apply-templates select="@*|node()"/>
     </xsl:template>
