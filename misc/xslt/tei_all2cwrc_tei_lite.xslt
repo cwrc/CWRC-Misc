@@ -3,7 +3,7 @@
 <!--
     MRB: Tue 17-May-2016
     - XSLT to convert "TEI all" schema conformant documents to "CWRC TEI Lite"
-    conformant documents.
+    schema conformant documents.
     - Only the core elements and attributes that are typically present when a
     Project Gutenberg text is converted into a "TEI all" document using the Gutentag
     program are addressed, so some post-conversion tweaking of the document may be
