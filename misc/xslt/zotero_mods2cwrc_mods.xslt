@@ -42,11 +42,13 @@
             <accessCondition type="use and reproduction">Use of this public-domain resource is governed by the <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">Creative Commons Attribution-NonCommercial 4.0 International License</a>.</accessCondition>
 
             <recordInfo>
-                <recordContentSource>Canada's Early Women Writers, Simon Fraser University; Canadian Writing Research Collaboratory</recordContentSource>
+                <recordContentSource>Canadian Writing Research Collaboratory</recordContentSource>
                 <recordCreationDate encoding="w3cdtf">
                     <xsl:value-of select="format-date(current-date(),'[Y0001]-[M01]-[D01]')"/>
                 </recordCreationDate>
-                <recordOrigin>Record has been transformed into a MODS record from an Excel spreadsheet record using an XSLT stylesheet.</recordOrigin>
+                <recordOrigin>The MODS record was exported from a Zotero database as part of collection of MODS records, all contained in one file;
+                    the collection of Zotero MODS records were enhanced using an XSLT stylesheet, and then split into individual MODS records
+                    using another XSLT stylesheet.</recordOrigin>
                 <languageOfCataloging>
                     <languageTerm type="text">English</languageTerm>
                     <languageTerm type="code" authority="iso639-2b">eng</languageTerm>
