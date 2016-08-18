@@ -43,7 +43,8 @@ declare namespace mods = "http://www.loc.gov/mods/v3";
 declare namespace tei =  "http://www.tei-c.org/ns/1.0";
 
 (: external variables :)
-declare variable $VALIDATION_ERROR_FILE := './playwright_nerve_entry-test_results_5.xml.validation.xml';
+(: declare variable $VALIDATION_ERROR_FILE := './playwright_nerve_entry-test_results_5.xml.validation.xml'; :)
+declare variable $VALIDATION_ERROR_FILE external;
 
 copy $c := .
 
