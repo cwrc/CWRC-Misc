@@ -59,6 +59,7 @@ http://www.ibm.com/developerworks/library/x-expath/
 import module namespace http = "http://expath.org/ns/http-client";
 let $z := http:send-request(
 <http:request href="service/validator/validate.html" method="post">
+<http:body media-type="application/x-www-form-urlencoded" method="text">content=<WRITING></WRITING>&amp;type=RNG_XML&amp;sch=http://cwrc.ca/schemas/cwrc_entry.rng</http:body>
 </http:request>
 )
 :)
