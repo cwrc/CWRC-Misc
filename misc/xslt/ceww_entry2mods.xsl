@@ -13,12 +13,16 @@
 
     <!-- match on the entire CEWW entry document -->
     <xsl:template match="/">
-        <mods xmlns="http://www.loc.gov/mods/v3" xmlns:mods="http://www.loc.gov/mods/v3" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/mods.xsd">
+        <mods xmlns="http://www.loc.gov/mods/v3" xmlns:mods="http://www.loc.gov/mods/v3"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/mods.xsd">
 
             <!-- <titleInfo> element -->
             <titleInfo>
                 <title>
-                    <xsl:value-of select="/CWRC/CWRCHEADER[1]/FILEDESC[1]/TITLESTMT[1]/DOCTITLE[1]/text()"/>
+                    <xsl:value-of
+                        select="/CWRC/CWRCHEADER[1]/FILEDESC[1]/TITLESTMT[1]/DOCTITLE[1]/text()"/>
                 </title>
             </titleInfo>
 
@@ -34,7 +38,8 @@
                         <affiliation>Canadian Writing Research Collaboratory</affiliation>
                     </name>
                 </xsl:if>
-                <xsl:if test="normalize-space(.) != '' and normalize-space(.) != 'Canada''s Early Women Writers'">
+                <xsl:if
+                    test="normalize-space(.) != '' and normalize-space(.) != 'Canada''s Early Women Writers'">
                     <name type="personal">
                         <namePart>
                             <xsl:value-of select="normalize-space(replace(.,'Revised by ',''))"/>
@@ -82,19 +87,42 @@
                 </abstract>
             </xsl:if>
 
+            <!-- subject element -->
+            <xsl:if test="normalize-space(/CWRC/ENTRY[1]/HEADING[1]/NAME[1]/@REF) != ''">
+                <subject>
+                    <name>
+                        <xsl:attribute name="valueURI">
+                            <xsl:value-of
+                                select="normalize-space(/CWRC/ENTRY[1]/HEADING[1]/NAME[1]/@REF)"/>
+                        </xsl:attribute>
+                        <xsl:if test="normalize-space(/CWRC/ENTRY[1]/HEADING[1]/NAME[1]) != ''">
+                            <xsl:element name="namePart">
+                                <xsl:value-of
+                                    select="normalize-space(/CWRC/ENTRY[1]/HEADING[1]/NAME[1])"/>
+                            </xsl:element>
+                        </xsl:if>
+                    </name>
+                </subject>
+            </xsl:if>
+
             <!-- accessCondition element -->
-            <accessCondition type="use and reproduction">This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a> (CC BY-NC-SA 4.0).</accessCondition>
+            <accessCondition type="use and reproduction">This work is licensed under a <a
+                    rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"
+                    target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 4.0
+                    International License</a> (CC BY-NC-SA 4.0).</accessCondition>
 
             <!-- recordInfo element -->
             <recordInfo>
-                <recordContentSource>Canada's Early Women Writers, Simon Fraser University</recordContentSource>
+                <recordContentSource>Canada's Early Women Writers, Simon Fraser
+                    University</recordContentSource>
                 <recordContentSource>Canadian Writing Research Collaboratory</recordContentSource>
                 <recordCreationDate encoding="w3cdtf">
                     <xsl:value-of select="format-date(current-date(),'[Y0001]-[M01]-[D01]')"/>
                 </recordCreationDate>
-                <recordOrigin>Record has been transformed into a MODS record using the following sequence of operations: MySQL database
-                    record to a Microsoft Excel record; Microsoft Excel record to a CSV record; CSV record to a CWRC entry XML record; CWRC
-                    entry XML record to a MODS XML record.</recordOrigin>
+                <recordOrigin>Record has been transformed into a MODS record using the following
+                    sequence of operations: MySQL database record to a Microsoft Excel record;
+                    Microsoft Excel record to a CSV record; CSV record to a CWRC entry XML record;
+                    CWRC entry XML record to a MODS XML record.</recordOrigin>
                 <languageOfCataloging>
                     <languageTerm type="text">English</languageTerm>
                     <languageTerm type="code" authority="iso639-2b">eng</languageTerm>

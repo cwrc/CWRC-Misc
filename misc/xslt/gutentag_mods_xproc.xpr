@@ -10,7 +10,22 @@
                         <scenarioAssociation-array>
                             <scenarioAssociation>
                                 <field name="url">
-                                    <String>../../../../../Desktop/Gutentag_TEI/tei2mods.xpl</String>
+                                    <String>../../../../../Desktop/tmp/ceww_entry_template.xml</String>
+                                </field>
+                                <field name="scenarioIds">
+                                    <list>
+                                        <String>ceww_entry_template</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioTypes">
+                                    <list>
+                                        <String>XSL</String>
+                                    </list>
+                                </field>
+                            </scenarioAssociation>
+                            <scenarioAssociation>
+                                <field name="url">
+                                    <String>../../../../../Desktop/CanWWR/Awards/tei2mods.xpl</String>
                                 </field>
                                 <field name="scenarioIds">
                                     <list>
@@ -25,168 +40,271 @@
                             </scenarioAssociation>
                             <scenarioAssociation>
                                 <field name="url">
-                                    <String>../../../../../Desktop/epaulinejohnson/pauline/TheShagganappibyEPaulineJohnson5769.xml</String>
+                                    <String>../../../../../Desktop/CanWWR/Timeline/tei2mods.xpl</String>
                                 </field>
                                 <field name="scenarioIds">
                                     <list>
-                                        <String>TheShagganappibyEPaulineJohnson57691</String>
+                                        <String>tei2mods</String>
                                     </list>
                                 </field>
                                 <field name="scenarioTypes">
                                     <list>
-                                        <String>XSL</String>
+                                        <String>XPROC</String>
                                     </list>
                                 </field>
                             </scenarioAssociation>
                             <scenarioAssociation>
                                 <field name="url">
-                                    <String>../../../../../Desktop/epaulinejohnson/pauline/TheMoccasinMakerbyEPaulineJohnson6600-orig.xml</String>
+                                    <String>../../../../../Desktop/Timeline/tei2mods.xpl</String>
                                 </field>
                                 <field name="scenarioIds">
                                     <list>
-                                        <String>TheMoccasinMakerbyEPaulineJohnson6600-orig</String>
+                                        <String>tei2mods</String>
                                     </list>
                                 </field>
                                 <field name="scenarioTypes">
                                     <list>
-                                        <String>XSL</String>
+                                        <String>XPROC</String>
                                     </list>
                                 </field>
                             </scenarioAssociation>
                             <scenarioAssociation>
                                 <field name="url">
-                                    <String>../../../../../Desktop/epaulinejohnson/pauline/LegendsofVancouverbyEPaulineJohnson28483.xml</String>
+                                    <String>../../../../../Desktop/Awards/tei2mods.xpl</String>
                                 </field>
                                 <field name="scenarioIds">
                                     <list>
-                                        <String>LegendsofVancouverbyEPaulineJohnson284832</String>
+                                        <String>tei2mods</String>
                                     </list>
                                 </field>
                                 <field name="scenarioTypes">
                                     <list>
-                                        <String>XSL</String>
+                                        <String>XPROC</String>
                                     </list>
                                 </field>
                             </scenarioAssociation>
                             <scenarioAssociation>
                                 <field name="url">
-                                    <String>../../../../../Desktop/epaulinejohnson/pauline/LegendsofVancouverbyEPaulineJohnson3478.xml</String>
+                                    <String>../../../../../Desktop/CanWWR-temp/tei2mods.xpl</String>
                                 </field>
                                 <field name="scenarioIds">
                                     <list>
-                                        <String>LegendsofVancouverbyEPaulineJohnson34781</String>
+                                        <String>tei2mods</String>
                                     </list>
                                 </field>
                                 <field name="scenarioTypes">
                                     <list>
-                                        <String>XSL</String>
+                                        <String>XPROC</String>
                                     </list>
                                 </field>
                             </scenarioAssociation>
                             <scenarioAssociation>
                                 <field name="url">
-                                    <String>../../../../../Desktop/epaulinejohnson/pauline/edited/LegendsofVancouverbyEPaulineJohnson28483.xml</String>
+                                    <String>../../../../../Desktop/YK/tei2mods.xpl</String>
                                 </field>
                                 <field name="scenarioIds">
                                     <list>
-                                        <String>LegendsofVancouverbyEPaulineJohnson28483</String>
-                                        <String>LegendsofVancouverbyEPaulineJohnson284831</String>
+                                        <String>tei2mods</String>
                                     </list>
                                 </field>
                                 <field name="scenarioTypes">
                                     <list>
-                                        <String>XSL</String>
-                                        <String>XSL</String>
+                                        <String>XPROC</String>
                                     </list>
                                 </field>
                             </scenarioAssociation>
                             <scenarioAssociation>
                                 <field name="url">
-                                    <String>../../../../../Desktop/epaulinejohnson/pauline/edited/TheShagganappibyEPaulineJohnson5769.xml</String>
+                                    <String>../../../../../Desktop/NT/tei2mods.xpl</String>
                                 </field>
                                 <field name="scenarioIds">
                                     <list>
-                                        <String>TheShagganappibyEPaulineJohnson5769</String>
+                                        <String>tei2mods</String>
                                     </list>
                                 </field>
                                 <field name="scenarioTypes">
                                     <list>
-                                        <String>XSL</String>
+                                        <String>XPROC</String>
                                     </list>
                                 </field>
                             </scenarioAssociation>
                             <scenarioAssociation>
                                 <field name="url">
-                                    <String>../../../../../Desktop/epaulinejohnson/pauline/edited/TheMoccasinMakerbyEPaulineJohnson6600.xml</String>
+                                    <String>../../../../../Desktop/NU/tei2mods.xpl</String>
                                 </field>
                                 <field name="scenarioIds">
                                     <list>
-                                        <String>TheMoccasinMakerbyEPaulineJohnson6600</String>
+                                        <String>tei2mods</String>
                                     </list>
                                 </field>
                                 <field name="scenarioTypes">
                                     <list>
-                                        <String>XSL</String>
+                                        <String>XPROC</String>
                                     </list>
                                 </field>
                             </scenarioAssociation>
                             <scenarioAssociation>
                                 <field name="url">
-                                    <String>../../../../../Desktop/epaulinejohnson/pauline/edited/LegendsofVancouverbyEPaulineJohnson3478.xml</String>
+                                    <String>../../../../../Desktop/NL/tei2mods.xpl</String>
                                 </field>
                                 <field name="scenarioIds">
                                     <list>
-                                        <String>LegendsofVancouverbyEPaulineJohnson3478</String>
+                                        <String>tei2mods</String>
                                     </list>
                                 </field>
                                 <field name="scenarioTypes">
                                     <list>
-                                        <String>XSL</String>
+                                        <String>XPROC</String>
                                     </list>
                                 </field>
                             </scenarioAssociation>
                             <scenarioAssociation>
                                 <field name="url">
-                                    <String>../../../../../entities/person/Most%20Recent%20Results/person_2013-07-18.xml</String>
+                                    <String>../../../../../Desktop/PE/tei2mods.xpl</String>
                                 </field>
                                 <field name="scenarioIds">
                                     <list>
-                                        <String>person_2013-07-18</String>
+                                        <String>tei2mods</String>
                                     </list>
                                 </field>
                                 <field name="scenarioTypes">
                                     <list>
-                                        <String>XSL</String>
+                                        <String>XPROC</String>
                                     </list>
                                 </field>
                             </scenarioAssociation>
                             <scenarioAssociation>
                                 <field name="url">
-                                    <String>../../../../../project%20data/seed%20projects/Orlando/test_data/legacy_event/freestanding_events.dmp</String>
+                                    <String>../../../../../Desktop/NS/tei2mods.xpl</String>
                                 </field>
                                 <field name="scenarioIds">
                                     <list>
-                                        <String>bibl</String>
+                                        <String>tei2mods</String>
                                     </list>
                                 </field>
                                 <field name="scenarioTypes">
                                     <list>
-                                        <String>XSL</String>
+                                        <String>XPROC</String>
                                     </list>
                                 </field>
                             </scenarioAssociation>
                             <scenarioAssociation>
                                 <field name="url">
-                                    <String>../../../../../project%20data/seed%20projects/Orlando/test_data/legacy_bibl/bibl.dmp</String>
+                                    <String>../../../../../Desktop/NB/tei2mods.xpl</String>
                                 </field>
                                 <field name="scenarioIds">
                                     <list>
-                                        <String>bibl</String>
+                                        <String>tei2mods</String>
                                     </list>
                                 </field>
                                 <field name="scenarioTypes">
                                     <list>
-                                        <String>XSL</String>
+                                        <String>XPROC</String>
+                                    </list>
+                                </field>
+                            </scenarioAssociation>
+                            <scenarioAssociation>
+                                <field name="url">
+                                    <String>../../../../../Desktop/QC/tei2mods.xpl</String>
+                                </field>
+                                <field name="scenarioIds">
+                                    <list>
+                                        <String>tei2mods</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioTypes">
+                                    <list>
+                                        <String>XPROC</String>
+                                    </list>
+                                </field>
+                            </scenarioAssociation>
+                            <scenarioAssociation>
+                                <field name="url">
+                                    <String>../../../../../Desktop/ON/tei2mods.xpl</String>
+                                </field>
+                                <field name="scenarioIds">
+                                    <list>
+                                        <String>tei2mods</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioTypes">
+                                    <list>
+                                        <String>XPROC</String>
+                                    </list>
+                                </field>
+                            </scenarioAssociation>
+                            <scenarioAssociation>
+                                <field name="url">
+                                    <String>../../../../../Desktop/MB/tei2mods.xpl</String>
+                                </field>
+                                <field name="scenarioIds">
+                                    <list>
+                                        <String>tei2mods</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioTypes">
+                                    <list>
+                                        <String>XPROC</String>
+                                    </list>
+                                </field>
+                            </scenarioAssociation>
+                            <scenarioAssociation>
+                                <field name="url">
+                                    <String>../../../../../Desktop/SK/tei2mods.xpl</String>
+                                </field>
+                                <field name="scenarioIds">
+                                    <list>
+                                        <String>tei2mods</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioTypes">
+                                    <list>
+                                        <String>XPROC</String>
+                                    </list>
+                                </field>
+                            </scenarioAssociation>
+                            <scenarioAssociation>
+                                <field name="url">
+                                    <String>../../../../../Desktop/BC/tei2mods.xpl</String>
+                                </field>
+                                <field name="scenarioIds">
+                                    <list>
+                                        <String>tei2mods</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioTypes">
+                                    <list>
+                                        <String>XPROC</String>
+                                    </list>
+                                </field>
+                            </scenarioAssociation>
+                            <scenarioAssociation>
+                                <field name="url">
+                                    <String>../../../../../Desktop/template_filler/tei2mods.xpl</String>
+                                </field>
+                                <field name="scenarioIds">
+                                    <list>
+                                        <String>tei2mods</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioTypes">
+                                    <list>
+                                        <String>XPROC</String>
+                                    </list>
+                                </field>
+                            </scenarioAssociation>
+                            <scenarioAssociation>
+                                <field name="url">
+                                    <String>../../../../../Desktop/Gutentag_TEI/tei2mods.xpl</String>
+                                </field>
+                                <field name="scenarioIds">
+                                    <list>
+                                        <String>tei2mods</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioTypes">
+                                    <list>
+                                        <String>XPROC</String>
                                     </list>
                                 </field>
                             </scenarioAssociation>
@@ -225,919 +343,6 @@
                     <entry>
                         <String>scenarios</String>
                         <scenario-array>
-                            <scenario>
-                                <field name="advancedOptionsMap">
-                                    <null/>
-                                </field>
-                                <field name="name">
-                                    <String>LegendsofVancouverbyEPaulineJohnson28483</String>
-                                </field>
-                                <field name="baseURL">
-                                    <String></String>
-                                </field>
-                                <field name="footerURL">
-                                    <String></String>
-                                </field>
-                                <field name="fOPMethod">
-                                    <String>pdf</String>
-                                </field>
-                                <field name="fOProcessorName">
-                                    <String>Apache FOP</String>
-                                </field>
-                                <field name="headerURL">
-                                    <String></String>
-                                </field>
-                                <field name="inputXSLURL">
-                                    <String>file:/Users/brundin/Desktop/epaulinejohnson/pauline/tei_all2cwrc_tei_lite.xslt</String>
-                                </field>
-                                <field name="inputXMLURL">
-                                    <String>${currentFileURL}</String>
-                                </field>
-                                <field name="defaultScenario">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="isFOPPerforming">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="type">
-                                    <String>XSL</String>
-                                </field>
-                                <field name="saveAs">
-                                    <Boolean>true</Boolean>
-                                </field>
-                                <field name="openInBrowser">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="outputFile">
-                                    <null/>
-                                </field>
-                                <field name="openOtherLocationInBrowser">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="locationToOpenInBrowserURL">
-                                    <null/>
-                                </field>
-                                <field name="openInEditor">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="showInHTMLPane">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="showInXMLPane">
-                                    <Boolean>true</Boolean>
-                                </field>
-                                <field name="showInSVGPane">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="showInResultSetPane">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="useXSLTInput">
-                                    <Boolean>true</Boolean>
-                                </field>
-                                <field name="xsltParams">
-                                    <list/>
-                                </field>
-                                <field name="cascadingStylesheets">
-                                    <String-array/>
-                                </field>
-                                <field name="xslTransformer">
-                                    <String>Saxon-EE</String>
-                                </field>
-                                <field name="extensionURLs">
-                                    <String-array/>
-                                </field>
-                            </scenario>
-                            <scenario>
-                                <field name="advancedOptionsMap">
-                                    <null/>
-                                </field>
-                                <field name="name">
-                                    <String>LegendsofVancouverbyEPaulineJohnson284831</String>
-                                </field>
-                                <field name="baseURL">
-                                    <String></String>
-                                </field>
-                                <field name="footerURL">
-                                    <String></String>
-                                </field>
-                                <field name="fOPMethod">
-                                    <String>pdf</String>
-                                </field>
-                                <field name="fOProcessorName">
-                                    <String>Apache FOP</String>
-                                </field>
-                                <field name="headerURL">
-                                    <String></String>
-                                </field>
-                                <field name="inputXSLURL">
-                                    <String>file:/Users/brundin/Desktop/epaulinejohnson/pauline/tei_all2cwrc_tei_lite.xslt</String>
-                                </field>
-                                <field name="inputXMLURL">
-                                    <String>${currentFileURL}</String>
-                                </field>
-                                <field name="defaultScenario">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="isFOPPerforming">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="type">
-                                    <String>XSL</String>
-                                </field>
-                                <field name="saveAs">
-                                    <Boolean>true</Boolean>
-                                </field>
-                                <field name="openInBrowser">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="outputFile">
-                                    <null/>
-                                </field>
-                                <field name="openOtherLocationInBrowser">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="locationToOpenInBrowserURL">
-                                    <null/>
-                                </field>
-                                <field name="openInEditor">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="showInHTMLPane">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="showInXMLPane">
-                                    <Boolean>true</Boolean>
-                                </field>
-                                <field name="showInSVGPane">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="showInResultSetPane">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="useXSLTInput">
-                                    <Boolean>true</Boolean>
-                                </field>
-                                <field name="xsltParams">
-                                    <list/>
-                                </field>
-                                <field name="cascadingStylesheets">
-                                    <String-array/>
-                                </field>
-                                <field name="xslTransformer">
-                                    <String>Saxon-EE</String>
-                                </field>
-                                <field name="extensionURLs">
-                                    <String-array/>
-                                </field>
-                            </scenario>
-                            <scenario>
-                                <field name="advancedOptionsMap">
-                                    <null/>
-                                </field>
-                                <field name="name">
-                                    <String>LegendsofVancouverbyEPaulineJohnson284832</String>
-                                </field>
-                                <field name="baseURL">
-                                    <String></String>
-                                </field>
-                                <field name="footerURL">
-                                    <String></String>
-                                </field>
-                                <field name="fOPMethod">
-                                    <String>pdf</String>
-                                </field>
-                                <field name="fOProcessorName">
-                                    <String>Apache FOP</String>
-                                </field>
-                                <field name="headerURL">
-                                    <String></String>
-                                </field>
-                                <field name="inputXSLURL">
-                                    <String>file:/Users/brundin/Desktop/epaulinejohnson/pauline/tei_all2cwrc_tei_lite.xslt</String>
-                                </field>
-                                <field name="inputXMLURL">
-                                    <String>${currentFileURL}</String>
-                                </field>
-                                <field name="defaultScenario">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="isFOPPerforming">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="type">
-                                    <String>XSL</String>
-                                </field>
-                                <field name="saveAs">
-                                    <Boolean>true</Boolean>
-                                </field>
-                                <field name="openInBrowser">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="outputFile">
-                                    <null/>
-                                </field>
-                                <field name="openOtherLocationInBrowser">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="locationToOpenInBrowserURL">
-                                    <null/>
-                                </field>
-                                <field name="openInEditor">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="showInHTMLPane">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="showInXMLPane">
-                                    <Boolean>true</Boolean>
-                                </field>
-                                <field name="showInSVGPane">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="showInResultSetPane">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="useXSLTInput">
-                                    <Boolean>true</Boolean>
-                                </field>
-                                <field name="xsltParams">
-                                    <list/>
-                                </field>
-                                <field name="cascadingStylesheets">
-                                    <String-array/>
-                                </field>
-                                <field name="xslTransformer">
-                                    <String>Saxon-EE</String>
-                                </field>
-                                <field name="extensionURLs">
-                                    <String-array/>
-                                </field>
-                            </scenario>
-                            <scenario>
-                                <field name="advancedOptionsMap">
-                                    <null/>
-                                </field>
-                                <field name="name">
-                                    <String>LegendsofVancouverbyEPaulineJohnson3478</String>
-                                </field>
-                                <field name="baseURL">
-                                    <String></String>
-                                </field>
-                                <field name="footerURL">
-                                    <String></String>
-                                </field>
-                                <field name="fOPMethod">
-                                    <String>pdf</String>
-                                </field>
-                                <field name="fOProcessorName">
-                                    <String>Apache FOP</String>
-                                </field>
-                                <field name="headerURL">
-                                    <String></String>
-                                </field>
-                                <field name="inputXSLURL">
-                                    <String>file:/Users/brundin/Desktop/epaulinejohnson/pauline/tei_all2cwrc_tei_lite.xslt</String>
-                                </field>
-                                <field name="inputXMLURL">
-                                    <String>${currentFileURL}</String>
-                                </field>
-                                <field name="defaultScenario">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="isFOPPerforming">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="type">
-                                    <String>XSL</String>
-                                </field>
-                                <field name="saveAs">
-                                    <Boolean>true</Boolean>
-                                </field>
-                                <field name="openInBrowser">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="outputFile">
-                                    <null/>
-                                </field>
-                                <field name="openOtherLocationInBrowser">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="locationToOpenInBrowserURL">
-                                    <null/>
-                                </field>
-                                <field name="openInEditor">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="showInHTMLPane">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="showInXMLPane">
-                                    <Boolean>true</Boolean>
-                                </field>
-                                <field name="showInSVGPane">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="showInResultSetPane">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="useXSLTInput">
-                                    <Boolean>true</Boolean>
-                                </field>
-                                <field name="xsltParams">
-                                    <list/>
-                                </field>
-                                <field name="cascadingStylesheets">
-                                    <String-array/>
-                                </field>
-                                <field name="xslTransformer">
-                                    <String>Saxon-EE</String>
-                                </field>
-                                <field name="extensionURLs">
-                                    <String-array/>
-                                </field>
-                            </scenario>
-                            <scenario>
-                                <field name="advancedOptionsMap">
-                                    <null/>
-                                </field>
-                                <field name="name">
-                                    <String>LegendsofVancouverbyEPaulineJohnson34781</String>
-                                </field>
-                                <field name="baseURL">
-                                    <String></String>
-                                </field>
-                                <field name="footerURL">
-                                    <String></String>
-                                </field>
-                                <field name="fOPMethod">
-                                    <String>pdf</String>
-                                </field>
-                                <field name="fOProcessorName">
-                                    <String>Apache FOP</String>
-                                </field>
-                                <field name="headerURL">
-                                    <String></String>
-                                </field>
-                                <field name="inputXSLURL">
-                                    <String>file:/Users/brundin/Desktop/epaulinejohnson/pauline/tei_all2cwrc_tei_lite.xslt</String>
-                                </field>
-                                <field name="inputXMLURL">
-                                    <String>${currentFileURL}</String>
-                                </field>
-                                <field name="defaultScenario">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="isFOPPerforming">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="type">
-                                    <String>XSL</String>
-                                </field>
-                                <field name="saveAs">
-                                    <Boolean>true</Boolean>
-                                </field>
-                                <field name="openInBrowser">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="outputFile">
-                                    <null/>
-                                </field>
-                                <field name="openOtherLocationInBrowser">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="locationToOpenInBrowserURL">
-                                    <null/>
-                                </field>
-                                <field name="openInEditor">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="showInHTMLPane">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="showInXMLPane">
-                                    <Boolean>true</Boolean>
-                                </field>
-                                <field name="showInSVGPane">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="showInResultSetPane">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="useXSLTInput">
-                                    <Boolean>true</Boolean>
-                                </field>
-                                <field name="xsltParams">
-                                    <list/>
-                                </field>
-                                <field name="cascadingStylesheets">
-                                    <String-array/>
-                                </field>
-                                <field name="xslTransformer">
-                                    <String>Saxon-EE</String>
-                                </field>
-                                <field name="extensionURLs">
-                                    <String-array/>
-                                </field>
-                            </scenario>
-                            <scenario>
-                                <field name="advancedOptionsMap">
-                                    <null/>
-                                </field>
-                                <field name="name">
-                                    <String>TheMoccasinMakerbyEPaulineJohnson6600</String>
-                                </field>
-                                <field name="baseURL">
-                                    <String></String>
-                                </field>
-                                <field name="footerURL">
-                                    <String></String>
-                                </field>
-                                <field name="fOPMethod">
-                                    <String>pdf</String>
-                                </field>
-                                <field name="fOProcessorName">
-                                    <String>Apache FOP</String>
-                                </field>
-                                <field name="headerURL">
-                                    <String></String>
-                                </field>
-                                <field name="inputXSLURL">
-                                    <String>file:/Users/brundin/Desktop/epaulinejohnson/pauline/tei_all2cwrc_tei_lite.xslt</String>
-                                </field>
-                                <field name="inputXMLURL">
-                                    <String>${currentFileURL}</String>
-                                </field>
-                                <field name="defaultScenario">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="isFOPPerforming">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="type">
-                                    <String>XSL</String>
-                                </field>
-                                <field name="saveAs">
-                                    <Boolean>true</Boolean>
-                                </field>
-                                <field name="openInBrowser">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="outputFile">
-                                    <null/>
-                                </field>
-                                <field name="openOtherLocationInBrowser">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="locationToOpenInBrowserURL">
-                                    <null/>
-                                </field>
-                                <field name="openInEditor">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="showInHTMLPane">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="showInXMLPane">
-                                    <Boolean>true</Boolean>
-                                </field>
-                                <field name="showInSVGPane">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="showInResultSetPane">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="useXSLTInput">
-                                    <Boolean>true</Boolean>
-                                </field>
-                                <field name="xsltParams">
-                                    <list/>
-                                </field>
-                                <field name="cascadingStylesheets">
-                                    <String-array/>
-                                </field>
-                                <field name="xslTransformer">
-                                    <String>Saxon-EE</String>
-                                </field>
-                                <field name="extensionURLs">
-                                    <String-array/>
-                                </field>
-                            </scenario>
-                            <scenario>
-                                <field name="advancedOptionsMap">
-                                    <null/>
-                                </field>
-                                <field name="name">
-                                    <String>TheMoccasinMakerbyEPaulineJohnson6600-orig</String>
-                                </field>
-                                <field name="baseURL">
-                                    <String></String>
-                                </field>
-                                <field name="footerURL">
-                                    <String></String>
-                                </field>
-                                <field name="fOPMethod">
-                                    <String>pdf</String>
-                                </field>
-                                <field name="fOProcessorName">
-                                    <String>Apache FOP</String>
-                                </field>
-                                <field name="headerURL">
-                                    <String></String>
-                                </field>
-                                <field name="inputXSLURL">
-                                    <String>file:/Users/brundin/Desktop/epaulinejohnson/pauline/tei_all2cwrc_tei_lite.xslt</String>
-                                </field>
-                                <field name="inputXMLURL">
-                                    <String>${currentFileURL}</String>
-                                </field>
-                                <field name="defaultScenario">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="isFOPPerforming">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="type">
-                                    <String>XSL</String>
-                                </field>
-                                <field name="saveAs">
-                                    <Boolean>true</Boolean>
-                                </field>
-                                <field name="openInBrowser">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="outputFile">
-                                    <null/>
-                                </field>
-                                <field name="openOtherLocationInBrowser">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="locationToOpenInBrowserURL">
-                                    <null/>
-                                </field>
-                                <field name="openInEditor">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="showInHTMLPane">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="showInXMLPane">
-                                    <Boolean>true</Boolean>
-                                </field>
-                                <field name="showInSVGPane">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="showInResultSetPane">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="useXSLTInput">
-                                    <Boolean>true</Boolean>
-                                </field>
-                                <field name="xsltParams">
-                                    <list/>
-                                </field>
-                                <field name="cascadingStylesheets">
-                                    <String-array/>
-                                </field>
-                                <field name="xslTransformer">
-                                    <String>Saxon-EE</String>
-                                </field>
-                                <field name="extensionURLs">
-                                    <String-array/>
-                                </field>
-                            </scenario>
-                            <scenario>
-                                <field name="advancedOptionsMap">
-                                    <null/>
-                                </field>
-                                <field name="name">
-                                    <String>TheShagganappibyEPaulineJohnson5769</String>
-                                </field>
-                                <field name="baseURL">
-                                    <String></String>
-                                </field>
-                                <field name="footerURL">
-                                    <String></String>
-                                </field>
-                                <field name="fOPMethod">
-                                    <String>pdf</String>
-                                </field>
-                                <field name="fOProcessorName">
-                                    <String>Apache FOP</String>
-                                </field>
-                                <field name="headerURL">
-                                    <String></String>
-                                </field>
-                                <field name="inputXSLURL">
-                                    <String>file:/Users/brundin/Desktop/epaulinejohnson/pauline/tei_all2cwrc_tei_lite.xslt</String>
-                                </field>
-                                <field name="inputXMLURL">
-                                    <String>${currentFileURL}</String>
-                                </field>
-                                <field name="defaultScenario">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="isFOPPerforming">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="type">
-                                    <String>XSL</String>
-                                </field>
-                                <field name="saveAs">
-                                    <Boolean>true</Boolean>
-                                </field>
-                                <field name="openInBrowser">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="outputFile">
-                                    <null/>
-                                </field>
-                                <field name="openOtherLocationInBrowser">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="locationToOpenInBrowserURL">
-                                    <null/>
-                                </field>
-                                <field name="openInEditor">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="showInHTMLPane">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="showInXMLPane">
-                                    <Boolean>true</Boolean>
-                                </field>
-                                <field name="showInSVGPane">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="showInResultSetPane">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="useXSLTInput">
-                                    <Boolean>true</Boolean>
-                                </field>
-                                <field name="xsltParams">
-                                    <list/>
-                                </field>
-                                <field name="cascadingStylesheets">
-                                    <String-array/>
-                                </field>
-                                <field name="xslTransformer">
-                                    <String>Saxon-EE</String>
-                                </field>
-                                <field name="extensionURLs">
-                                    <String-array/>
-                                </field>
-                            </scenario>
-                            <scenario>
-                                <field name="advancedOptionsMap">
-                                    <null/>
-                                </field>
-                                <field name="name">
-                                    <String>TheShagganappibyEPaulineJohnson57691</String>
-                                </field>
-                                <field name="baseURL">
-                                    <String></String>
-                                </field>
-                                <field name="footerURL">
-                                    <String></String>
-                                </field>
-                                <field name="fOPMethod">
-                                    <String>pdf</String>
-                                </field>
-                                <field name="fOProcessorName">
-                                    <String>Apache FOP</String>
-                                </field>
-                                <field name="headerURL">
-                                    <String></String>
-                                </field>
-                                <field name="inputXSLURL">
-                                    <String>file:/Users/brundin/Desktop/epaulinejohnson/pauline/tei_all2cwrc_tei_lite.xslt</String>
-                                </field>
-                                <field name="inputXMLURL">
-                                    <String>${currentFileURL}</String>
-                                </field>
-                                <field name="defaultScenario">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="isFOPPerforming">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="type">
-                                    <String>XSL</String>
-                                </field>
-                                <field name="saveAs">
-                                    <Boolean>true</Boolean>
-                                </field>
-                                <field name="openInBrowser">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="outputFile">
-                                    <null/>
-                                </field>
-                                <field name="openOtherLocationInBrowser">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="locationToOpenInBrowserURL">
-                                    <null/>
-                                </field>
-                                <field name="openInEditor">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="showInHTMLPane">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="showInXMLPane">
-                                    <Boolean>true</Boolean>
-                                </field>
-                                <field name="showInSVGPane">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="showInResultSetPane">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="useXSLTInput">
-                                    <Boolean>true</Boolean>
-                                </field>
-                                <field name="xsltParams">
-                                    <list/>
-                                </field>
-                                <field name="cascadingStylesheets">
-                                    <String-array/>
-                                </field>
-                                <field name="xslTransformer">
-                                    <String>Saxon-EE</String>
-                                </field>
-                                <field name="extensionURLs">
-                                    <String-array/>
-                                </field>
-                            </scenario>
-                            <scenario>
-                                <field name="advancedOptionsMap">
-                                    <null/>
-                                </field>
-                                <field name="name">
-                                    <String>bibl</String>
-                                </field>
-                                <field name="baseURL">
-                                    <String></String>
-                                </field>
-                                <field name="footerURL">
-                                    <String></String>
-                                </field>
-                                <field name="fOPMethod">
-                                    <String>pdf</String>
-                                </field>
-                                <field name="fOProcessorName">
-                                    <String>Apache FOP</String>
-                                </field>
-                                <field name="headerURL">
-                                    <String></String>
-                                </field>
-                                <field name="inputXSLURL">
-                                    <String>file:/W:/SHARING/development/github/CWRC-Misc/misc/xslt/split_legacy_orlando.xsl</String>
-                                </field>
-                                <field name="inputXMLURL">
-                                    <String>${currentFileURL}</String>
-                                </field>
-                                <field name="defaultScenario">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="isFOPPerforming">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="type">
-                                    <String>XSL</String>
-                                </field>
-                                <field name="saveAs">
-                                    <Boolean>true</Boolean>
-                                </field>
-                                <field name="openInBrowser">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="outputFile">
-                                    <null/>
-                                </field>
-                                <field name="openOtherLocationInBrowser">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="locationToOpenInBrowserURL">
-                                    <null/>
-                                </field>
-                                <field name="openInEditor">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="showInHTMLPane">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="showInXMLPane">
-                                    <Boolean>true</Boolean>
-                                </field>
-                                <field name="showInSVGPane">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="showInResultSetPane">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="useXSLTInput">
-                                    <Boolean>true</Boolean>
-                                </field>
-                                <field name="xsltParams">
-                                    <list/>
-                                </field>
-                                <field name="cascadingStylesheets">
-                                    <String-array/>
-                                </field>
-                                <field name="xslTransformer">
-                                    <String>Saxon-PE</String>
-                                </field>
-                                <field name="extensionURLs">
-                                    <String-array/>
-                                </field>
-                            </scenario>
-                            <scenario>
-                                <field name="advancedOptionsMap">
-                                    <null/>
-                                </field>
-                                <field name="name">
-                                    <String>person_2013-07-18</String>
-                                </field>
-                                <field name="baseURL">
-                                    <String></String>
-                                </field>
-                                <field name="footerURL">
-                                    <String></String>
-                                </field>
-                                <field name="fOPMethod">
-                                    <String>pdf</String>
-                                </field>
-                                <field name="fOProcessorName">
-                                    <String>Apache FOP</String>
-                                </field>
-                                <field name="headerURL">
-                                    <String></String>
-                                </field>
-                                <field name="inputXSLURL">
-                                    <String>file:/W:/SHARING/development/github/CWRC-Misc/misc/xslt/split_cwrc_entities.xsl</String>
-                                </field>
-                                <field name="inputXMLURL">
-                                    <String>${currentFileURL}</String>
-                                </field>
-                                <field name="defaultScenario">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="isFOPPerforming">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="type">
-                                    <String>XSL</String>
-                                </field>
-                                <field name="saveAs">
-                                    <Boolean>true</Boolean>
-                                </field>
-                                <field name="openInBrowser">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="outputFile">
-                                    <null/>
-                                </field>
-                                <field name="openOtherLocationInBrowser">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="locationToOpenInBrowserURL">
-                                    <null/>
-                                </field>
-                                <field name="openInEditor">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="showInHTMLPane">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="showInXMLPane">
-                                    <Boolean>true</Boolean>
-                                </field>
-                                <field name="showInSVGPane">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="showInResultSetPane">
-                                    <Boolean>false</Boolean>
-                                </field>
-                                <field name="useXSLTInput">
-                                    <Boolean>true</Boolean>
-                                </field>
-                                <field name="xsltParams">
-                                    <list/>
-                                </field>
-                                <field name="cascadingStylesheets">
-                                    <String-array/>
-                                </field>
-                                <field name="xslTransformer">
-                                    <String>Saxon-EE</String>
-                                </field>
-                                <field name="extensionURLs">
-                                    <String-array/>
-                                </field>
-                            </scenario>
                             <scenario>
                                 <field name="advancedOptionsMap">
                                     <null/>
@@ -1325,6 +530,89 @@
                                     <String-array/>
                                 </field>
                             </xprocScenario>
+                            <scenario>
+                                <field name="advancedOptionsMap">
+                                    <null/>
+                                </field>
+                                <field name="name">
+                                    <String>ceww_entry_template</String>
+                                </field>
+                                <field name="baseURL">
+                                    <String></String>
+                                </field>
+                                <field name="footerURL">
+                                    <String></String>
+                                </field>
+                                <field name="fOPMethod">
+                                    <String>pdf</String>
+                                </field>
+                                <field name="fOProcessorName">
+                                    <String>Apache FOP</String>
+                                </field>
+                                <field name="headerURL">
+                                    <String></String>
+                                </field>
+                                <field name="inputXSLURL">
+                                    <String>file:/Users/brundin/Desktop/tmp/ceww_entry2mods.xsl</String>
+                                </field>
+                                <field name="inputXMLURL">
+                                    <String>${currentFileURL}</String>
+                                </field>
+                                <field name="defaultScenario">
+                                    <Boolean>false</Boolean>
+                                </field>
+                                <field name="isFOPPerforming">
+                                    <Boolean>false</Boolean>
+                                </field>
+                                <field name="type">
+                                    <String>XSL</String>
+                                </field>
+                                <field name="saveAs">
+                                    <Boolean>true</Boolean>
+                                </field>
+                                <field name="openInBrowser">
+                                    <Boolean>false</Boolean>
+                                </field>
+                                <field name="outputFile">
+                                    <null/>
+                                </field>
+                                <field name="openOtherLocationInBrowser">
+                                    <Boolean>false</Boolean>
+                                </field>
+                                <field name="locationToOpenInBrowserURL">
+                                    <null/>
+                                </field>
+                                <field name="openInEditor">
+                                    <Boolean>false</Boolean>
+                                </field>
+                                <field name="showInHTMLPane">
+                                    <Boolean>false</Boolean>
+                                </field>
+                                <field name="showInXMLPane">
+                                    <Boolean>true</Boolean>
+                                </field>
+                                <field name="showInSVGPane">
+                                    <Boolean>false</Boolean>
+                                </field>
+                                <field name="showInResultSetPane">
+                                    <Boolean>false</Boolean>
+                                </field>
+                                <field name="useXSLTInput">
+                                    <Boolean>true</Boolean>
+                                </field>
+                                <field name="xsltParams">
+                                    <list/>
+                                </field>
+                                <field name="cascadingStylesheets">
+                                    <String-array/>
+                                </field>
+                                <field name="xslTransformer">
+                                    <String>Saxon-EE</String>
+                                </field>
+                                <field name="extensionURLs">
+                                    <String-array/>
+                                </field>
+                            </scenario>
                         </scenario-array>
                     </entry>
                     <entry>
@@ -1332,7 +620,7 @@
                         <scenarioAssociation-array>
                             <scenarioAssociation>
                                 <field name="url">
-                                    <String>file:/C:/Z_ARCHIVE/tmp/delete/tmp_split_format_cwrc/54145_entity.xml</String>
+                                    <String>../../../../../../../C:/Z_ARCHIVE/tmp/delete/tmp_split_format_cwrc/54145_entity.xml</String>
                                 </field>
                                 <field name="scenarioIds">
                                     <list>
@@ -1347,7 +635,7 @@
                             </scenarioAssociation>
                             <scenarioAssociation>
                                 <field name="url">
-                                    <String>file:/C:/Users/jefferya.ARTSRN/Downloads/writwi-d.sgm_2013-07-15_checkout.sgm</String>
+                                    <String>../../../../../../../C:/Users/jefferya.ARTSRN/Downloads/writwi-d.sgm_2013-07-15_checkout.sgm</String>
                                 </field>
                                 <field name="scenarioIds">
                                     <list>
@@ -1377,7 +665,7 @@
                             </scenarioAssociation>
                             <scenarioAssociation>
                                 <field name="url">
-                                    <String>file:/C:/Z_ARCHIVE/tmp/delete/orlando_after_mods_xsl/</String>
+                                    <String>../../../../../../../C:/Z_ARCHIVE/tmp/delete/orlando_after_mods_xsl/</String>
                                 </field>
                                 <field name="scenarioIds">
                                     <list>
@@ -1464,6 +752,62 @@
                                 </field>
                                 <field name="name">
                                     <String>1-e</String>
+                                </field>
+                            </validationScenario>
+                            <validationScenario>
+                                <field name="pairs">
+                                    <list>
+                                        <validationUnit>
+                                            <field name="validationType">
+                                                <validationUnitType>
+                                                    <field name="validationInputType">
+                                                        <String>text/xml</String>
+                                                    </field>
+                                                </validationUnitType>
+                                            </field>
+                                            <field name="url">
+                                                <String>${currentFileURL}</String>
+                                            </field>
+                                            <field name="validationEngine">
+                                                <validationEngine>
+                                                    <field name="engineType">
+                                                        <String>&lt;Default engine></String>
+                                                    </field>
+                                                    <field name="allowsAutomaticValidation">
+                                                        <Boolean>true</Boolean>
+                                                    </field>
+                                                </validationEngine>
+                                            </field>
+                                            <field name="allowAutomaticValidation">
+                                                <Boolean>true</Boolean>
+                                            </field>
+                                            <field name="extensions">
+                                                <null/>
+                                            </field>
+                                            <field name="validationSchema">
+                                                <validationUnitSchema>
+                                                    <field name="dtdSchemaPublicID">
+                                                        <null/>
+                                                    </field>
+                                                    <field name="schematronPhase">
+                                                        <null/>
+                                                    </field>
+                                                    <field name="type">
+                                                        <Integer>4</Integer>
+                                                    </field>
+                                                    <field name="uri">
+                                                        <String>http://cwrc.ca/schema/entity_schema_v04.rng</String>
+                                                    </field>
+                                                </validationUnitSchema>
+                                            </field>
+                                        </validationUnit>
+                                    </list>
+                                </field>
+                                <field name="type">
+                                    <String>Validation_scenario</String>
+                                </field>
+                                <field name="name">
+                                    <String>54145_entity</String>
                                 </field>
                             </validationScenario>
                             <validationScenario>
@@ -1634,69 +978,13 @@
                                     <String>writwi-d</String>
                                 </field>
                             </validationScenario>
-                            <validationScenario>
-                                <field name="pairs">
-                                    <list>
-                                        <validationUnit>
-                                            <field name="validationType">
-                                                <validationUnitType>
-                                                    <field name="validationInputType">
-                                                        <String>text/xml</String>
-                                                    </field>
-                                                </validationUnitType>
-                                            </field>
-                                            <field name="url">
-                                                <String>${currentFileURL}</String>
-                                            </field>
-                                            <field name="validationEngine">
-                                                <validationEngine>
-                                                    <field name="engineType">
-                                                        <String>&lt;Default engine></String>
-                                                    </field>
-                                                    <field name="allowsAutomaticValidation">
-                                                        <Boolean>true</Boolean>
-                                                    </field>
-                                                </validationEngine>
-                                            </field>
-                                            <field name="allowAutomaticValidation">
-                                                <Boolean>true</Boolean>
-                                            </field>
-                                            <field name="extensions">
-                                                <null/>
-                                            </field>
-                                            <field name="validationSchema">
-                                                <validationUnitSchema>
-                                                    <field name="dtdSchemaPublicID">
-                                                        <null/>
-                                                    </field>
-                                                    <field name="schematronPhase">
-                                                        <null/>
-                                                    </field>
-                                                    <field name="type">
-                                                        <Integer>4</Integer>
-                                                    </field>
-                                                    <field name="uri">
-                                                        <String>http://cwrc.ca/schema/entity_schema_v04.rng</String>
-                                                    </field>
-                                                </validationUnitSchema>
-                                            </field>
-                                        </validationUnit>
-                                    </list>
-                                </field>
-                                <field name="type">
-                                    <String>Validation_scenario</String>
-                                </field>
-                                <field name="name">
-                                    <String>54145_entity</String>
-                                </field>
-                            </validationScenario>
                         </validationScenario-array>
                     </entry>
                 </serializableOrderedMap>
             </serialized>
         </options>
     </meta>
-    <projectTree name="orlando_mods_dgi.xpr">
+    <projectTree name="gutentag_mods_xproc.xpr">
         <folder path="."/>
     </projectTree>
 </project>
