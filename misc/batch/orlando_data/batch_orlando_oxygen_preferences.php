@@ -57,7 +57,10 @@ function validate_file(
 {
     $tmp = file_get_contents( $file_name );
 
-    if ( preg_match("/\/>/", $tmp) === 1 )
+    if ( 
+        preg_match("/\/>/", $tmp) === 1 
+        or preg_match("/<\/BIBCIT>\n/", $tmp) === 1 
+       )
     {
         $result = "fail";
     }
