@@ -9,6 +9,13 @@
   >
 
   <!--
+  * MVI
+  * Mon 18-Jun-2018
+  * deprecated by the switch to TEI entities
+  -->
+  
+  
+  <!--
   * JCA
   * Mon 30-Sep-2013
   * given a CWRC entity - person, organization, or title - output a DC format datastream
