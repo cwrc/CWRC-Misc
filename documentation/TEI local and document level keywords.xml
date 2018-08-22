@@ -1,0 +1,237 @@
+<TEI
+    xmlns="http://www.tei-c.org/ns/1.0">
+    
+    <!-- 2 different levels of keywords that can both be extracted into tags in DToC (see http://voyant-tools.org/dtoc/?corpus=df0de8aeebd21a27acbb9ceeb88b2e03&docId=ea66e7837ebe02749ca23f57a17924d5 tags)
+    1. Document-level keywords: add to the teiHeader (see specific taggs and comment lines in the teiHeading section below)
+    2. More granular keywords, that can be added to segments of the text (see specific taggs and comment lines in the text section below)
+    -->
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title/>
+                <author>Heloise Torck</author>
+            </titleStmt>
+            <editionStmt>
+                <edition><date>2018-01-31</date></edition>
+            </editionStmt>
+            <publicationStmt>
+                <p>unknown</p>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application
+                    xml:id="docxtotei"
+                    ident="TEI_fromDOCX"
+                    version="2.15.0">
+                    <label>DOCX to TEI</label>
+                </application>
+            </appInfo>
+            
+            
+            <!-- begin teiHeader addition -->
+            <classDecl>
+                <!-- to create a taxonomy of all the common terms that use as keywords and that are not RAMEAU and/or LCSH-->
+                <taxonomy
+                    xml:id="project_taxonomy">
+                    <category xml:lang="fr"
+                        xml:id="[project-specific_keyword1]">
+                        <catDesc>(optional)[description of the term employed]</catDesc>
+                    </category>
+                    <category xml:lang="fr"
+                        xml:id="[project-specific_keyword2]"><gloss xml:lang="en" type="translation">[project-specific_keyword2-translated]</gloss>
+                    </category>
+                </taxonomy>
+            </classDecl>
+            <!-- end teiHeader addition -->
+            
+            
+        </encodingDesc>
+        
+        <!-- begin teiHeader addition -->
+        <!-- to "tag" keywords for the entire document/chronique -->
+        <profileDesc>
+            <textClass>
+                <keywords
+                    scheme="RAMEAU">
+                    <term
+                        xml:lang="fr"
+                        ref="http://catalogue.bnf.fr/ark:/12148/cb11939093g"><!-- for terms with both RAMEAU and LCSH URIs -->Guerre
+                        mondiale (1914-1918)<gloss
+                            xml:lang="en"
+                            type="LCSH_equivalent"
+                            target="http://id.loc.gov/authorities/subjects/sh85148236.html">World
+                            War (1914-1918)</gloss></term>
+                    <term
+                        xml:lang="fr"
+                        ref="[RAMEAU_URI]"><!-- for terms in RAMEAU that don't have a LCSH equivalent -->Toinette</term>
+                    <term
+                        xml:lang="en"
+                        ref="[LCSH_URI]"><!-- for terms in LCSH that don't have a RAMEAU equivalent -->Strathcona</term>
+                </keywords>
+                <keywords
+                    scheme="#project_taxonomy">
+                    <!-- for common noun terms with no RAMEAU or LSCSH URIs and no other URIs -->
+                    <term
+                        xml:lang="fr"
+                        ref="#[project-specific_keyword1]"/>
+                </keywords>
+                <keywords scheme="[URIsource]">
+                    <!-- for proper noun terms with no RAMEAU or LSCSH URIs but with other URIs (e.g. VIAF, Wikidata,etc.)-->
+                    <term xml:lang="fr" ref="[keyword_URI]">[keyword]</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+        <!-- end teiHeader addition -->
+        
+        
+        
+        <revisionDesc>
+            <listChange>
+                <change><date>2018-02-01T04:30:44Z</date><name>Heloise Torck</name></change>
+            </listChange>
+        </revisionDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div>
+                <div>
+                    <head>« Chronique. Les petites leçons de la guerre », Le Courrier de l’ouest, 10
+                        juin 1915, p. 3.</head>
+                    <p> Dans le monde des petits.</p>
+                    <p> Fraulein est partie… <!-- Use CWRC Writer to tag the RAMEAU terms. --><seg ref="[RAMEAU_URI]">Au premier jour de la déclaration de guerre</seg>, Madame, la
+                        voix vibrante, lui a signifié son congé. Une Allemande chez elle! Une
+                        espionne peut-être! Et voici quatre ans que cette <!-- Use CWRC Writer to tag named entities and to link them to authority files like VIAF, wikidata, etc. --><persName ref="[URI]">Gretchen</persName> pouvait
+                        s’introduire, sans éveiller de soupçon, dans le cabinet de travail de
+                        Monsieur, ingénieur attaché à un parc aérostatier militaire, surprendre des
+                        conversations, ramasser des bouts de lettres, des brouillons de rapports!
+                        Quelle responsabilité!</p>
+                    <p> Fraulein est partie : Lilette n’a plus de gouvernante allemande, elle peut
+                        parler français, jouer, courir dans les allées du parc avec <!-- Use CWRC Writer to tag project-specific keywords and link them to the authority you have created in the header in the taxonomy tag. --> <seg ana="#[project-specific_keyword2]">d’autres petites
+                        filles françaises</seg>, libérées elles aussi de la gouvernante aux yeux de
+                        porcelaine et aux cheveux de filasse. </p>
+                    <p> — Te souviens-tu de ma Boche?</p>
+                    <p> — Oui, elle était encore plus fagotée que la mienne</p>
+                    <p> — Elle s’habillait cependant avec les vieilles robes de petite mère.</p>
+                    <p> — Oui, mais tu sais une boche!…</p>
+                    <p> — Eh! bien, ma chère, ses histoires étaient encore plus fagotées
+                        qu’elle-même!</p>
+                    <p> — À propos d’histoires, est-ce que ta bonne t’a raconté le petit Poucet?
+                        C’est si joli!... Il était tout petit, tout petit, pas plus haut que çà… et
+                        c’est lui qui a sauvé ses frères…</p>
+                    <p> — Est-ce qu’il était dans les tranchées?...</p>
+                    <p> Une petite, guère plus haute que le petit Poucet, se glisse entre les
+                        quatorze ans réunis de Lilette et de son amie :</p>
+                    <p> Est-ce que ça reviendra après la guerre, le temps des Boches? La mienne me
+                        pinçait, et elle m’avait dit qu’elle me battrait si je le disais à
+                        maman.</p>
+                    <p> — Pauv’chou!</p>
+                    <p> Lilette, du haut de sa petite tête coiffée crânement d’un bonnet de police
+                        belge laisse tomber :</p>
+                    <p> — Ma petite, le temps des boches est fini. Nos mamans n’en veulent plus, et
+                        nous, quand on sera des dames, on dira à nos maris : « Ne me parle jamais
+                        d’une boche pour élever les enfants. Je sais ce que c’est! »</p>
+                    <p> Chez les « moyens »</p>
+                    <p> — Quelle classe?</p>
+                    <p> — 1922…</p>
+                    <p> — Et bien mon vieux tu peux faire de l’entraînement!</p>
+                    <p> La classe 1922, vexée :</p>
+                    <p> — J’en fais. Maman me fait conduire chaque jour à la salle d’armes… Le
+                        docteur trouve que je me développe très bien, maintenant.</p>
+                    <p> — Ah! ta maman te fait conduire à la salle d’armes? Est-ce qu’elle te fera
+                        accompagner aux tranchées aussi quand ce sera notre tour?</p>
+                    <p> La classe de 1922, fait une grimace comme si elle allait pleurer.</p>
+                    <p> — Pleure pas, vieux! Après tout, on est de la même classe; on sera peut-être
+                        ensemble, je verrai à te rendre service… Et puis, c’est pas de ta faute, si
+                        ta mère t’a élevé dans du coton… Elle n’était pas la seule.</p>
+                    <p> Seulement, dis? Je crois encore que, ça va changer!....</p>
+                    <p>Chez les « grands ».</p>
+                    <p>Un petit salon : meubles élégants, teintes douces, portraits de
+                        sous-lieutenant représenté un peu dans toutes les poses, s’étalent sur des
+                        consoles, une petite table.</p>
+                    <p> Personnages : une jeune femme brune, mise simple et chic; un petit garçon,
+                        six ans blond, un peu pâle, mais joli comme un amour.</p>
+                    <p> La jeune femme tricote. La laine est grise; il fait chaud; le crochet glisse
+                        mal : l’ouvrage repose souvent sur les genoux de la tricoteuse.</p>
+                    <p> — Tu ne joues plus, chéri?</p>
+                    <p> — Non, maman : mon Joffre les renverse chaque fois!... Petite mère…</p>
+                    <p> — Mon mignon?</p>
+                    <p> — Est-ce que Papa va bientôt revenir?</p>
+                    <p> — Quand la guerre sera finie</p>
+                    <p> — Et est-ce qu’elle sera bientôt finie la guerre?</p>
+                    <p> — Je ne sais pas… Quand notre Joffre voudra…</p>
+                    <p> — Et le Bon Dieu aussi?...</p>
+                    <p> Petite mère sourit.</p>
+                    <p> — Le Bon Dieu aussi, certainement, mon chéri…</p>
+                    <p> Le chéri reste méditatif.</p>
+                    <p> Après un long silence :</p>
+                    <p> — Maman…</p>
+                    <p> — Mon aimé?</p>
+                    <p> — Pourquoi, dis, que tes cheveux sont en deuil?</p>
+                    <p> Petite mère ne comprend pas d’abord.</p>
+                    <p> — Oui, avant que Papa parte ils étaient blonds, blonds et puis maintenant,
+                        ils sont noirs, noirs…</p>
+                    <p> Petite mère, confuse :</p>
+                    <p> — C’est à cause de la guerre…</p>
+                    <p> — Et quand la guerre sera finie?</p>
+                    <p> — Ils resteront noirs, mon chéri…</p>
+                    <p> — Mais, petit père qu’est-ce qu’il dira?</p>
+                    <p> Petite mère plonge son visage tout rose dans les boucles blondes du
+                        chéri.</p>
+                    <p> — Petit Père, sera, je crois, content…</p>
+                    <p> — Pourquoi? questionne encore l’inquisiteur chéri.</p>
+                    <p> — Parce que… parce qu’il sera content, chéri!...</p>
+                    <p><hi
+                            rend="italic bold color(4F81BD)">« </hi><hi
+                            rend="bold color(4F81BD)">Chronique. Mon ami Pierrot », Le Courrier de
+                            l’ouest, 16 septembre 1915, p. 2.</hi>
+                    </p>
+                    <p> Il était une fois un petit garçon un peu plus haut qu’un coupe-papier – ce
+                        qui est déjà la taille d’un petit homme ayant droit à certaines
+                        prérogatives. Par exemple, à porter un costume différent de celui de
+                        Zezette; à se tenir, à table, à la gauche de Maman; à prétendre à l’usage
+                        d’une fourchette, alors que chacun sait que les bébés mangent à la cuillère.
+                        Ce petit garçon avait des yeux brillants comme des gemmes précieuses dans
+                        l’écrin large ouvert des paupières frangées de longs cils palpitants, une
+                        bouche toujours froncée pour le baiser ou détendue par le sourire, des
+                        fossettes creuses dans sa chair de bébé blondie par le soleil, et je ne sais
+                        quel émerveillement candide répandu sur son visage qui attendrissait d’un
+                        émoi inexprimable. Il avait nom Pierrot.</p>
+                    <p> C’est mon ami Pierrot.</p>
+                    <p> Sa connaissance du monde extérieur est restreinte et immense. Depuis
+                        toujours – le toujours de ses trois ans – ses yeux sont ouverts sur les
+                        mêmes décors, les mêmes spectacles des champs avec des arbres autour et du
+                        fil de fer qui pique; des chiens qui courent en aboyant dans la cour de la
+                        ferme; des poules qui se sauvent des petites mains tendues en piège; des
+                        chevaux; des grands chevaux impressionnants sur le dos desquels Papa hisse
+                        son petit garçon tremblant un peu. Il n’en faut pas plus pour remplir
+                        l’existence de Pierrot d’événements qui tiennent de la féerie.</p>
+                    <p> Pierrot, comme tous les enfants, et aussi par la loi mystérieuse de
+                        l’atavisme, Pierrot est poète et a l’instinct de créer l’harmonie d’un
+                        groupe qui tenterait le pinceau d’une sienne tante ou le ciseau d’une autre
+                        sienne tante. Ses méditations sont courtes, car la vie bouillonne à sève
+                        joyeuse dans ce petit corps solidement modelé, mais quels aimables aperçus
+                        de l’âme qui s’éveille, pure et confiante, dans l’atmosphère de tendresse,
+                        laissent deviner les délicieuses réflexions de Pierrot !</p>
+                    <p> Je ne vous citerai pas ses mots. Ils sont trop jolis. Je risquerais de les
+                        déformer, de les enlaidir en les engainant dans mon langage de grande
+                        personne.</p>
+                    <p> Mon ami Pierrot a de grandes amours dans sa vie. Je ne commettrai pas
+                        l’indélicatesse de les dévoiler ici. Cependant, je peux dire qu’en l’espace
+                        de quatre jours, je l’ai vu s’éprendre d’une amie de sa Maman, puis d’un
+                        joli petit chien tout noir et frisé. Pour l’amie, il avait de câlines
+                        façons, de petites confidences où il livrait le secret de ses opinions
+                        personnelles sur une multitude de faits qui échappent généralement aux
+                        personnes qui n’ont plus trois ans.</p>
+                    <p> Puis un matin, très tôt, avant que Pierrot ne fût éveillé, l’amie s’en
+                        alla.</p>
+                    <p> Mon ami Pierrot, le petit chien noir, mon rival d’un jour, vous a-t-il fait
+                        perdre jusqu’à mon souvenir?</p>
+                </div>
+            </div>
+        </body>
+    </text>
+</TEI>
