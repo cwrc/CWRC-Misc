@@ -36,8 +36,8 @@
 #
 
 
-base_bin=/data/opt/fedora/client/bin
-export FEDORA_HOME=/data/opt/fedora
+base_bin=/usr/local/fedora/client/bin
+export FEDORA_HOME=/usr/local/fedora
 dest_dir=/tmp/fedora_archive
 
 
