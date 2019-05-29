@@ -48,7 +48,7 @@
                         <role>
                             <roleTerm
                                 type="text"
-                                authority="marcrealtor">author</roleTerm>
+                                authority="marcrelator">author</roleTerm>
                         </role>
                         <affiliation>Simon Fraser University</affiliation>
                         <affiliation>Canadian Writing Research Collaboratory</affiliation>
@@ -65,7 +65,7 @@
                         <role>
                             <roleTerm
                                 type="text"
-                                authority="marcrealtor">contributor</roleTerm>
+                                authority="marcrelator">contributor</roleTerm>
                         </role>
                     </name>
                 </xsl:if>
