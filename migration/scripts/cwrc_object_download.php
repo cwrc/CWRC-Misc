@@ -124,28 +124,28 @@ function get_auth_token($config, $username, $userpasswd) {
     $err      = curl_errno($ch);
     $errmsg   = curl_error($ch);
     $header   = curl_getinfo($ch);
+    $http_code= curl_getinfo($ch, CURLINFO_HTTP_CODE);
     curl_close($ch);
 
     $header_content = substr($response, 0, $header['header_size']);
-    $body_content = trim(str_replace($header_content, '', $response));
     $pattern = "#Set-Cookie:\\s+(?<cookie>[^=]+=[^;]+)#m"; 
     preg_match_all($pattern, $header_content, $matches); 
     $cookiesOut = implode("; ", $matches['cookie']);
-
-    $header['errno']   = $err;
-    $header['errmsg']  = $errmsg;
-    $header['headers']  = $header_content;
-    $header['content'] = $body_content;
-    $header['cookies'] = $cookiesOut;    
-
-    #print_r($response);
-    #print_r($header);
 
     if (!isset($cookiesOut) or empty($cookiesOut)) {
         print_r($response);
     }
 
-    return $header['cookies'];
+    if (!isset($response) or 
+            empty($response) or
+            $response === false or
+            ($http_code < 200 or $http_code >= 300)
+            ) {
+        print ("[ERROR] http_code: $http_code | message: $errmsg | url: $url\n");
+        $response = "";
+    }
+
+    return $cookiesOut;
 }
 
 function generic_request($auth_token, $url) {
@@ -167,11 +167,16 @@ function generic_request($auth_token, $url) {
     $response = curl_exec($ch);
     $err      = curl_errno($ch);
     $errmsg   = curl_error($ch);
-    #$header   = curl_getinfo($ch);
+    $http_code= curl_getinfo($ch, CURLINFO_HTTP_CODE);
     curl_close($ch);
 
-    if ($response === false) {
-        print ("[ERROR]: $errmsg");
+    if (!isset($response) or 
+            empty($response) or
+            $response === false or
+            ($http_code < 200 or $http_code >= 300)
+            ) {
+        print ("[ERROR] http_code: $http_code | message: $errmsg | url: $url\n");
+        $response = "";
     }
 
     return $response;
