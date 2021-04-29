@@ -56,12 +56,42 @@ function process_object_set($pid_array, $object_set, $auth_token, $url_base) {
     foreach ($pid_array as $obj) {
         print("- " . $obj['PID'] . "\n");
         # other option: curl allow option to save to a file instead of handling content here
-        $content = get_content_by_pid($obj['PID'], $object_set, $auth_token, $url_base); 
-        if (!empty($content)) {
-            save_content($content, $object_set, $obj['PID']);
-            usleep(rand(10000,50000));
+        $models = get_model_by_pid($obj['PID'], $object_set, $auth_token, $url_base); 
+        if (is_model_valid($models, $object_set['cModel'])) {
+            $content = get_content_by_pid($obj['PID'], $object_set, $auth_token, $url_base); 
+            if (!empty($content)) {
+                save_content($content, $object_set, $obj['PID']);
+                usleep(rand(10000,50000));
+            }
+        } else {
+            print("ERROR: PID contains invalid cModels [" .
+                implode(",",$models) .
+                "]; incompatible with object_set [" .
+                $object_set['cModel'] ."]. pid: [" . $obj['PID'] . "]\n"
+            );
         }
     }
+}
+
+function is_model_valid($models, $filter) {
+    $ret = false;
+    if (is_array($models) && in_array($filter, $models)) {
+        $ret = true;
+    } else if ($models === $filter) {
+        $ret = true;
+    }
+    return $ret;
+}
+
+function get_model_by_pid($pid, $object_set, $auth_token, $url_base) {
+    $url = $url_base 
+        . "/islandora/rest/v1/object/" 
+        . $pid
+        ;
+    #print("Connecting to server: $url\n");
+    $response = generic_request($auth_token, $url); 
+    $metadata = json_decode($response, true);
+    return $metadata['models'];
 }
 
 function get_content_by_pid($pid, $object_set, $auth_token, $url_base) {
@@ -72,7 +102,7 @@ function get_content_by_pid($pid, $object_set, $auth_token, $url_base) {
         . $object_set['dsid']
         . "?content=true"
         ;
-    print("Connecting to server: $url\n");
+    #print("Connecting to server: $url\n");
     $response = generic_request($auth_token, $url); 
     return $response;
 }
