@@ -1,0 +1,18 @@
+{
+    "url_base":"https://example.ca",
+    "object_sets":{
+        "Orlando Person": {
+            "source_solr_query":"RELS_EXT_isMemberOfCollection_uri_mt:\"orlando%3ApersonEntityCollection\"?fl=PID&rows=999999&start=0&wt=json",
+            "destination_dir":"orlando%3ApersonEntityCollection",
+            "dsid":"PERSON",
+            "cModel":""
+        },
+        "Orlando Org": {
+            "source_solr_query":"RELS_EXT_isMemberOfCollection_uri_mt:\"orlando%3AorganizationEntityCollection\"?fl=PID&rows=999999&start=0&wt=json",
+            "destination_dir":"orlando%3AorganizationEntityCollection",
+            "dsid":"ORGANIZATION",
+            "cModel":""
+        }
+    }
+    }
+}
