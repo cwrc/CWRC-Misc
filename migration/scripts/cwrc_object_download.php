@@ -132,16 +132,14 @@ function get_auth_token($config, $username, $userpasswd) {
     preg_match_all($pattern, $header_content, $matches); 
     $cookiesOut = implode("; ", $matches['cookie']);
 
-    if (!isset($cookiesOut) or empty($cookiesOut)) {
-        print_r($response);
-    }
-
     if (!isset($response) or 
             empty($response) or
             $response === false or
+            !isset($cookiesOut) or empty($cookiesOut) or
             ($http_code < 200 or $http_code >= 300)
             ) {
-        print ("[ERROR] http_code: $http_code | message: $errmsg | url: $url\n");
+        if (!isset($response)) print(strtok($response,"\n") . "\n");
+        print("[ERROR] http_code: $http_code | message: $errmsg | url: $url\n");
         $response = "";
     }
 
@@ -175,6 +173,7 @@ function generic_request($auth_token, $url) {
             $response === false or
             ($http_code < 200 or $http_code >= 300)
             ) {
+        if (!isset($response)) print(strtok($response,"\n") . "\n");
         print ("[ERROR] http_code: $http_code | message: $errmsg | url: $url\n");
         $response = "";
     }
