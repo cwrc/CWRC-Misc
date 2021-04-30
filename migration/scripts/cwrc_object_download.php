@@ -3,7 +3,12 @@
 /**
  * Intracts with and Islandora 7 repository islandora_rest API
  * to define a set of objects and download a specified datastream
- * to the local filesystem
+ * to the local filesystem. Adds a random delay to avoid server stress
+ * 
+ * Todo: 
+ *      * investigate techniques to prevent downloading all items each time 
+ *          * e.g., checksum, source/destination date comparison 
+ *      * tweak delay between server calls
  *
  * usage:
  *      php cwrc_object_download.php --config config_filename_and_path
@@ -59,13 +64,15 @@ if (!isset($auth_token) or empty($auth_token)) {
 # process object sets defined in the config file
 # the config defines multiple object sets to process in the form
 foreach ($config['object_sets'] as $key => $object_set) {
-    print("Processing: $key\n");
+    print("\nProcessing: $key\n");
    
     $pid_array = find_object_set_members($object_set, $auth_token, $config['url_base']);
     if (!empty($pid_array)) {
         process_object_set($pid_array, $object_set, $auth_token, $config['url_base']);
     }
 }
+
+print("\nComplete\n");
 
 
 /**
@@ -85,22 +92,30 @@ function find_object_set_members($object_set, $auth_token, $url_base)
  */
 function process_object_set($pid_array, $object_set, $auth_token, $url_base)
 {
+    $i = 0;
     foreach ($pid_array as $obj) {
-        print("- " . $obj['PID'] . "\n");
-        # other option: curl allow option to save to a file instead of handling content here
+        #print("- " . $obj['PID'] . "\n");
         $models = get_model_by_pid($obj['PID'], $object_set, $auth_token, $url_base);
         if (is_model_valid($models, $object_set['cModel'])) {
+            # other option: use curl allow option to save to a file instead of handling content here
             $content = get_content_by_pid($obj['PID'], $object_set, $auth_token, $url_base);
             if (!empty($content)) {
                 save_content($content, $object_set, $obj['PID']);
+                # delay to prevent server stress
                 usleep(rand(10000, 50000));
             }
+            else {
+                print("\nERROR: empty content pid: [" . $obj['PID'] . "]\n");
+            }
         } else {
-            print("ERROR: PID contains invalid cModels [" .
+            print("\nERROR: PID contains invalid cModels [" .
                 implode(",", $models) .
                 "]; incompatible with object_set [" .
                 $object_set['cModel'] ."]. pid: [" . $obj['PID'] . "]\n"
             );
+        }
+        if ($i++ % 25 == 0) {
+            print(".");
         }
     }
 }
@@ -131,7 +146,11 @@ function get_model_by_pid($pid, $object_set, $auth_token, $url_base)
         ;
     #print("Connecting to server: $url\n");
     $response = generic_request($auth_token, $url);
-    $metadata = json_decode($response, true);
+    if (empty($response)) {
+        $metadata['models'] = array();
+    } else {
+        $metadata = json_decode($response, true);
+    }
     return $metadata['models'];
 }
 
@@ -265,25 +284,30 @@ function generic_request($auth_token, $url)
         CURLINFO_HEADER_OUT    => false,
     );
 
-    $ch = curl_init($url);
-    curl_setopt_array($ch, $options);
-    $response = curl_exec($ch);
-    $err      = curl_errno($ch);
-    $errmsg   = curl_error($ch);
-    $http_code= curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    curl_close($ch);
+    $retry = 0;
+    do {
+        $ch = curl_init($url);
+        curl_setopt_array($ch, $options);
+        $response = curl_exec($ch);
+        $err      = curl_errno($ch);
+        $errmsg   = curl_error($ch);
+        $http_code= curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
 
-    if (!isset($response) or
-            empty($response) or
-            $response === false or
-            ($http_code < 200 or $http_code >= 300)
-            ) {
-        if (isset($response)) {
-            print(strtok($response, "\n") . "\n");
+        $error = false;
+        if (!isset($response) or
+                empty($response) or
+                $response === false or
+                ($http_code < 200 or $http_code >= 300)
+                ) {
+            if (isset($response)) {
+                print(strtok($response, "\n") . "\n");
+            }
+            print("[ERROR] http_code: $http_code | message: $errmsg | url: $url\n");
+            $error = true;
+            $response = "";
         }
-        print("[ERROR] http_code: $http_code | message: $errmsg | url: $url\n");
-        $response = "";
-    }
+    } while (++$retry < 3 && $error);
 
     return $response;
 }
