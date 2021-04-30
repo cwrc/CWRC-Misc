@@ -166,7 +166,7 @@ function save_content($content, $object_set, $pid)
             . preg_replace($object_set['filename_regex_pattern'], $object_set['filename_regex_replacement'], $pid);
     }
 
-    print("Opening file for writing: $dest_file\n");
+    # print("Opening file for writing: $dest_file\n");
 
     # create directory if doesn't exist
     if (!is_dir($object_set['destination_dir'])) {
@@ -238,7 +238,7 @@ function get_auth_token($config, $username, $userpasswd)
             !isset($cookiesOut) or empty($cookiesOut) or
             ($http_code < 200 or $http_code >= 300)
             ) {
-        if (!isset($response)) {
+        if (isset($response)) {
             print(strtok($response, "\n") . "\n");
         }
         print("[ERROR] http_code: $http_code | message: $errmsg | url: $url\n");
@@ -278,7 +278,7 @@ function generic_request($auth_token, $url)
             $response === false or
             ($http_code < 200 or $http_code >= 300)
             ) {
-        if (!isset($response)) {
+        if (isset($response)) {
             print(strtok($response, "\n") . "\n");
         }
         print("[ERROR] http_code: $http_code | message: $errmsg | url: $url\n");
