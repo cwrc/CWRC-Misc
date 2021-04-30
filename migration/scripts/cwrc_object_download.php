@@ -107,18 +107,34 @@ function get_content_by_pid($pid, $object_set, $auth_token, $url_base) {
     return $response;
 }
 
+
 function save_content($content, $object_set, $pid) {
-    $dest_file = $object_set['destination_dir'] . '/' . $pid;
+    # create filename path; set filename by a regular expression
+    if (empty($object_set['filename_regex_pattern']) or empty($object_set['filename_regex_replacement'])) {
+        $dest_file = $object_set['destination_dir'] . '/' . $pid;
+    } else {
+        $dest_file = $object_set['destination_dir'] .
+            '/'
+            . preg_replace($object_set['filename_regex_pattern'], $object_set['filename_regex_replacement'], $pid);
+    }
+
     print("Opening file for writing: $dest_file\n");
 
+    # create directory if doesn't exist
     if (!is_dir($object_set['destination_dir']))
     {
         mkdir($object_set['destination_dir'], 0755, true);
     }
 
-    $fp = fopen($dest_file, 'w+');
-    fwrite($fp, $content);
-    fclose($fp);
+    if ( is_writable($object_set['destination_dir']) &&
+            (!file_exists($dest_file) || is_writeable($dest_file)) && 
+            ($fp = fopen($dest_file, 'w+'))!==false
+            ) {
+        fwrite($fp, $content);
+        fclose($fp);
+    } else {
+        print("ERROR: writing to file failed : $dest_file\n");
+    }
 }
 
 function get_config($options) {
