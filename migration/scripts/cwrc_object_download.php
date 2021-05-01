@@ -20,18 +20,18 @@
         "url_base":"https://example.com",
         "object_sets":{
             "Orlando Person": {
-                "source_solr_query":"RELS_EXT_isMemberOfCollection_uri_mt:\"orlando%3ApersonEntityCollection\"?fl=PID&rows=999999&start=0&wt=json&sort=PID+asc",
+                "source_solr_query":"RELS_EXT_isMemberOfCollection_uri_mt:\"orlando%3ApersonEntityCollection\"?fl=PID,RELS_EXT_hasModel_uri_s&rows=999999&start=0&wt=json&sort=PID+asc",
                 "destination_dir":"orlando%3ApersonEntityCollection",
                 "dsid":"PERSON",
-                "cModel":"cwrc:person-entityCModel",
+                "cModel":"info:fedora/cwrc:person-entityCModel",
                 "filename_regex_pattern":"/^([^:]+):(.+)$/i",
                 "filename_regex_replacement":"${1}_${2}"
             },
             "Orlando Organization" : {
-                "source_solr_query":"RELS_EXT_isMemberOfCollection_uri_mt:\"orlando%3AorganizationEntityCollection\"?fl=PID&rows=999999&start=0&wt=json&sort=PID+asc",
+                "source_solr_query":"RELS_EXT_isMemberOfCollection_uri_mt:\"orlando%3AorganizationEntityCollection\"?fl=PID,RELS_EXT_hasModel_uri_s&rows=999999&start=0&wt=json&sort=PID+asc",
                 "destination_dir":"orlando%3AorganizationEntityCollection",
                 "dsid":"ORGANIZATION",
-                "cModel":"cwrc:organization-entityCModel",
+                "cModel":"info:fedora/cwrc:organization-entityCModel",
                 "filename_regex_pattern":"/^([^:]+):(.+)$/i",
                 "filename_regex_replacement":"${1}_${2}"
             }
@@ -95,8 +95,9 @@ function process_object_set($pid_array, $object_set, $auth_token, $url_base)
     $i = 0;
     foreach ($pid_array as $obj) {
         #print("- " . $obj['PID'] . "\n");
-        $models = get_model_by_pid($obj['PID'], $object_set, $auth_token, $url_base);
-        if (is_model_valid($models, $object_set['cModel'])) {
+        #$models = get_model_by_pid($obj['PID'], $object_set, $auth_token, $url_base);
+        $model = $obj['RELS_EXT_hasModel_uri_s'];
+        if (is_model_valid($model, $object_set['cModel'])) {
             # other option: use curl allow option to save to a file instead of handling content here
             $content = get_content_by_pid($obj['PID'], $object_set, $auth_token, $url_base);
             if (!empty($content)) {
@@ -109,7 +110,7 @@ function process_object_set($pid_array, $object_set, $auth_token, $url_base)
             }
         } else {
             print("\nERROR: PID contains invalid cModels [" .
-                implode(",", $models) .
+                $model .
                 "]; incompatible with object_set [" .
                 $object_set['cModel'] ."]. pid: [" . $obj['PID'] . "]\n"
             );
