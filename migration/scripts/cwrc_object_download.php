@@ -55,7 +55,12 @@ $config = get_config($options);
 
 # prompt for username/password
 $username   = readline("username: ");
-$userpasswd = readline("password: ");
+#$userpasswd = readline("password: ");
+# hide password from displaying on terminal - fails on non-WSL Windows
+echo 'password: ';
+shell_exec('stty -echo');
+$userpasswd = trim(fgets(STDIN, 4096));
+shell_exec('stty echo');
 
 # handle authorization
 $auth_token = get_auth_token($config, $username, $userpasswd);
