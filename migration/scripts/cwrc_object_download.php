@@ -9,6 +9,9 @@
  *      * investigate techniques to prevent downloading all items each time 
  *          * e.g., checksum, source/destination date comparison 
  *      * tweak delay between server calls
+ *      * islandora_rest is slow for datastream download due to the API call
+ *          loading all metadata/datastreams instead of only the required
+ *          content
  *
  * usage:
  *      php cwrc_object_download.php --config config_filename_and_path

@@ -1,0 +1,21 @@
+{
+    "url_base":"https://example.ca",
+    "object_sets":{
+        "Orlando Person": {
+            "source_solr_query":"RELS_EXT_isMemberOfCollection_uri_mt:\"orlando%3ApersonEntityCollection\"?fl=PID,RELS_EXT_hasModel_uri_s&rows=999999&start=0&wt=json&fq=fgs_lastModifiedDate_dt:[2021-02-01T01:01:01.001Z TO NOW]",
+            "destination_dir":"orlando%3ApersonEntityCollection",
+            "dsid":"PERSON",
+            "cModel":"info:fedora/cwrc:person-entityCModel",
+            "filename_regex_pattern":"/^([^:]+):(.+)$/i",
+            "filename_regex_replacement":"${1}_${2}"
+        },
+        "Orlando Org": {
+            "source_solr_query":"RELS_EXT_isMemberOfCollection_uri_mt:\"orlando%3AorganizationEntityCollection\"?fl=PID,RELS_EXT_hasModel_uri_s&rows=999999&start=0&wt=json&fq=fgs_lastModifiedDate_dt:[2021-02-01T01:01:01.001Z TO NOW]",
+            "destination_dir":"orlando%3AorganizationEntityCollection",
+            "dsid":"ORGANIZATION",
+            "cModel":"info:fedora/cwrc:organization-entityCModel",
+            "filename_regex_pattern":"/^([^:]+):(.+)$/i",
+            "filename_regex_replacement":"${1}_${2}"
+        }
+    }
+}
