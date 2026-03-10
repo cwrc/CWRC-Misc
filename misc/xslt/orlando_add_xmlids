@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs" version="2.0">
+  
+  <xsl:output encoding="UTF-8" method="xml" indent="no"/>
+  
+  <!--Purpose: Generate unique IDs for structural tags within Orlando entry and event xml documents. IDs to be used for snippet retrieval, chronology generation, etc.
+    Instructions: apply to Orlando xml document upon ingestion from the CWRC production environment and before passing to the XML database.
+    -->
+  
+  <!--copy everything as in source document unless otherwise instructed below in this xslt -->
+  <xsl:template match="@* | node()">
+    <xsl:copy>
+      <xsl:apply-templates select="@* | node()"/>
+    </xsl:copy>
+  </xsl:template>
+  
+  <!--<!-\- strip space -\->
+  <xsl:strip-space elements="*"/>-->
+  
+  
+  
+  <!--remove confidential information (Responsibility Items, Research Notes, etc.) -->
+  <xsl:template match="//RESPONSIBILITY/ITEM"/>
+  <xsl:template match="//RESEARCHNOTE"/>
+  
+  <xsl:template match="//RESEARCHNOTES"/>
+  <xsl:template match="KEYWORDCLASS"/>
+  
+  <!-- remove other undesired sections of the entry/event -->
+  
+  <!-- global variables -->
+  <xsl:variable name="id_prefix" select="ENTRY/@ID | EVENT/@EID"/>
+  
+  <!--  add ID attributes to various tags-->
+  
+  <xsl:template match="DIV1">
+    <xsl:copy>
+      <xsl:attribute name="id">
+        <xsl:value-of select="concat($id_prefix, '_div1_')"/>
+        <xsl:value-of select="generate-id()"/>
+      </xsl:attribute>
+      <xsl:apply-templates/>
+    </xsl:copy>
+  </xsl:template>
+  
+  <xsl:template match="DIV2">
+    <xsl:copy>
+      <xsl:attribute name="id">
+        <xsl:value-of select="concat($id_prefix, '_div2_')"/>
+        <xsl:value-of select="generate-id()"/>
+      </xsl:attribute>
+      <xsl:apply-templates/>
+    </xsl:copy>
+  </xsl:template>
+  
+  <xsl:template match="//(BIOGRAPHY | WRITING)/HEADING">
+    <xsl:copy>
+      <xsl:variable name="heading" select="translate(., ' ', '-')"/>
+      <xsl:attribute name="id">
+        <xsl:value-of select="concat($id_prefix, '_section_', $heading)"/>
+      </xsl:attribute>
+      <xsl:apply-templates/>
+    </xsl:copy>
+  </xsl:template>
+  
+  <xsl:template match="//DIV1/HEADING">
+    <xsl:copy>
+      <xsl:variable name="heading_text">
+        <xsl:value-of select="descendant::text()"/>
+      </xsl:variable>
+      <xsl:variable name="heading" select="replace($heading_text, '[^\p{L}\p{M}*+]', '')"/>
+      
+      <xsl:attribute name="id">
+        <xsl:value-of select="concat($id_prefix, '_chapter_', $heading)"/>
+      </xsl:attribute>
+      <xsl:apply-templates/>
+    </xsl:copy>
+  </xsl:template>
+  
+  <xsl:template match="//DIV2/HEADING">
+    <xsl:copy>
+      <xsl:variable name="heading_text">
+        <xsl:value-of select="descendant::text()"/>
+      </xsl:variable>
+      <xsl:variable name="heading" select="replace($heading_text, '[^\p{L}\p{M}*+]', '')"/>
+      
+      <xsl:attribute name="id">
+        <xsl:value-of select="concat($id_prefix, '_subchapter_', $heading)"/>
+      </xsl:attribute>
+      <xsl:apply-templates select="node()"/>
+    </xsl:copy>
+  </xsl:template>
+  
+  <xsl:template match="AUTHORSUMMARY">
+    <xsl:copy>
+      <xsl:attribute name="id">
+        <xsl:value-of select="concat($id_prefix, '_authorsummary')"/>
+      </xsl:attribute>
+      <xsl:apply-templates/>
+    </xsl:copy>
+  </xsl:template>
+  
+  <xsl:template match="PERSONNAME//DATASTRUCT">
+    <xsl:copy>
+      <xsl:attribute name="id">
+        <xsl:value-of select="concat($id_prefix, '_p_names_')"/>
+        <xsl:value-of select="generate-id()"/>
+      </xsl:attribute>
+      <xsl:apply-templates/>
+    </xsl:copy>
+  </xsl:template>
+  
+  <xsl:template match="ENTRY//CHRONSTRUCT">
+    <xsl:copy>
+      <xsl:attribute name="id">
+        <xsl:value-of select="concat($id_prefix, '_embedded-event_')"/>
+        <xsl:value-of select="generate-id()"/>
+      </xsl:attribute>
+      <xsl:copy-of select="@RELEVANCE | @CHRONCOLUMN"/>
+      <xsl:apply-templates/>
+    </xsl:copy>
+  </xsl:template>
+  
+  <xsl:template match="EVENT//CHRONSTRUCT">
+    <xsl:copy>
+      <xsl:attribute name="id">
+        <xsl:value-of select="concat($id_prefix, '_stand-alone-event_')"/>
+        <xsl:value-of select="generate-id()"/>
+      </xsl:attribute>
+      <xsl:copy-of select="@RELEVANCE | @CHRONCOLUMN"/>
+      <xsl:apply-templates/>
+    </xsl:copy>
+  </xsl:template>
+  
+  <xsl:template match="CHRONPROSE">
+    <xsl:copy>
+      <xsl:attribute name="id">
+        <xsl:value-of select="concat($id_prefix, '_event-description_')"/>
+        <xsl:value-of select="generate-id()"/>
+      </xsl:attribute>
+      <xsl:apply-templates/>
+    </xsl:copy>
+  </xsl:template>
+  
+  <xsl:template match="SHORTPROSE">
+    <xsl:copy>
+      <xsl:attribute name="id">
+        <xsl:value-of select="concat($id_prefix, '_shortprose_')"/>
+        <xsl:value-of select="generate-id()"/>
+      </xsl:attribute>
+      <xsl:apply-templates/>
+    </xsl:copy>
+  </xsl:template>
+  
+  <xsl:template match="P">
+    <xsl:copy>
+      <xsl:choose>
+        <xsl:when test="parent::SCHOLARNOTE">
+          <xsl:apply-templates/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:attribute name="id">
+            <xsl:value-of select="concat($id_prefix, '_p_')"/>
+            <xsl:value-of select="generate-id()"/>
+          </xsl:attribute>
+          <xsl:apply-templates/>
+        </xsl:otherwise>
+      </xsl:choose>
+      
+    </xsl:copy>
+  </xsl:template>
+  
+</xsl:stylesheet>
